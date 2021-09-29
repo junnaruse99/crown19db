@@ -1,2 +1,2 @@
-# ClimateDB
+# CovidDB
 
