@@ -1,0 +1,23 @@
+.model-div{
+    background-color: gray;
+    min-height: 100vh;
+}
+
+.header-text {
+    background-color: deepskyblue;
+    min-height: auto;
+    font-size: calc(40px + 2vmin);
+    color: rgba(20, 36, 11, 0.966);
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.data-text {
+    background-color: fuchsia;
+    font-size: calc(10px + 1vmin);
+    color: rgb(61, 34, 21);
+    display: flex;
+}
+
