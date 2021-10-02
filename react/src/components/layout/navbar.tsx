@@ -19,7 +19,7 @@ const Navbar = () => {
                             <Link to='about' className="nav-link" href="#">About us</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to='/country' className="nav-link" href="#">Country</Link>
+                            <Link to='/countries' className="nav-link" href="#">Country</Link>
                         </li>
                         <li className="nav-item">
                             <Link to='/city' className="nav-link" href="#">City</Link>
