@@ -1,10 +1,9 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, HashRouter, Link } from 'react-router-dom';
-import AboutPage from "./About"
+import About from "./components/About"
 import FirstComponent from './FirstComponent';
 import Splash from './components/splash';
-import Aboutus from './components/aboutus';
 import Countries from './components/country/countries';
 import City from './components/city/city';
 import Covid from './components/covid/covid';
@@ -29,7 +28,7 @@ export default function App() {
       <div>
         <Navbar />
         <Route exact path="/" component={Splash} />
-        <Route exact path="/about" component={Aboutus} />
+        <Route exact path="/about" component={About} />
         <Route exact path="/countries" component={Countries} />
         <Route exact path="/city" component={City} />
         <Route exact path="/covid" component={Covid} />
