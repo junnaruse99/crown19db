@@ -2,13 +2,23 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, HashRouter, Link } from 'react-router-dom';
-import AboutPage from "./about.js"
+import AboutPage from "./About"
+import FirstComponent from './FirstComponent';
 
 function Index() {
-  return <h2>Home</h2>;
+  return (
+    <div>
+      <h2>Home</h2>
+      <FirstComponent />
+    </div>
+  );
 }
 
 export default function App() {
+  // May have to run "sudo apt install node-typescript" 
+  // and "npm link typescript"
+  // https://blog.logrocket.com/using-typescript-with-react-tutorial-examples/
+
   return (
     <Router>
       <div>
