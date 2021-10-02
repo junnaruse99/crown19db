@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
 
 export default function About(props) {
   var contributorsPath = 'https://gitlab.com/api/v4/projects/29917081/repository/contributors';
