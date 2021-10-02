@@ -1,0 +1,15 @@
+.about-contributor {
+  display: flex;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.about-contributor-child {
+  margin-left: 5%;
+}
+
+.about-contributor-pfp {
+  height: auto;
+  width: 225px;
+  border-radius: 5px;
+}

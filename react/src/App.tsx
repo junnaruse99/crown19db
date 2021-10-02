@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, HashRouter, Link } from 'react-router-dom';
-import About from "./components/About"
+import About from "./components/about/About"
 import Splash from './components/splash';
 import Countries from './components/country/countries';
 import City from './components/city/city';
