@@ -2,6 +2,7 @@
     "countries": [
         {
             "id": 1,
+            "name": "United States",
             "Gdp": "20.94 Trillion Dollars as of 2020",
             "Population": "329.5 million as of 2020",
             "Population density": "36 (P/Km²)",
@@ -12,6 +13,7 @@
         },
         {
             "id": 2,
+            "name": "Mexico",
             "Gdp": "1.076 trillion USD (2020)",
             "Population": "128.9 million (2020)",
             "Population density": "66 per Km2",
@@ -22,6 +24,7 @@
         },
         {
             "id": 3,
+            "name": "Canada",
             "Gdp": "1.643 trillion USD (2020)",
             "Population": "38.01 million (2020)",
             "Population density": "4 per Km2",

@@ -4,6 +4,7 @@ const Country = ({ country }) => {
     return(
         <tr>
         <th scope="row">{country.id}</th>
+        <td>{country.name}</td>
         <td>{country.Gdp}</td>
         <td>{country.Population}</td>
         <td>{country['Population density']}</td>

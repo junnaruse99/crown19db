@@ -5,12 +5,13 @@ const Countries = () => {
     const {countries} = require('../../country.json');
     console.log(countries);
     return ( 
-        <>
+        <div className='container'>
         <h2>Countries</h2>
         <table className="table">
             <thead className="thead-dark">
                 <tr>
                 <th scope="col">#</th>
+                <th scope="col">Name</th>
                 <th scope="col">GDP</th>
                 <th scope="col">Population</th>
                 <th scope="col">Population density</th>
@@ -28,7 +29,7 @@ const Countries = () => {
                 ))}
             </tbody>
         </table>
-        </>
+        </div>
     )
 }
  
