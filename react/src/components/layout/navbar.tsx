@@ -3,29 +3,29 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     return ( 
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand navbar-dark bg-dark">
             <div className='container'>
-                <Link to='/' className="navbar-brand" href="#">CovidDB</Link>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <Link to='/' className="navbar-brand">CovidDB</Link>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
 
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                <div className="collapse navbar-collapse">
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item active">
-                            <Link to='/' className="nav-link" href="#">Home</Link>
+                            <Link to='/' className="nav-link">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to='about' className="nav-link" href="#">About us</Link>
+                            <Link to='about' className="nav-link">About us</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to='/countries' className="nav-link" href="#">Country</Link>
+                            <Link to='/countries' className="nav-link">Country</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to='/city' className="nav-link" href="#">City</Link>
+                            <Link to='/city' className="nav-link">City</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to='/covid' className="nav-link" href="#">Covid</Link>
+                            <Link to='/covid' className="nav-link">Covid</Link>
                         </li>
                     </ul>
                 </div>
