@@ -1,0 +1,32 @@
+{
+    "cities": [
+        {
+            "Name": "Washington D.C.",
+            "Latitude": "38.9072° N",
+            "Longitude": "-77.03637",
+            "Population":  "601,723",
+            "Map": "",
+            "Time zone": "America/New_York",
+            "country/province/state": "United States",
+        },
+        {
+            "Name": "Mexico City",
+            "Latitude": "19.4326° N",
+            "Longitude": "-99.1332° W",
+            "Population": "12,294,193",
+            "Map": "",
+            "Time zone": "America/Mexico City",
+            "country/province/state": "Mexico"
+        },
+        {
+            "Name": "Ottawa",
+            "Latitude": "45.4215° N",
+            "Longitude": "75.6972° W",
+            "Population": "812,129",
+            "Map": "",
+            "Time zone": "America/Toronto",
+            "country/province/state": "Canada",
+        }
+    ]
+}
+

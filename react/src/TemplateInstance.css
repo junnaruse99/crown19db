@@ -1,0 +1,9 @@
+.instance-div{
+    min-width: 100vh;
+    background-color: gold;
+}
+
+.instance-font{
+    font-size: large;
+    color: mediumblue;
+}

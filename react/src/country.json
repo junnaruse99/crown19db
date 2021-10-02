@@ -1,0 +1,34 @@
+{
+    "countries": [
+        {
+            "id": 1,
+            "Gdp": "20.94 Trillion Dollars as of 2020",
+            "Population": "329.5 million as of 2020",
+            "Population density": "36 (P/Km²)",
+            "Flag": "https://www.countryflags.io/us/flat/64.png",
+            "Area": "3.797 million mi²",
+            "Map": "",
+            "Capital": "Washington DC"
+        },
+        {
+            "id": 2,
+            "Gdp": "1.076 trillion USD (2020)",
+            "Population": "128.9 million (2020)",
+            "Population density": "66 per Km2",
+            "Flag": "https://www.countryflags.io/mx/flat/64.png",
+            "Area": "761,600 mi²",
+            "Map": "", 
+            "Capital": "Mexico City"
+        },
+        {
+            "id": 3,
+            "Gdp": "1.643 trillion USD (2020)",
+            "Population": "38.01 million (2020)",
+            "Population density": "4 per Km2",
+            "Flag": "https://www.countryflags.io/ca/flat/64.png",
+            "Area": "3.855 million mi²",
+            "Map": "",
+            "Capital": "Ottawa"
+        }
+    ]
+}
