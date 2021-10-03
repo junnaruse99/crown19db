@@ -16,7 +16,8 @@ interface ContributorStats {
   photo: any;
   bio: string;
   responsibilities: Array<string>;
-  email: string; // Used to match commits to contributors
+  gitlabEmail: string; // Used to match commits to contributors
+  gitlabUsername: string; // Used to match issues to contributors
   gitStats: GitStats;
 }
 
@@ -70,11 +71,12 @@ function getContributors() {
           and hydrating himself with water.',
     responsibilities: [
       'Create the about page (this page)',],
-    email: 'lilbroadam@gmail.com',
+    gitlabEmail: 'lilbroadam@gmail.com',
+    gitlabUsername: 'adamsamuelson',
     gitStats: {
-      numCommits: -1,
-      numIssues: -1,
-      numUnitTests: -1,
+      numCommits: 0,
+      numIssues: 0,
+      numUnitTests: 0,
     }
   };
 
@@ -85,11 +87,12 @@ function getContributors() {
     responsibilities: [
       'responsibility 1',
       'responsibility 2'],
-    email: 'alejandro_balderas@utexas.edu',
+    gitlabEmail: 'alejandro_balderas@utexas.edu',
+    gitlabUsername: 'alejandrobk',
     gitStats: {
-      numCommits: -1,
-      numIssues: -1,
-      numUnitTests: -1,
+      numCommits: 0,
+      numIssues: 0,
+      numUnitTests: 0,
     }
   };
 
@@ -100,11 +103,12 @@ function getContributors() {
     responsibilities: [
       'responsibility 1',
       'responsibility 2'],
-    email: '', // TODO
+    gitlabEmail: '', // TODO @adamsamuelson
+    gitlabUsername: 'dustan.helm',
     gitStats: {
-      numCommits: -1,
-      numIssues: -1,
-      numUnitTests: -1,
+      numCommits: 0,
+      numIssues: 0,
+      numUnitTests: 0,
     }
   };
 
@@ -115,11 +119,12 @@ function getContributors() {
     responsibilities: [
       'responsibility 1',
       'responsibility 2'],
-    email: 'jun.naruse@gmail.com',
+    gitlabEmail: 'jun.naruse@gmail.com',
+    gitlabUsername: 'jun.naruse',
     gitStats: {
-      numCommits: -1,
-      numIssues: -1,
-      numUnitTests: -1,
+      numCommits: 0,
+      numIssues: 0,
+      numUnitTests: 0,
     }
   };
 
@@ -130,11 +135,12 @@ function getContributors() {
     responsibilities: [
       'responsibility 1',
       'responsibility 2'],
-    email: 'siegbalicula@gmail.com',
+    gitlabEmail: 'siegbalicula@gmail.com',
+    gitlabUsername: 'mgrubbs',
     gitStats: {
-      numCommits: -1,
-      numIssues: -1,
-      numUnitTests: -1,
+      numCommits: 0,
+      numIssues: 0,
+      numUnitTests: 0,
     }
   };
 
@@ -151,27 +157,51 @@ function getContributors() {
 
 async function getGitStats() {
   const gitlabContributorsPath: string = 'https://gitlab.com/api/v4/projects/29917081/repository/contributors';
+  const gitlabIssuesPath: string = 'https://gitlab.com/api/v4/projects/29917081/issues';
 
-  var gitStats: Map<string, GitStats> = new Map();
+  var contributors: Array<ContributorStats> = getContributors();
   
+  // Get number of commits and populate gitStats map
   await fetch(gitlabContributorsPath)
     .then(res => {
       return res.json();
     })
     .then(data => {
       for (var key in data) {
-        var rawGitStats = data[JSON.parse(key)];
-        var gitStat: GitStats = {
-          numCommits: rawGitStats.commits,
-          numIssues: -1,
-          numUnitTests: -1,
-        }
-  
-        gitStats.set(rawGitStats.email, gitStat);
+        var rawGitStat = data[JSON.parse(key)];
+        var rawGitStatEmail = rawGitStat.email;
+        var rawGitStatNumCommits = rawGitStat.commits;
+
+        // find contributor and update their number of commits
+        contributors.forEach((contributor: ContributorStats) => {
+          if (contributor.gitlabEmail == rawGitStatEmail) {
+            contributor.gitStats.numCommits = rawGitStatNumCommits;
+          }
+        });
+      }
+    });
+
+  // Get number of issues opened
+  await fetch(gitlabIssuesPath)
+    .then(res => {
+      return res.json();
+    })
+    .then(data => {
+      for (var key in data) {
+        var rawIssueStat = data[JSON.parse(key)];
+        var rawIssueAuthorUsername = rawIssueStat.author.username;
+        
+        contributors.forEach((contributor: ContributorStats) => {
+          if (contributor.gitlabUsername == rawIssueAuthorUsername) {
+            contributor.gitStats.numIssues++;
+          }
+        });
       }
     });
   
-  return gitStats;
+  // TODO calc number of unit tests
+  
+  return contributors;
 }
 
 export default function About(props) {
@@ -185,19 +215,7 @@ export default function About(props) {
     async function fetchAPI() {
       var contributors: Array<ContributorStats> = getContributors();
 
-      var gitStats: Map<string, GitStats> = await getGitStats();
-      console.log(gitStats);
-      gitStats.forEach((value: GitStats, key: string) => {
-        for (var contributorKey in contributors) {
-          var contributor: ContributorStats = contributors[contributorKey];
-          if (contributor.email === key) {
-            // contributor.gitStats.numCommits = value.numCommits;
-            contributor.gitStats = value;
-          }
-        }
-      });
-
-      setContributorStats(contributors);
+      setContributorStats(await getGitStats());
     }
 
     fetchAPI();
