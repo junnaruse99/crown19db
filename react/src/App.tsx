@@ -4,9 +4,10 @@ import { BrowserRouter as Router, Switch, Route, HashRouter, Link } from 'react-
 import About from "./components/About"
 import Splash from './components/splash';
 import Countries from './components/country/countries';
-import City from './components/city/city';
+import City from './components/city/cities';
 import Covid from './components/covid/covid';
 import Navbar from './components/layout/navbar';
+import CityInstance from './components/city/cityInstance';
 
 function Index() {
   return (
@@ -23,14 +24,17 @@ export default function App() {
 
   return (
     <Router>
+      <Switch>
       <div>
         <Navbar />
         <Route exact path="/" component={Splash} />
         <Route exact path="/about" component={About} />
-        <Route exact path="/countries" component={Countries} />
+        <Route exact path="/country" component={Countries} />
         <Route exact path="/city" component={City} />
         <Route exact path="/covid" component={Covid} />
+        <Route exact path="/city/:cityName" children={<CityInstance />} />
       </div>
+      </Switch>
     </Router>
   );
 }

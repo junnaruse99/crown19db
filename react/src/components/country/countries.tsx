@@ -3,7 +3,6 @@ import Country from './country';
 
 const Countries = () => {
     const {countries} = require('../../country.json');
-    console.log(countries);
     return ( 
         <div className='container'>
         <h2>Countries</h2>

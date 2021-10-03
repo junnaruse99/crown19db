@@ -1,24 +1,29 @@
 {
     "cities": [
         {
-            "Name": "Washington D.C.",
+            "id": 1,
+            "Name": "Washington DC",
             "Latitude": "38.9072° N",
             "Longitude": "-77.03637",
             "Population":  "601,723",
             "Map": "",
             "Time zone": "America/New_York",
             "country/province/state": "United States",
+            "img": "https://www.viajarwashington.com/img/consejos-viaje.jpg"
         },
         {
+            "id": 2,
             "Name": "Mexico City",
             "Latitude": "19.4326° N",
             "Longitude": "-99.1332° W",
             "Population": "12,294,193",
             "Map": "",
             "Time zone": "America/Mexico City",
-            "country/province/state": "Mexico"
+            "country/province/state": "Mexico",
+            "img": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i9EEQ2PmgRmI/v1/1200x937.jpg"
         },
         {
+            "id": 3,
             "Name": "Ottawa",
             "Latitude": "45.4215° N",
             "Longitude": "75.6972° W",
@@ -26,6 +31,7 @@
             "Map": "",
             "Time zone": "America/Toronto",
             "country/province/state": "Canada",
+            "img": "https://mmimageservice.azurewebsites.net/api/image/office/304"
         }
     ]
 }
