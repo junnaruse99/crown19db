@@ -2,23 +2,23 @@
 
 ### Names : Adam Samuelson, Alejandro Balderas, Dustan Helm, Jun Naruse, Mark Grubbs
 
-### UT EIDs: , , , , msg2772
+### UT EIDs: al46839, ab67334, dbh878, jsn798, msg2772
 
-### GitLab IDs: , , , , mgrubbs
+### GitLab IDs: adamsamuelson, alejandrobk, dustan.helm, jun.naruse, mgrubbs
 
 ### Git SHA: 
 
-### Project Leader: 
+### Project Leader: Adam
 
 ### GitLab Pipelines: https://gitlab.com/mgrubbs/coviddb/-/pipelines
 
 ### Website: https://crown19db.me
 
 ### Time to Completion Estimate:
-* Adam Samuelson -
-* Alejandro Balderas -
-* Dustan Helm -
-* Jun Naruse -
+* Adam Samuelson - 10
+* Alejandro Balderas - 15
+* Dustan Helm - 15
+* Jun Naruse - 8
 * Mark Grubbs -
 
 ### Actual Completion time: 
