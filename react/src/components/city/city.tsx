@@ -13,7 +13,7 @@ const City = ({ city }) => {
         <td>{city.Longitude}</td>
         <td>{city.Population}</td>
         <td>{city['Time zone']}</td>
-        <td>{city['country/province/state']}</td>
+        <td><Link to={"/country/"+ city['country/province/state']}>{city['country/province/state']}</Link></td>
         </tr>
     )
 }
