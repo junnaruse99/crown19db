@@ -4,22 +4,23 @@ import alejandroPFP from './pfp/alejandro-pfp.jpg';
 import dustanPFP from './pfp/dustan-pfp.jpg';
 import './About.css';
 
+interface GitStats {
+  email?: string;
+  numCommits: number;
+  numIssues: number;
+  numUnitTests: number;
+}
+
 interface ContributorStats {
   name: string;
-  photo: any; // TODO adamsamuelson: change to string
+  photo: any;
   bio: string;
   responsibilities: Array<string>;
-  numCommits: any;
-  numIssues: any;
-  numUnitTests: any;
+  email: string; // Used to match commits to contributors
+  gitStats: GitStats;
 }
 
-interface ProjectStats {
-  numCommits: any;
-  numIssues: any;
-  numUnitTests: any;
-}
-
+// Display a contributor
 function ContributorExhibit(props: any) {
   var contributor: ContributorStats = props.contributor;
 
@@ -49,13 +50,128 @@ function ContributorExhibit(props: any) {
 
         <h6>Contributions:</h6>
         <ul>
-          <li>Number of commits: {contributor.numCommits}</li>
-          <li>Number of issues: {contributor.numIssues}</li>
-          <li>Number of unit tests: {contributor.numUnitTests}</li>
+          <li>Number of commits: {contributor.gitStats.numCommits + ''}</li>
+          <li>Number of issues: {contributor.gitStats.numIssues + ''}</li>
+          <li>Number of unit tests: {contributor.gitStats.numUnitTests + ''}</li>
         </ul>
       </div>
     </div>
   );
+}
+
+function getContributors() {
+  var adamStats: ContributorStats = {
+    name: 'Adam Samuelson',
+    photo: adamPFP,
+    bio: 'Adam is in his 4th and final year at UT as a CS major with a \
+          minor in government. Outside of class he mentors freshmen through \
+          a CNS FIG known as TIP. Additionally, he enjoys listening to \
+          music, hanging out with friends, working on his own CS projects, \
+          and hydrating himself with water.',
+    responsibilities: [
+      'Create the about page (this page)',],
+    email: 'lilbroadam@gmail.com',
+    gitStats: {
+      numCommits: -1,
+      numIssues: -1,
+      numUnitTests: -1,
+    }
+  };
+
+  var alejandroStats: ContributorStats = {
+    name: 'Alejandro Balderas',
+    photo: alejandroPFP,
+    bio: 'TODO',
+    responsibilities: [
+      'responsibility 1',
+      'responsibility 2'],
+    email: 'alejandro_balderas@utexas.edu',
+    gitStats: {
+      numCommits: -1,
+      numIssues: -1,
+      numUnitTests: -1,
+    }
+  };
+
+  var dustanStats: ContributorStats = {
+    name: 'Dustan Helm',
+    photo: dustanPFP,
+    bio: 'TODO',
+    responsibilities: [
+      'responsibility 1',
+      'responsibility 2'],
+    email: '', // TODO
+    gitStats: {
+      numCommits: -1,
+      numIssues: -1,
+      numUnitTests: -1,
+    }
+  };
+
+  var junStats: ContributorStats = {
+    name: 'Jun Naruse',
+    photo: 'TODO',
+    bio: 'TODO',
+    responsibilities: [
+      'responsibility 1',
+      'responsibility 2'],
+    email: 'jun.naruse@gmail.com',
+    gitStats: {
+      numCommits: -1,
+      numIssues: -1,
+      numUnitTests: -1,
+    }
+  };
+
+  var markStats: ContributorStats = {
+    name: 'Mark Grubbs',
+    photo: 'TODO',
+    bio: 'TODO',
+    responsibilities: [
+      'responsibility 1',
+      'responsibility 2'],
+    email: 'siegbalicula@gmail.com',
+    gitStats: {
+      numCommits: -1,
+      numIssues: -1,
+      numUnitTests: -1,
+    }
+  };
+
+  var contributors: Array<ContributorStats> = [
+    alejandroStats,
+    markStats,
+    dustanStats,
+    junStats,
+    adamStats,
+  ];
+
+  return contributors;
+}
+
+async function getGitStats() {
+  const gitlabContributorsPath: string = 'https://gitlab.com/api/v4/projects/29917081/repository/contributors';
+
+  var gitStats: Map<string, GitStats> = new Map();
+  
+  await fetch(gitlabContributorsPath)
+    .then(res => {
+      return res.json();
+    })
+    .then(data => {
+      for (var key in data) {
+        var rawGitStats = data[JSON.parse(key)];
+        var gitStat: GitStats = {
+          numCommits: rawGitStats.commits,
+          numIssues: -1,
+          numUnitTests: -1,
+        }
+  
+        gitStats.set(rawGitStats.email, gitStat);
+      }
+    });
+  
+  return gitStats;
 }
 
 export default function About(props) {
@@ -65,78 +181,27 @@ export default function About(props) {
   
   /* Set contributorStats */
   useEffect(() => {
-    var adamStats: ContributorStats = {
-      name: 'Adam Samuelson',
-      photo: adamPFP,
-      bio: 'Adam is in his 4th and final year at UT as a CS major with a \
-            minor in government. Outside of class he mentors freshmen through \
-            a CNS FIG known as TIP. Additionally, he enjoys listening to \
-            music, hanging out with friends, working on his own CS projects, \
-            and hydrating himself with water.',
-      responsibilities: [
-        'Create the about page (this page)',],
-      numCommits: 'TODO',
-      numIssues: 'TODO',
-      numUnitTests: 'TODO',
-    };
 
-    var alejandroStats: ContributorStats = {
-      name: 'Alejandro Balderas',
-      photo: alejandroPFP,
-      bio: 'TODO',
-      responsibilities: [
-        'responsibility 1',
-        'responsibility 2'],
-      numCommits: 'TODO',
-      numIssues: 'TODO',
-      numUnitTests: 'TODO',
-    };
+    async function fetchAPI() {
+      var contributors: Array<ContributorStats> = getContributors();
 
-    var dustanStats: ContributorStats = {
-      name: 'Dustan Helm',
-      photo: dustanPFP,
-      bio: 'TODO',
-      responsibilities: [
-        'responsibility 1',
-        'responsibility 2'],
-      numCommits: 'TODO',
-      numIssues: 'TODO',
-      numUnitTests: 'TODO',
-    };
+      var gitStats: Map<string, GitStats> = await getGitStats();
+      console.log(gitStats);
+      gitStats.forEach((value: GitStats, key: string) => {
+        for (var contributorKey in contributors) {
+          var contributor: ContributorStats = contributors[contributorKey];
+          if (contributor.email === key) {
+            // contributor.gitStats.numCommits = value.numCommits;
+            contributor.gitStats = value;
+          }
+        }
+      });
 
-    var junStats: ContributorStats = {
-      name: 'Jun Naruse',
-      photo: 'TODO',
-      bio: 'TODO',
-      responsibilities: [
-        'responsibility 1',
-        'responsibility 2'],
-      numCommits: 'TODO',
-      numIssues: 'TODO',
-      numUnitTests: 'TODO',
-    };
+      setContributorStats(contributors);
+    }
 
-    var markStats: ContributorStats = {
-      name: 'Mark Grubbs',
-      photo: 'TODO',
-      bio: 'TODO',
-      responsibilities: [
-        'responsibility 1',
-        'responsibility 2'],
-      numCommits: 'TODO',
-      numIssues: 'TODO',
-      numUnitTests: 'TODO',
-    };
+    fetchAPI();
 
-    var contributors: Array<ContributorStats> = [
-      alejandroStats,
-      markStats,
-      dustanStats,
-      junStats,
-      adamStats,
-    ];
-
-    setContributorStats(contributors);
   }, []);
 
   /* Set contributors2 */
@@ -149,7 +214,7 @@ export default function About(props) {
         let array: string[] = [];
         for (var d in data) {
           var obj = JSON.parse(d);
-          console.log(data[obj].name);
+          // console.log(data[obj].name);
           array.push(data[obj].name);
         }
 
