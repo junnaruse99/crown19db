@@ -5,10 +5,11 @@ import About from "./components/about/About"
 import Splash from './components/splash';
 import Countries from './components/country/countries';
 import City from './components/city/cities';
-import Covid from './components/covid/covid';
+import CovidCases from './components/covid/covidcases';
 import Navbar from './components/layout/navbar';
 import CountryInstance from './components/country/countryInstance';
 import CityInstance from './components/city/cityInstance';
+import CovidInstance from './components/covid/covidInstance';
 
 function Index() {
   return (
@@ -32,9 +33,10 @@ export default function App() {
         <Route exact path="/about" component={About} />
         <Route exact path="/country" component={Countries} />
         <Route exact path="/city" component={City} />
-        <Route exact path="/covid" component={Covid} />
+        <Route exact path="/covid" component={CovidCases} />
         <Route exact path="/country/:countryName" children={<CountryInstance />} />
         <Route exact path="/city/:cityName" children={<CityInstance />} />
+        <Route exact path="/covid/:date" children={<CovidInstance />} />
       </div>
       </Switch>
     </Router>
