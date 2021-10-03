@@ -6,7 +6,7 @@
 
 ### GitLab IDs: adamsamuelson, alejandrobk, dustan.helm, jun.naruse, mgrubbs
 
-### Git SHA: TODO @adamsamuelson
+### Git SHA: a4917f1f4171c229b8f2940d257302fb5363d0c9
 
 ### Project Leader: Adam
 
