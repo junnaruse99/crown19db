@@ -65,7 +65,8 @@ function ContributorExhibit(props: any) {
   );
 }
 
-// Return an Array<ContributorStats> containing information about each contributor
+// Return an Array<ContributorInfo> containing information about each contributor.
+// The last element of will be a ContributorInfo containg the sum of the stats.
 // This function must be called with await so that contributor's GitStats
 // can be populated via the GitLab API
 async function getContributors() {
@@ -123,12 +124,21 @@ async function getContributors() {
     gitInfo: new GitInfo('siegbalicula@gmail.com', 'mgrubbs'),
   };
 
+  var totalStats: ContributorInfo = {
+    name: 'total',
+    photo: '',
+    bio: '',
+    responsibilities: [],
+    gitInfo: new GitInfo('total', 'total'),
+  };
+
   var contributors: Array<ContributorInfo> = [
     alejandroStats,
     markStats,
     dustanStats,
     junStats,
     adamStats,
+    totalStats,
   ];
 
   // Populate gitStats for each contributor
@@ -143,6 +153,7 @@ async function getContributors() {
     .then(data => {
       for (var key in data) {
         var rawCommitStat = data[JSON.parse(key)];
+        totalStats.gitInfo.numCommits += rawCommitStat.commits;
         contributors.forEach((contributor: ContributorInfo) => {
           if (contributor.gitInfo.email == rawCommitStat.email) {
             contributor.gitInfo.numCommits = rawCommitStat.commits;
@@ -159,6 +170,7 @@ async function getContributors() {
     .then(data => {
       for (var key in data) {
         var rawIssueStat = data[JSON.parse(key)];
+        totalStats.gitInfo.numIssues++;
         contributors.forEach((contributor: ContributorInfo) => {
           if (contributor.gitInfo.username == rawIssueStat.author.username) {
             contributor.gitInfo.numIssues++;
@@ -174,11 +186,14 @@ async function getContributors() {
 
 export default function About(props) {
   const [contributorStats, setContributorStats] = useState<Array<ContributorInfo>>([]);
+  const [totalStats, setTotalStats] = useState<ContributorInfo>();
   
   // Set contributorStats
   useEffect(() => {
     async function asyncSetContributorStats() {
-      setContributorStats(await getContributors());
+      var contributors: Array<ContributorInfo> = await getContributors();
+      setTotalStats(contributors.pop());
+      setContributorStats(contributors);
     }
 
     asyncSetContributorStats();
@@ -234,7 +249,11 @@ export default function About(props) {
       {/* Total # of commits, issues, and unit tests */}
       <h2>Overall project stats</h2>
       <p>
-        TODO @adamsamuelson
+        <ul>
+          <li>Total number of commits: {totalStats?.gitInfo.numCommits + ''}</li>
+          <li>Total number of issues: {totalStats?.gitInfo.numIssues + ''}</li>
+          <li>Total number of unit tests: {totalStats?.gitInfo.numUnitTests + ''}</li>
+        </ul>
       </p>
 
       {/* Links to APIs and additional data sources, and how each was scraped */}
