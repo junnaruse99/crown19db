@@ -2,53 +2,53 @@ import React from 'react'
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-const CityInstance = () => {
-    const {cities} = require('../../city.json');
-    let { cityName } = useParams();
-    cityName = cityName.replace('-', ' ');
-    let city;
+const CountryInstance = () => {
+    const {countries} = require('../../country.json');
+    let { countryName } = useParams();
+    countryName = countryName.replace('-', ' ');
+    let country;
 
     // Find city
-    for (let i = 0; i < cities.length; i++) {
-        if (cityName === cities[i].Name) {
-            city = cities[i];
-            console.log(city);
+    for (let i = 0; i < countries.length; i++) {
+        if (countryName === countries[i].name) {
+            country = countries[i];
+            console.log(country);
         }
     }
 
     return (
         <div className='container'>
-            {city ? (
+            {country ? (
                 <div className="row">
                     <div className="col-8">
                     </div>
                     <div className="col-4">
                         <div className="card">
-                            <h2 className="text-center text-uppercase font-weigh-bold mb-0">{cityName}</h2>
-                            <img className="card-img-top" src={city.img} alt={cityName}/>
+                            <h2 className="text-center text-uppercase font-weigh-bold mb-0">{countryName}</h2>
+                            <img className="card-img-top" src={country.Flag} alt={country.name} />
                             <div className="card-body">
                                 <p className="card-text">
                                     <table className="table">
                                         <tbody>
                                             <tr>
-                                            <th scope="row">Latitude</th>
-                                            <td>{city.Latitude}</td>
-                                            </tr>
-                                            <tr>
-                                            <th scope="row">Longitude</th>
-                                            <td>{city.Longitude}</td>
+                                            <th scope="row">GDP</th>
+                                            <td>{country.Gdp}</td>
                                             </tr>
                                             <tr>
                                             <th scope="row">Population</th>
-                                            <td>{city.Population}</td>
+                                            <td>{country.Population}</td>
                                             </tr>
                                             <tr>
-                                            <th scope="row">Time zone</th>
-                                            <td>{city["Time zone"]}</td>
+                                            <th scope="row">Population Density</th>
+                                            <td>{country['Population density']}</td>
                                             </tr>
                                             <tr>
-                                            <th scope="row">Country</th>
-                                            <td><Link to={"/country/"+ city['country/province/state']}>{city['country/province/state']}</Link></td>
+                                            <th scope="row">Area</th>
+                                            <td>{country.Area}</td>
+                                            </tr>
+                                            <tr>
+                                            <th scope="row">Captial</th>
+                                            <td><Link to={"/city/"+ country.Capital}>{country.Capital}</Link></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -62,4 +62,4 @@ const CityInstance = () => {
     )
 }
  
-export default CityInstance;
+export default CountryInstance;

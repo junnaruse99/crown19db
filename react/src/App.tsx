@@ -7,6 +7,7 @@ import Countries from './components/country/countries';
 import City from './components/city/cities';
 import Covid from './components/covid/covid';
 import Navbar from './components/layout/navbar';
+import CountryInstance from './components/country/countryInstance';
 import CityInstance from './components/city/cityInstance';
 
 function Index() {
@@ -32,6 +33,7 @@ export default function App() {
         <Route exact path="/country" component={Countries} />
         <Route exact path="/city" component={City} />
         <Route exact path="/covid" component={Covid} />
+        <Route exact path="/country/:countryName" children={<CountryInstance />} />
         <Route exact path="/city/:cityName" children={<CityInstance />} />
       </div>
       </Switch>

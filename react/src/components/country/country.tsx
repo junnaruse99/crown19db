@@ -6,11 +6,11 @@ const Country = ({ country }) => {
     return(
         <tr>
         <th scope="row">{country.id}</th>
-        <td>{country.name}</td>
+        <td><Link to={"/country/"+ country.name}>{country.name}</Link></td>
         <td>{country.Gdp}</td>
         <td>{country.Population}</td>
         <td>{country['Population density']}</td>
-        <td><img src={country.Flag}/></td>
+        <td><img src={country.Flag} alt={country.name}/></td>
         <td>{country.Area}</td>
         <td><Link to={"/city/"+ capitalName}>{country.Capital}</Link></td>
         </tr>
