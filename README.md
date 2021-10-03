@@ -6,7 +6,7 @@
 
 ### GitLab IDs: adamsamuelson, alejandrobk, dustan.helm, jun.naruse, mgrubbs
 
-### Git SHA: 
+### Git SHA: TODO @adamsamuelson
 
 ### Project Leader: Adam
 
@@ -29,3 +29,4 @@
 * Mark Grubbs - 12
 
 ### Comments:
+The CSS in About.css was referenced from this website https://coder-coder.com/display-divs-side-by-side/

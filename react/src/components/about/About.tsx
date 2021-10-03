@@ -376,6 +376,13 @@ export default function About(props) {
           </li>
         </ul>
       </p>
+
+      <h2>CovidDB documentation</h2>
+      <p>
+        <a href="https://documenter.getpostman.com/view/17756516/UUy4cRDr">
+          https://documenter.getpostman.com/view/17756516/UUy4cRDr
+        </a>
+      </p>
       
     </div>
   );
