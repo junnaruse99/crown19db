@@ -4,26 +4,32 @@ import alejandroPFP from './pfp/alejandro-pfp.jpg';
 import dustanPFP from './pfp/dustan-pfp.jpg';
 import './About.css';
 
-interface GitStats {
-  email?: string;
-  numCommits: number;
-  numIssues: number;
-  numUnitTests: number;
+// A class for holding data related to a contributor's git contributions
+class GitInfo {
+  numCommits: number = 0;
+  numIssues: number = 0;
+  numUnitTests: number = 0;
+  email: string; // Used to match commits to contributors
+  username: string; // Used to match issues to contributors
+
+  constructor(email: string, username: string) {
+    this.email = email;
+    this.username = username;
+  }
 }
 
-interface ContributorStats {
+// An interface for holding data about a contributor
+interface ContributorInfo {
   name: string;
   photo: any;
   bio: string;
   responsibilities: Array<string>;
-  gitlabEmail: string; // Used to match commits to contributors
-  gitlabUsername: string; // Used to match issues to contributors
-  gitStats: GitStats;
+  gitInfo: GitInfo;
 }
 
-// Display a contributor
+// Given a [ContributorInfo], return the html to display it
 function ContributorExhibit(props: any) {
-  var contributor: ContributorStats = props.contributor;
+  var contributor: ContributorInfo = props.contributor;
 
   return (
     <div className="about-contributor">
@@ -41,27 +47,28 @@ function ContributorExhibit(props: any) {
         </p>
 
         <h6>Responsibilities:</h6>
-        <ul>
-        {
+        <ul>{
           contributor.responsibilities.map( responsibility => (
             <li>{responsibility}</li>
           ))
-        }
-        </ul>
+        }</ul>
 
         <h6>Contributions:</h6>
         <ul>
-          <li>Number of commits: {contributor.gitStats.numCommits + ''}</li>
-          <li>Number of issues: {contributor.gitStats.numIssues + ''}</li>
-          <li>Number of unit tests: {contributor.gitStats.numUnitTests + ''}</li>
+          <li>Number of commits: {contributor.gitInfo.numCommits + ''}</li>
+          <li>Number of issues: {contributor.gitInfo.numIssues + ''}</li>
+          <li>Number of unit tests: {contributor.gitInfo.numUnitTests + ''}</li>
         </ul>
       </div>
     </div>
   );
 }
 
-function getContributors() {
-  var adamStats: ContributorStats = {
+// Return an Array<ContributorStats> containing information about each contributor
+// This function must be called with await so that contributor's GitStats
+// can be populated via the GitLab API
+async function getContributors() {
+  var adamStats: ContributorInfo = {
     name: 'Adam Samuelson',
     photo: adamPFP,
     bio: 'Adam is in his 4th and final year at UT as a CS major with a \
@@ -71,80 +78,50 @@ function getContributors() {
           and hydrating himself with water.',
     responsibilities: [
       'Create the about page (this page)',],
-    gitlabEmail: 'lilbroadam@gmail.com',
-    gitlabUsername: 'adamsamuelson',
-    gitStats: {
-      numCommits: 0,
-      numIssues: 0,
-      numUnitTests: 0,
-    }
+    gitInfo: new GitInfo('lilbroadam@gmail.com', 'adamsamuelson'),
   };
 
-  var alejandroStats: ContributorStats = {
+  var alejandroStats: ContributorInfo = {
     name: 'Alejandro Balderas',
     photo: alejandroPFP,
     bio: 'TODO',
     responsibilities: [
       'responsibility 1',
       'responsibility 2'],
-    gitlabEmail: 'alejandro_balderas@utexas.edu',
-    gitlabUsername: 'alejandrobk',
-    gitStats: {
-      numCommits: 0,
-      numIssues: 0,
-      numUnitTests: 0,
-    }
+    gitInfo: new GitInfo('alejandro_balderas@utexas.edu', 'alejandrobk'),
   };
 
-  var dustanStats: ContributorStats = {
+  var dustanStats: ContributorInfo = {
     name: 'Dustan Helm',
     photo: dustanPFP,
     bio: 'TODO',
     responsibilities: [
       'responsibility 1',
       'responsibility 2'],
-    gitlabEmail: '', // TODO @adamsamuelson
-    gitlabUsername: 'dustan.helm',
-    gitStats: {
-      numCommits: 0,
-      numIssues: 0,
-      numUnitTests: 0,
-    }
+    gitInfo: new GitInfo('', 'dustan.helm'), // TODO @adamsamuelson populate email
   };
 
-  var junStats: ContributorStats = {
+  var junStats: ContributorInfo = {
     name: 'Jun Naruse',
     photo: 'TODO',
     bio: 'TODO',
     responsibilities: [
       'responsibility 1',
       'responsibility 2'],
-    gitlabEmail: 'jun.naruse@gmail.com',
-    gitlabUsername: 'jun.naruse',
-    gitStats: {
-      numCommits: 0,
-      numIssues: 0,
-      numUnitTests: 0,
-    }
+    gitInfo: new GitInfo('jun.naruse@gmail.com', 'jun.naruse'),
   };
 
-  var markStats: ContributorStats = {
+  var markStats: ContributorInfo = {
     name: 'Mark Grubbs',
     photo: 'TODO',
     bio: 'TODO',
     responsibilities: [
       'responsibility 1',
       'responsibility 2'],
-    gitlabEmail: 'siegbalicula@gmail.com',
-    gitlabUsername: 'mgrubbs',
-    gitStats: {
-      numCommits: 0,
-      numIssues: 0,
-      numUnitTests: 0,
-    }
+    gitInfo: new GitInfo('siegbalicula@gmail.com', 'mgrubbs'),
   };
 
-  var contributors: Array<ContributorStats> = [
+  var contributors: Array<ContributorInfo> = [
     alejandroStats,
     markStats,
     dustanStats,
@@ -152,36 +129,27 @@ function getContributors() {
     adamStats,
   ];
 
-  return contributors;
-}
-
-async function getGitStats() {
+  // Populate gitStats for each contributor
   const gitlabContributorsPath: string = 'https://gitlab.com/api/v4/projects/29917081/repository/contributors';
   const gitlabIssuesPath: string = 'https://gitlab.com/api/v4/projects/29917081/issues';
 
-  var contributors: Array<ContributorStats> = getContributors();
-  
-  // Get number of commits and populate gitStats map
+  // Get number of commits for each contributor
   await fetch(gitlabContributorsPath)
     .then(res => {
       return res.json();
     })
     .then(data => {
       for (var key in data) {
-        var rawGitStat = data[JSON.parse(key)];
-        var rawGitStatEmail = rawGitStat.email;
-        var rawGitStatNumCommits = rawGitStat.commits;
-
-        // find contributor and update their number of commits
-        contributors.forEach((contributor: ContributorStats) => {
-          if (contributor.gitlabEmail == rawGitStatEmail) {
-            contributor.gitStats.numCommits = rawGitStatNumCommits;
+        var rawCommitStat = data[JSON.parse(key)];
+        contributors.forEach((contributor: ContributorInfo) => {
+          if (contributor.gitInfo.email == rawCommitStat.email) {
+            contributor.gitInfo.numCommits = rawCommitStat.commits;
           }
         });
       }
     });
 
-  // Get number of issues opened
+  // Get number of issues opened for each contributor
   await fetch(gitlabIssuesPath)
     .then(res => {
       return res.json();
@@ -189,55 +157,29 @@ async function getGitStats() {
     .then(data => {
       for (var key in data) {
         var rawIssueStat = data[JSON.parse(key)];
-        var rawIssueAuthorUsername = rawIssueStat.author.username;
-        
-        contributors.forEach((contributor: ContributorStats) => {
-          if (contributor.gitlabUsername == rawIssueAuthorUsername) {
-            contributor.gitStats.numIssues++;
+        contributors.forEach((contributor: ContributorInfo) => {
+          if (contributor.gitInfo.username == rawIssueStat.author.username) {
+            contributor.gitInfo.numIssues++;
           }
         });
       }
     });
   
   // TODO calc number of unit tests
-  
+
   return contributors;
 }
 
 export default function About(props) {
-  const gitlabContributorsPath: string = 'https://gitlab.com/api/v4/projects/29917081/repository/contributors';
-  const [contributors2, setContributors2] = useState<Array<string>>([]); // TODO delete
-  const [contributorStats, setContributorStats] = useState<Array<ContributorStats>>([]);
+  const [contributorStats, setContributorStats] = useState<Array<ContributorInfo>>([]);
   
-  /* Set contributorStats */
+  // Set contributorStats
   useEffect(() => {
-
-    async function fetchAPI() {
-      var contributors: Array<ContributorStats> = getContributors();
-
-      setContributorStats(await getGitStats());
+    async function asyncSetContributorStats() {
+      setContributorStats(await getContributors());
     }
 
-    fetchAPI();
-
-  }, []);
-
-  /* Set contributors2 */
-  useEffect(() => {
-    fetch(gitlabContributorsPath)
-      .then(res => {
-        return res.json();
-      })
-      .then(data => {
-        let array: string[] = [];
-        for (var d in data) {
-          var obj = JSON.parse(d);
-          // console.log(data[obj].name);
-          array.push(data[obj].name);
-        }
-
-        setContributors2(array);
-      })
+    asyncSetContributorStats();
   }, []);
 
   return (
@@ -290,6 +232,7 @@ export default function About(props) {
       {/* Total # of commits, issues, and unit tests */}
       <h2>Overall project stats</h2>
       <p>
+        TODO @adamsamuelson
       </p>
 
       {/* Links to APIs and additional data sources, and how each was scraped */}
