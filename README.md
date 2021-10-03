@@ -23,9 +23,9 @@
 
 ### Actual Completion time: 
 * Adam Samuelson - 18
-* Alejandro Balderas -
-* Dustan Helm -
-* Jun Naruse -
+* Alejandro Balderas - 15
+* Dustan Helm - 12
+* Jun Naruse - 15
 * Mark Grubbs - 12
 
 ### Comments:
