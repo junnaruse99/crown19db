@@ -15,3 +15,8 @@ code {
 .card {
   width: 18rem;
 }
+
+a {
+  text-decoration: None;
+  color: inherit;
+}
