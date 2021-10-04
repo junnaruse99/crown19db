@@ -1,5 +1,5 @@
 npm-run:
-  image: coviddb # change to correct image
+  image: pooepw/coviddb # change to correct image
   script:
   - npm install
   - npm start
