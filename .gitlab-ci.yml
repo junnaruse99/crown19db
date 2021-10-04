@@ -1,5 +1,6 @@
 npm-run:
   image: pooepw/coviddb:dev # change to correct image
   script:
+  - ls
   - npm install
   - npm start

@@ -87,22 +87,20 @@ async function getContributors() {
   var alejandroStats: ContributorInfo = {
     name: 'Alejandro Balderas',
     photo: alejandroPFP,
-    bio: 'Alejandro is a senior majoring in CS. This is his last year \
-          before graduating and starting a full time position at Expedia.\
-          He loves pugs and exercising',
+    bio: 'TODO',
     responsibilities: [
-      'City instances and model',
-      'Splash page'],
+      'TODO responsibility 1',
+      'TODO responsibility 2'],
     gitInfo: new GitInfo('alejandro_balderas@utexas.edu', 'alejandrobk'),
   };
 
   var dustanStats: ContributorInfo = {
     name: 'Dustan Helm',
     photo: dustanPFP,
-    bio: 'Dustan is a 4th year computer science student and likes to play guitar, volleyball, and video games',
-    responsibilities: [T
-      'Hosting (AWS/Namecheap)',
-      'Technical Report'],
+    bio: 'TODO',
+    responsibilities: [
+      'TODO responsibility 1',
+      'TODO responsibility 2'],
     gitInfo: new GitInfo('dustan.helm@yahoo.com', 'dustan.helm'),
   };
 
