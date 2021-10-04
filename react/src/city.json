@@ -3,7 +3,7 @@
         {
             "id": 1,
             "Name": "Washington DC",
-            "Latitude": "38.9072° N",
+            "Latitude": "38.9072",
             "Longitude": "-77.03637",
             "Population":  "601,723",
             "Map": "",
@@ -14,8 +14,8 @@
         {
             "id": 2,
             "Name": "Mexico City",
-            "Latitude": "19.4326° N",
-            "Longitude": "-99.1332° W",
+            "Latitude": "19.4326",
+            "Longitude": "-99.1332",
             "Population": "12,294,193",
             "Map": "",
             "Time zone": "America/Mexico City",
@@ -25,8 +25,8 @@
         {
             "id": 3,
             "Name": "Ottawa",
-            "Latitude": "45.4215° N",
-            "Longitude": "75.6972° W",
+            "Latitude": "45.4215",
+            "Longitude": "-75.6972",
             "Population": "812,129",
             "Map": "",
             "Time zone": "America/Toronto",

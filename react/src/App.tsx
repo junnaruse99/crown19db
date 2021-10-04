@@ -10,6 +10,7 @@ import Navbar from './components/layout/navbar';
 import CountryInstance from './components/country/countryInstance';
 import CityInstance from './components/city/cityInstance';
 import CovidInstance from './components/covid/covidInstance';
+require('dotenv').config();
 
 function Index() {
   return (

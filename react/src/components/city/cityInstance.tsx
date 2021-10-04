@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import SimpleMap from '../map/SimpleMap';
 
 const CityInstance = () => {
     const {cities} = require('../../city.json');
@@ -19,8 +20,9 @@ const CityInstance = () => {
     return (
         <div className='container'>
             {city ? (
-                <div className="row">
+                <div className="row align-items-center">
                     <div className="col-8">
+                        <SimpleMap center={{lat:parseFloat(city.Latitude), lng:parseFloat(city.Longitude)}}/>
                     </div>
                     <div className="col-4">
                         <div className="card">
