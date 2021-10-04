@@ -1,6 +1,25 @@
 import pandas as pd
 import json
 
+def modifyCountry(df, df1, days, i, dictionary, aux, name, condition):
+    country_name = df.loc[df[days[i]] == df1[i]].index.tolist()
+    aux[name] = []
+    if condition:
+        for names in country_name:
+            if names != "":
+                if names in dictionary:
+                    aux[name].append(dictionary[names])
+                else:
+                    aux[name].append(names)
+
+def modifyState(df, df1, aux, days, i, column, name, condition):
+    aux[name] = []
+    if condition:
+        result = df.loc[df[days[i]] == df1[i]][column].values.tolist()
+        for value in result:
+            if value != "":
+                aux[name].append(value)
+
 def main():
 
     countryNames = {'US': 'United States'}
@@ -37,20 +56,17 @@ def main():
         aux = {}
         aux['Date'] = days[i]
         
-        country_name = confirmed_country.loc[confirmed_country[days[i]] == max_cases_country[i]].index.tolist()
-        aux['Country-cases'] = []
-        for names in country_name:
-            if names in countryNames:
-                aux['Country-cases'].append(countryNames[names])
-            else:
-                aux['Country-cases'].append(names)
-
-        aux['Country-deaths'] = deaths_country.loc[deaths_country[days[i]] == max_deaths_country[i]].index.tolist()
-        aux['Country-recovered'] = recovered_country.loc[recovered_country[days[i]] == max_recovered_country[i]].index.tolist()
+        modifyCountry(confirmed_country, max_cases_country, days, i, countryNames, aux, 'Country-cases', confirmed_sum[i]>0)
+        modifyCountry(deaths_country, max_deaths_country, days, i, countryNames, aux, 'Country-deaths', deaths_sum[i]>0)
+        modifyCountry(recovered_country, max_recovered_country, days, i, countryNames, aux, 'Country-recovered', recovered_sum[i]>0)
         
-        aux['State-cases'] = confirmed.loc[confirmed[days[i]] == max_cases_state[i]]['Province/State'].values.tolist()
-        aux['State-deaths'] = deaths.loc[deaths[days[i]] == max_deaths_state[i]]['Province/State'].values.tolist()
-        aux['State.recovered'] = recovered.loc[recovered[days[i]] == max_recovered_state[i]]['Province/State'].values.tolist()
+        modifyState(confirmed, max_cases_state, aux, days, i, 'Province/State', 'State-cases', confirmed_sum[i]>0)
+        modifyState(deaths, max_deaths_state, aux, days, i,'Province/State', 'State-deaths', deaths_sum[i]>0)
+        modifyState(recovered, max_recovered_state, aux, days, i,'Province/State', 'State-recovered', recovered_sum[i]>0)
+
+        # aux['State-cases'] = confirmed.loc[confirmed[days[i]] == max_cases_state[i]]['Province/State'].values.tolist()
+        # aux['State-deaths'] = deaths.loc[deaths[days[i]] == max_deaths_state[i]]['Province/State'].values.tolist()
+        # aux['State.recovered'] = recovered.loc[recovered[days[i]] == max_recovered_state[i]]['Province/State'].values.tolist()
         
         aux['Cases'] = max_cases_country[i]
         aux['Deaths'] = max_deaths_country[i]
