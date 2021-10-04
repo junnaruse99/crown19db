@@ -26,52 +26,15 @@ const CovidInstance = () => {
                             <p className="card-text">
                                 <table className="table">
                                     <tbody>
-                                        <tr>
-                                        <th scope="row">Number of cases</th>
-                                        <td>{covid.Cases}</td>
-                                        </tr>
-                                        <tr>
-                                        <th scope="row">Number of deaths</th>
-                                        <td>{covid.Deaths}</td>
-                                        </tr>
-                                        <tr>
-                                        <th scope="row">Number of recovers</th>
-                                        <td>{covid.Recovered}</td>
-                                        </tr>
-                                        <tr>
-                                        <th scope="row">Countries with most cases</th>
-                                        <td><Link to={"/country/" + covid['Country-cases'][0].replace(/\s/g, '-')}>{covid['Country-cases']}</Link></td>
-                                        </tr>
-                                        {covid.Deaths === '0'  || (covid['Country-deaths'] && covid['Country-deaths'].length === 0) ? (
-                                            <tr>
-                                                <th scope="row">Countries with most deaths</th>
-                                                <td>{covid['Country-deaths']}</td>
-                                            </tr>
-                                        ) : null}
-                                        {covid.Recovered === '0'  || (covid['Country-recovered'] && covid['Country-recovered'].length === 0) ? (
-                                            <tr>
-                                                <th scope="row">Countries with most recovers</th>
-                                                <td>{covid['Country-recovered']}</td>
-                                            </tr>
-                                        ) : null}
-                                        {covid.Cases === '0'  || (covid['Country-recovered'] && covid['Country-recovered'].length === 0) ? (
-                                            <tr>
-                                                <th scope="row">States with most cases</th>
-                                                <td>{covid['State-cases']}</td>
-                                            </tr>
-                                        ) : null}
-                                        {covid.Deaths === '0'  || (covid['State-deaths'] && covid['State-deaths'].length === 0) ? (
-                                            <tr>
-                                                <th scope="row">States with most deaths</th>
-                                                <td>{covid['State-deaths']}</td>
-                                            </tr>
-                                        ) : null}
-                                        {covid.Recovered === '0'  || (covid['State-recovered'] && covid['State-recovered'].length === 0) ? (
-                                            <tr>
-                                                <th scope="row">States with most recovers</th>
-                                                <td>{covid['State-recovered']}</td>
-                                            </tr>
-                                        ) : null}
+                                        <CardRow info={{name:"Number of cases", description:covid.Cases, condition:true, Component:"div", to:""}}/>
+                                        <CardRow info={{name:"Number of deaths", description:covid.Deaths, condition:true, Component:"div", to:""}}/>
+                                        <CardRow info={{name:"Number of recovers", description:covid.Recovered, condition:true, Component:"div", to:""}}/>
+                                        <CardRow info={{name:"Countries with most cases", description:covid['Country-cases'], condition:true, Component:Link, to:"/country/" + covid['Country-cases'][0].replace(/\s/g, '-')}}/>
+                                        <CardRow info={{name:"Countries with most deaths", description:covid['Country-deaths'], condition:(!(covid.Cases === 0  || (covid['Country-deaths'] && covid['Country-deaths'].length === 0))), Component:Link, to:"/country/" + covid['Country-deaths'][0].replace(/\s/g, '-')}}/>
+                                        <CardRow info={{name:"Countries with most recovers", description:covid['Country-recovered'], condition:(!(covid.Recovered === 0  || (covid['Country-recovered'] && covid['Country-recovered'].length === 0))), Component:Link, to:"/country/" + covid['Country-deaths'][0].replace(/\s/g, '-')}}/>
+                                        <CardRow info={{name:"States with most cases", description:covid['State-cases'], condition:(!(covid.Cases === 0  || (covid['State-cases'] && covid['State-cases'].length === 0))), Component:"div", to:""}}/>
+                                        <CardRow info={{name:"States with most deaths", description:covid['State-deaths'], condition:(!(covid.Deaths === 0  || (covid['State-deaths'] && covid['State-deaths'].length === 0))), Component:"div", to:""}}/>
+                                        <CardRow info={{name:"States with most recovers", description:covid['State-recovered'], condition:(!(covid.Recovered === 0  || (covid['State-recovered'] && covid['State-recovered'].length === 0))), Component:"div", to:""}}/>
                                     </tbody>
                                 </table>
                             </p>

@@ -2,14 +2,14 @@ import React from 'react'
 
 const cardRow = ({ info }) => {
 
-    const { name, description, condition } = info;
+    const { name, description, condition, Component, to } = info;
 
     return (
         <>
         {condition ? (
             <tr>
                 <th scope="row">{name}</th>
-                <td>{description}</td>
+                <td><Component to={to}>{description}</Component></td>
             </tr>
         ) : null}
         </>
