@@ -2,7 +2,9 @@ import React from 'react'
 
 const cardRow = ({ info }) => {
 
-    const { name, description, condition, Component, to } = info;
+    let { name, description, condition, Component, to } = info;
+
+    to = to.replace(/\s/g, '-');
 
     return (
         <>

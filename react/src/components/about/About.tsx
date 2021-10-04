@@ -89,8 +89,8 @@ async function getContributors() {
     photo: alejandroPFP,
     bio: 'TODO',
     responsibilities: [
-      'responsibility 1',
-      'responsibility 2'],
+      'TODO responsibility 1',
+      'TODO responsibility 2'],
     gitInfo: new GitInfo('alejandro_balderas@utexas.edu', 'alejandrobk'),
   };
 
@@ -99,9 +99,9 @@ async function getContributors() {
     photo: dustanPFP,
     bio: 'TODO',
     responsibilities: [
-      'responsibility 1',
-      'responsibility 2'],
-    gitInfo: new GitInfo('', 'dustan.helm'), // TODO @adamsamuelson populate email
+      'TODO responsibility 1',
+      'TODO responsibility 2'],
+    gitInfo: new GitInfo('dustan.helm@yahoo.com', 'dustan.helm'),
   };
 
   var junStats: ContributorInfo = {
