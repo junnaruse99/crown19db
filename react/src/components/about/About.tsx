@@ -3,6 +3,7 @@ import adamPFP from './pfp/adam-pfp.jpg';
 import alejandroPFP from './pfp/alejandro-pfp.jpg';
 import dustanPFP from './pfp/dustan-pfp.jpg';
 import markPFP from './pfp/mark-pfp.jpg';
+import junPFP from './pfp/jun-pfp.jpg';
 import './About.css';
 
 // A class for holding data related to a contributor's git contributions
@@ -105,11 +106,13 @@ async function getContributors() {
 
   var junStats: ContributorInfo = {
     name: 'Jun Naruse',
-    photo: 'TODO',
-    bio: 'TODO',
+    photo: junPFP,
+    bio: 'Jun is an exchange student from Peru. He is in his last semester \
+          majoring in Mechatronics Engineering. In his free time he likes watching \
+          anime and reading manga.',
     responsibilities: [
-      'responsibility 1',
-      'responsibility 2'],
+      'Country and covid model',
+      'Country and covid instances'],
     gitInfo: new GitInfo('jun.naruse@gmail.com', 'jun.naruse'),
   };
 
