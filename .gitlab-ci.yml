@@ -2,5 +2,7 @@ npm-run:
   image: pooepw/coviddb:dev # change to correct image
   script:
   - ls
+  - cd react
+  - ls
   - npm install
   - npm start
