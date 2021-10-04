@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import adamPFP from './pfp/adam-pfp.jpg';
 import alejandroPFP from './pfp/alejandro-pfp.jpg';
 import dustanPFP from './pfp/dustan-pfp.jpg';
+import markPFP from './pfp/mark-pfp.jpg';
 import './About.css';
 
 // A class for holding data related to a contributor's git contributions
@@ -113,11 +114,12 @@ async function getContributors() {
 
   var markStats: ContributorInfo = {
     name: 'Mark Grubbs',
-    photo: 'TODO',
-    bio: 'TODO',
+    photo: markPFP,
+    bio: 'Mark is in his last semester as a CS major with a certificate \
+          in Japanese. He is really into video games.',
     responsibilities: [
-      'responsibility 1',
-      'responsibility 2'],
+      'User Stories',
+      'Postman'],
     gitInfo: new GitInfo('siegbalicula@gmail.com', 'mgrubbs'),
   };
 
