@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const CityInstance = () => {
     const {cities} = require('../../city.json');
     let { cityName } = useParams();
-    cityName = cityName.replace('-', ' ');
+    cityName = cityName.replace(/-/g, ' ');
     let city;
 
     // Find city
