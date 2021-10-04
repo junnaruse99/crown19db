@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, HashRouter, Link } from 'react-router-dom';
 import About from "./components/about/About"
-import Splash from './components/splash';
+import Splash from './components/splash/splash';
 import Countries from './components/country/countries';
 import City from './components/city/cities';
 import CovidCases from './components/covid/covidcases';
