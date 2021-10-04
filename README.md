@@ -19,7 +19,7 @@
 * Alejandro Balderas - 15
 * Dustan Helm - 15
 * Jun Naruse - 8
-* Mark Grubbs -
+* Mark Grubbs - 15
 
 ### Actual Completion time: 
 * Adam Samuelson -
