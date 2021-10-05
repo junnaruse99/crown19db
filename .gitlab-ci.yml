@@ -5,4 +5,5 @@ npm-run:
   - cd react
   - ls
   - npm install
-  - npm start
+  - npm test
+  - q
