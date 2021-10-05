@@ -6,4 +6,4 @@ npm-run:
   - ls
   - npm install
   - npm test
-  - q
+  
