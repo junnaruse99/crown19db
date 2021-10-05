@@ -11,7 +11,8 @@
             "Map": "",
             "Capital": "Washington DC",
             "Latitude": "38.897957",
-            "Longitude": "-97.036560"
+            "Longitude": "-97.036560",
+            "Covid": "10/2/21"
         },
         {
             "id": 2,
@@ -24,7 +25,8 @@
             "Map": "", 
             "Capital": "Mexico City",
             "Latitude": "19.432608",
-            "Longitude": "-99.133209"
+            "Longitude": "-99.133209",
+            "Covid": "10/2/21"
         },
         {
             "id": 3,
@@ -37,7 +39,8 @@
             "Map": "",
             "Capital": "Ottawa",
             "Latitude": "62.2270",
-            "Longitude": "-105.3809"
+            "Longitude": "-105.3809",
+            "Covid": "10/2/21"
         }
     ]
 }
