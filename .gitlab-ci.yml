@@ -5,6 +5,6 @@ npm-run:
   - cd react
   - ls
   - npm install
-  - npm run-script build
+  - CI=false npm run-script build
   
   
