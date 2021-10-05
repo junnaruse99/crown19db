@@ -22,10 +22,10 @@
 * Mark Grubbs - 15
 
 ### Actual Completion time: 
-* Adam Samuelson -
+* Adam Samuelson - 18
 * Alejandro Balderas -
 * Dustan Helm -
 * Jun Naruse -
-* Mark Grubbs -
+* Mark Grubbs - 12
 
 ### Comments:
