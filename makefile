@@ -12,7 +12,7 @@ all:
 # files to be checked for existence
 CFILES :=                                 \
     .gitignore                            \
-    .gitlab-ci.yml  
+    .gitlab-ci.yml
 
 # check files exist
 check: $(CFILES)
