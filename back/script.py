@@ -31,6 +31,12 @@ def main():
     recovered = pd.read_csv('./time_series_covid19_recovered_global.csv')
     recovered.fillna(value='', inplace=True)
 
+
+    # Count instances of states
+    # aux = confirmed.groupby(by=['Country/Region'])['Province/State'].apply(lambda x: (x!="").sum())
+    # aux = aux[aux != 0]
+    # print(aux)
+
     # Get the sum of confirmed, deaths and recovered per day 
     confirmed_sum = confirmed[confirmed.columns.tolist()[4:]].sum().values.tolist()
     deaths_sum = deaths[deaths.columns.tolist()[4:]].sum().values.tolist()
@@ -47,10 +53,18 @@ def main():
     max_cases_country = confirmed_country.max().values.tolist()
     max_deaths_country = deaths_country.max().values.tolist()
     max_recovered_country = recovered_country.max().values.tolist()
+    
+    max_cases_state = confirmed.copy()
+    max_cases_state.loc[confirmed['Province/State'] == "", max_cases_state.columns.tolist()[4:]] = 0
+    max_cases_state = max_cases_state[days].max().values.tolist()
 
-    max_cases_state = confirmed[days].max().values.tolist()
-    max_deaths_state = deaths[days].max().values.tolist()
-    max_recovered_state = recovered[days].max().values.tolist()
+    max_deaths_state = deaths.copy()
+    max_deaths_state.loc[deaths['Province/State'] == "", max_deaths_state.columns.tolist()[4:]] = 0
+    max_deaths_state = max_deaths_state[days].max().values.tolist()
+
+    max_recovered_state = recovered.copy()
+    max_recovered_state.loc[recovered['Province/State'] == "", max_recovered_state.columns.tolist()[4:]] = 0
+    max_recovered_state = max_recovered_state[days].max().values.tolist()
 
     for i in reversed(range(len(days))):
         aux = {}
@@ -63,10 +77,6 @@ def main():
         modifyState(confirmed, max_cases_state, aux, days, i, 'Province/State', 'State-cases', confirmed_sum[i]>0)
         modifyState(deaths, max_deaths_state, aux, days, i,'Province/State', 'State-deaths', deaths_sum[i]>0)
         modifyState(recovered, max_recovered_state, aux, days, i,'Province/State', 'State-recovered', recovered_sum[i]>0)
-
-        # aux['State-cases'] = confirmed.loc[confirmed[days[i]] == max_cases_state[i]]['Province/State'].values.tolist()
-        # aux['State-deaths'] = deaths.loc[deaths[days[i]] == max_deaths_state[i]]['Province/State'].values.tolist()
-        # aux['State.recovered'] = recovered.loc[recovered[days[i]] == max_recovered_state[i]]['Province/State'].values.tolist()
         
         aux['Cases'] = max_cases_country[i]
         aux['Deaths'] = max_deaths_country[i]

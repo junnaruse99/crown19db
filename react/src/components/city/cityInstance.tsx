@@ -17,12 +17,14 @@ const CityInstance = () => {
         }
     }
 
+    let date = city.covid.replace(/\//g, '-');
+
     return (
         <div className='container'>
             {city ? (
                 <div className="row align-items-center">
                     <div className="col-8">
-                        <SimpleMap center={{lat:parseFloat(city.Latitude), lng:parseFloat(city.Longitude)}}/>
+                        <SimpleMap info={{center:{lat:parseFloat(city.Latitude), lng:parseFloat(city.Longitude)}, zoom:11}}/>
                     </div>
                     <div className="col-4">
                         <div className="card">
@@ -51,6 +53,10 @@ const CityInstance = () => {
                                             <tr>
                                             <th scope="row">Country</th>
                                             <td><Link to={"/country/"+ city['country/province/state']}>{city['country/province/state']}</Link></td>
+                                            </tr>
+                                            <tr>
+                                            <th scope="row">Last date of covid case</th>
+                                            <td><Link to={"/covid/"+ date}>{city.covid}</Link></td>
                                             </tr>
                                         </tbody>
                                     </table>

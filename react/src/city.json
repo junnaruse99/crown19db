@@ -9,7 +9,8 @@
             "Map": "",
             "Time zone": "America/New_York",
             "country/province/state": "United States",
-            "img": "https://www.viajarwashington.com/img/consejos-viaje.jpg"
+            "img": "https://www.viajarwashington.com/img/consejos-viaje.jpg",
+            "covid": "10/2/21"
         },
         {
             "id": 2,
@@ -20,7 +21,8 @@
             "Map": "",
             "Time zone": "America/Mexico City",
             "country/province/state": "Mexico",
-            "img": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i9EEQ2PmgRmI/v1/1200x937.jpg"
+            "img": "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i9EEQ2PmgRmI/v1/1200x937.jpg",
+            "covid": "10/2/21"
         },
         {
             "id": 3,
@@ -31,7 +33,8 @@
             "Map": "",
             "Time zone": "America/Toronto",
             "country/province/state": "Canada",
-            "img": "https://mmimageservice.azurewebsites.net/api/image/office/304"
+            "img": "https://mmimageservice.azurewebsites.net/api/image/office/304",
+            "covid": "10/2/21"
         }
     ]
 }
