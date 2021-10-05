@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import SimpleMap from '../map/SimpleMap';
 
 const CountryInstance = () => {
     const {countries} = require('../../country.json');
@@ -21,6 +22,7 @@ const CountryInstance = () => {
             {country ? (
                 <div className="row">
                     <div className="col-8">
+                        <SimpleMap info={{center:{lat:parseFloat(country.Latitude), lng:parseFloat(country.Longitude)}, zoom:4}}/>
                     </div>
                     <div className="col-4">
                         <div className="card">
