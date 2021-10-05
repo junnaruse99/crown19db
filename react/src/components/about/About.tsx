@@ -37,7 +37,7 @@ function ContributorExhibit(props: any) {
     <div className="about-contributor">
       <div className="about-contributor-child">
         <h4>{contributor.name}</h4>
-        <img src={contributor.photo} className="about-contributor-pfp" />
+        <img src={contributor.photo} alt="contributor" className="about-contributor-pfp" />
       </div>
 
       <div className="about-contributor-child">
@@ -160,7 +160,7 @@ async function getContributors() {
         var rawCommitStat = data[JSON.parse(key)];
         totalStats.gitInfo.numCommits += rawCommitStat.commits;
         contributors.forEach((contributor: ContributorInfo) => {
-          if (contributor.gitInfo.email == rawCommitStat.email) {
+          if (contributor.gitInfo.email === rawCommitStat.email) {
             contributor.gitInfo.numCommits = rawCommitStat.commits;
           }
         });
@@ -177,7 +177,7 @@ async function getContributors() {
         var rawIssueStat = data[JSON.parse(key)];
         totalStats.gitInfo.numIssues++;
         contributors.forEach((contributor: ContributorInfo) => {
-          if (contributor.gitInfo.username == rawIssueStat.author.username) {
+          if (contributor.gitInfo.username === rawIssueStat.author.username) {
             contributor.gitInfo.numIssues++;
           }
         });
