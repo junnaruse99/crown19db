@@ -17,7 +17,7 @@ const CovidCases = () => {
                 </tr>
             </thead>
             <tbody>
-                {covidcases.map( covid => (    
+                {covidcases.slice(0, 3).map( covid => (    
                     <Covid 
                     key={covid.Date}
                     covid={covid} 
