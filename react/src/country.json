@@ -9,7 +9,8 @@
             "Flag": "https://www.countryflags.io/us/flat/64.png",
             "Area": "3.797 million mi²",
             "Map": "",
-            "Capital": "Washington DC"
+            "Capital": "Washington DC",
+            "Covid": "10/2/21"
         },
         {
             "id": 2,
@@ -20,7 +21,8 @@
             "Flag": "https://www.countryflags.io/mx/flat/64.png",
             "Area": "761,600 mi²",
             "Map": "", 
-            "Capital": "Mexico City"
+            "Capital": "Mexico City",
+            "Covid": "10/2/21"
         },
         {
             "id": 3,
@@ -31,7 +33,8 @@
             "Flag": "https://www.countryflags.io/ca/flat/64.png",
             "Area": "3.855 million mi²",
             "Map": "",
-            "Capital": "Ottawa"
+            "Capital": "Ottawa",
+            "Covid": "10/2/21"
         }
     ]
 }

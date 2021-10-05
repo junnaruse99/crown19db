@@ -1,6 +1,6 @@
 import React from 'react';
 import countries from './splashAssets/countries.jpg'
-import covid from './splashAssets/bgimage1.jpeg'
+import covid from './splashAssets/covid.jpeg'
 import cities from './splashAssets/cities.jpeg'
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';

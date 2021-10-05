@@ -50,6 +50,8 @@ const CountryInstance = () => {
                                             <th scope="row">Captial</th>
                                             <td><Link to={"/city/"+ country.Capital}>{country.Capital}</Link></td>
                                             </tr>
+                                            <th scope="row">Last Date of Covid Case</th>
+                                            <td><Link to={"/covid/"+ country.Covid.replace(/\//g, '-')}>{country.Covid}</Link></td>
                                         </tbody>
                                     </table>
                                 </p>
