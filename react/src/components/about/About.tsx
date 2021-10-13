@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import adamPFP from './pfp/adam-pfp.jpg';
 import alejandroPFP from './pfp/alejandro-pfp.jpg';
-import dustanPFP from './pfp/dustan-pfp.jpg';
+import nicholasPFP from './pfp/nicholas-pfp.jpg';
 import markPFP from './pfp/mark-pfp.jpg';
 import junPFP from './pfp/jun-pfp.jpg';
 import './About.css';
@@ -122,14 +122,16 @@ async function getContributors() {
     gitInfo: new GitInfo('alejandro_balderas@utexas.edu', 'alejandrobk'),
   };
 
-  var dustanStats: ContributorInfo = {
-    name: 'Dustan Helm',
-    photo: dustanPFP,
-    bio: 'Dustan is a 4th year computer science student and likes to play guitar, volleyball, and video games',
+  var nicholasStats: ContributorInfo = {
+    name: 'Nicholas Huang',
+    photo: nicholasPFP,
+    bio: 'Nicholas fell in love with programming since high school and has been coding \
+          ever since. Now, he is very proud to work as a developer for CovidDB, working \
+          long hours to ensure that users get all the COVID-19 information that they need',
     responsibilities: [
       'Hosting (AWS/Namecheap)',
       'Technical Report'],
-    gitInfo: new GitInfo('dustan.helm@yahoo.com', 'dustan.helm'),
+    gitInfo: new GitInfo('nhua5610@gmail.com', 'OddJerbb'),
   };
 
   var junStats: ContributorInfo = {
@@ -166,7 +168,7 @@ async function getContributors() {
   var contributors: Array<ContributorInfo> = [
     alejandroStats,
     markStats,
-    dustanStats,
+    nicholasStats,
     junStats,
     adamStats,
     totalStats,
