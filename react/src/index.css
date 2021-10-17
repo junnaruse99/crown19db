@@ -21,7 +21,7 @@ a {
   color: inherit;
 }
 
-/* PAGINATION */
+/* START OF PAGINATION */
 .pagination-active {
   border-radius: 10%;
   background-color: #0096ff;
@@ -30,7 +30,7 @@ a {
 
 .pagination li {
   padding: .4em;
-  font-size:1.25em;
+  font-size:1em;
   height: auto;
   width: 5vh;
   text-align: center;
@@ -38,10 +38,14 @@ a {
   border-bottom:1px solid #D3D3D3;
 }
 
-.pagination li:nth-child(2) {
+.pagination li:first-child, .pagination li:last-child {
+  border:None;
+}
+
+
+.pagination li:nth-child(2), .pagination li:nth-last-child(1){
   border-left:1px solid #D3D3D3;
 }
 
-.pagination li:nth-child(19) {
-  border-right:1px solid #D3D3D3;
-}
+
+/* END OF PAGINATION */

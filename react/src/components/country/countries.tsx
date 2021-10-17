@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Country from './country';
 import ReactPaginate from 'react-paginate';
 
 const Countries = () => {
     const {countries} = require('../../country.json');
 
+    const [currentCountries, setCurrentCountries] = useState(countries.slice(0, 9));
+
     const handlePageClick = (data) => {
-        console.log('click' + data)
+        setCurrentCountries(countries.slice(data.selected*9, data.selected*9+9))
     }
 
     return ( 
@@ -27,7 +29,7 @@ const Countries = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {countries.map( country => (    
+                        {currentCountries.map( country => (    
                             <Country 
                             key={country.id}
                             country={country} 
@@ -37,14 +39,15 @@ const Countries = () => {
                 </table>
             </div>
             <div className="row">
-                <h3>{"There are " + countries.length + " countries"}</h3>
+                {"There are " + countries.length + " countries"}
             </div>
+            {/* Pagination css is in index.css */}
             <div className="row d-flex justify-content-center">
                 <ReactPaginate
                     previousLabel={'<<'}
                     nextLabel={'>>'}
                     breakLabel={'...'}
-                    pageCount={20}
+                    pageCount={countries.length/10}
                     marginPagesDisplayed={1}
                     pageRangeDisplayed={4}
                     onPageChange={handlePageClick}

@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Covid from './covid';
+import ReactPaginate from 'react-paginate';
 
 const CovidCases = () => {
     const covidcases = require('../../covid.json');
+
+    const [currentCovidCases, setCurrentCovidCases] = useState(covidcases.slice(0, 9));
+
+    const handlePageClick = (data) => {
+        setCurrentCovidCases(covidcases.slice(data.selected*9, data.selected*9+9))
+    }
+
     return ( 
         <div className='container'>
             <div className="row">
@@ -18,7 +26,7 @@ const CovidCases = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {covidcases.slice(0, 3).map( covid => (    
+                        {currentCovidCases.map( covid => (    
                             <Covid 
                             key={covid.Date}
                             covid={covid} 
@@ -28,9 +36,22 @@ const CovidCases = () => {
                 </table>
             </div>
             <div className="row">
-                <h3>{"There are " + covidcases.slice(0, 3).length + " covid dates"}</h3>
+                {"There are " + covidcases.length + " covid dates"}
             </div>
-        
+            {/* Pagination css is in index.css */}
+            <div className="row d-flex justify-content-center">
+                <ReactPaginate
+                    previousLabel={'<<'}
+                    nextLabel={'>>'}
+                    breakLabel={'...'}
+                    pageCount={covidcases.length/10}
+                    marginPagesDisplayed={1}
+                    pageRangeDisplayed={4}
+                    onPageChange={handlePageClick}
+                    containerClassName={'pagination'}
+                    activeClassName={'pagination-active'}
+                />
+            </div>
         </div>
     )
 }
