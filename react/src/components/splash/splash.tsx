@@ -16,8 +16,8 @@ const Splash = () => {
             <p>Select the information you are after today.</p>
             <div className="container">
                 <Row>
-                    <Col> 
-                        <Card style={{ width: '24rem', height: '24rem'} }>
+                    <Col className='col-12 col-md-4 mb-2'> 
+                        <Card className='w-100 h-100'>
                             <a className="card-block stretched-link text-decoration-none" href="/country">
                             <Card.Img className="splash-card-image" variant="top" src={countries} />
                             <Card.Body>
@@ -29,8 +29,8 @@ const Splash = () => {
                             </a>
                         </Card>
                     </Col>
-                    <Col> 
-                        <Card style={{ width: '24rem', height: '24rem' }}>
+                    <Col className='col-12 col-md-4 mb-2'> 
+                        <Card className='mb-2 w-100 h-100'>
                             <a className="card-block stretched-link text-decoration-none" href="/city">
                             <Card.Img className="splash-card-image" variant="top" src={cities} />
                             <Card.Body>
@@ -42,8 +42,8 @@ const Splash = () => {
                             </a>
                         </Card>
                     </Col>
-                    <Col> 
-                        <Card style={{ width: '24rem', height: '24rem' }}>
+                    <Col className='col-12 col-md-4 mb-2'> 
+                        <Card className='mb-2 w-100 h-100'>
                         <a className="card-block stretched-link text-decoration-none" href="/covid">
                             <Card.Img className="splash-card-image" variant="top" src={covid} />
                             <Card.Body>
