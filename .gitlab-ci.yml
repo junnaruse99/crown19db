@@ -24,7 +24,7 @@ deploy_develop:
     - pip install awsebcli --upgrade --user
     - git checkout dev
   script:
-	  - $AWS_DEV_DEPLOY
+    - $AWS_DEV_DEPLOY
     - cd back
     - /root/.local/bin/eb deploy coviddb-api-prod # TODO change to coviddb-api-dev
 
