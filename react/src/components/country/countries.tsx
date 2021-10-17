@@ -1,8 +1,14 @@
 import React from 'react';
 import Country from './country';
+import ReactPaginate from 'react-paginate';
 
 const Countries = () => {
     const {countries} = require('../../country.json');
+
+    const handlePageClick = (data) => {
+        console.log('click' + data)
+    }
+
     return ( 
         <div className='container'>
             <div className="row">
@@ -32,6 +38,19 @@ const Countries = () => {
             </div>
             <div className="row">
                 <h3>{"There are " + countries.length + " countries"}</h3>
+            </div>
+            <div className="row d-flex justify-content-center">
+                <ReactPaginate
+                    previousLabel={'<<'}
+                    nextLabel={'>>'}
+                    breakLabel={'...'}
+                    pageCount={20}
+                    marginPagesDisplayed={1}
+                    pageRangeDisplayed={4}
+                    onPageChange={handlePageClick}
+                    containerClassName={'pagination'}
+                    activeClassName={'pagination-active'}
+                />
             </div>
         </div>
     )
