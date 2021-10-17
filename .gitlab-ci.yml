@@ -22,11 +22,11 @@ deploy_develop:
   stage: deploy
   before_script:
     - pip install awsebcli --upgrade --user
-    - cd back
     - chmod +x ./.eb-config.sh
     - ./.eb-config.sh
     - git checkout dev
   script:
+    - cd back
     - /root/.local/bin/eb deploy coviddb-api-prod # TODO change to coviddb-api-dev
 
 deploy_production:
