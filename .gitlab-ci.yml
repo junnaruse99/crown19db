@@ -1,4 +1,9 @@
+stages:
+  - deploy
+  - run
+
 npm-run:
+  stage: run
   image: pooepw/coviddb:dev # change to correct image
   script:
   - ls
@@ -8,9 +13,6 @@ npm-run:
   - CI=false npm run-script build
 
 image: node:latest
-
-stages:
-  - deploy
 
 deploy_develop:
   image: python:3.6-stretch
