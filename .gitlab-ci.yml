@@ -6,5 +6,34 @@ npm-run:
   - ls
   - npm install
   - CI=false npm run-script build
-  
-  
+
+image: node:latest
+
+stages:
+  - deploy
+
+deploy_develop:
+  image: python:3.6-stretch
+  only:
+    variables:
+      - $CI_COMMIT_BRANCH == "dev"
+  stage: deploy
+  before_script:
+    - pip install awsebcli --upgrade --user
+    - git checkout dev
+  script:
+    - cd back
+    - /root/.local/bin/eb deploy coviddb-api-prod # TODO change to coviddb-api-dev
+
+deploy_production:
+  image: python:3.6-stretch
+  only:
+    variables:
+      - $CI_COMMIT_BRANCH == "main"
+  stage: deploy
+  before_script:
+    - pip install awsebcli --upgrade --user
+    - git checkout main
+  script:
+    - cd back
+    - /root/.local/bin/eb deploy coviddb-api-prod
