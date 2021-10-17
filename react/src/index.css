@@ -20,3 +20,28 @@ a {
   text-decoration: None;
   color: inherit;
 }
+
+/* PAGINATION */
+.pagination-active {
+  border-radius: 10%;
+  background-color: #0096ff;
+  color: #FFFFFF;
+}
+
+.pagination li {
+  padding: .4em;
+  font-size:1.25em;
+  height: auto;
+  width: 5vh;
+  text-align: center;
+  border-top:1px solid #D3D3D3;
+  border-bottom:1px solid #D3D3D3;
+}
+
+.pagination li:nth-child(2) {
+  border-left:1px solid #D3D3D3;
+}
+
+.pagination li:nth-child(19) {
+  border-right:1px solid #D3D3D3;
+}
