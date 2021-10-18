@@ -1,0 +1,51 @@
+@startuml
+Country <|..|> Covid
+Country <|..|> City
+Country <|.. CovidInstance
+
+class Country {
+  int id 
+  varchar[20] name
+  varchar[50] GDP
+  varchar[50] Population
+  varchar[50] PopulationDensity
+  varchar[500] Flag
+  varchar[25] Area
+  int capitalId
+  Float Latitude
+  Float Longitude
+}
+
+class City {
+  int id 
+  varchar[20] Name
+  Float Latitude
+  Float Longitude
+  int Population
+  varchar[30] TimeZone
+  int countryId 
+  varchar[500] cityImg
+}
+
+class Covid {
+  int id 
+  int countryId 
+  int totalCases
+  int totalRecovered
+  int totalDeaths
+  Date lastCovidCase
+}
+
+class CovidInstance {
+  int id 
+  Date Date
+  int countryId 
+  int Cases
+  int Recovered
+  int Deaths
+  int getTotalCases(int countryId)
+  int getTotalRecovered(int countryId)
+  int getTotalDeaths(int countryId)
+  int getLastCovidCase(int countryId)
+}
+@enduml
