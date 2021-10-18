@@ -14,6 +14,14 @@ db = SQLAlchemy()
 
 
 
+class Students(db.Model):
+   id = db.Column('student_id', db.Integer, primary_key = True)
+   name = db.Column(db.String(100))
+   city = db.Column(db.String(50))  
+   addr = db.Column(db.String(200))
+   pin = db.Column(db.String(10))
+
+db.create_all()
 
 @app.route("/")
 @app.route("/v1")
@@ -23,9 +31,12 @@ db = SQLAlchemy()
 @app.route("/v1/models/covid")
 def index():
     postmanUrl = "https://documenter.getpostman.com/view/17756516/UUy4cRDr"
-    return f"\
+    output = f"\
         To learn how to use CovidDB's API, please visit our\
         <a href=\"{postmanUrl}\">Postman</a> documentation."
+    all_students = Students.query.all()
+    result = 
+    return output
 
 @app.route("/v1/models/country/all", methods=["GET"])
 def get_country_all():
@@ -44,11 +55,13 @@ def get_city(cityName):
     return "city " + cityName
 
 @app.route("/v1/models/covid/all")
-def get_covid_all():
-    return "covid all"
+def get_covid_all():    
+    return open("covid.json", "r").read()
 
 @app.route("/v1/models/covid/country=<countryName>")
 def get_covid(countryName):
+    covidData = json.load(open("covid.json", "r"))
+
     return "covid " + countryName
 
 
