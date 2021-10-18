@@ -10,6 +10,9 @@ JSON_PATH = 'data'
 
 def generateCovidData():
 
+    # In case the is difference in country names
+    countryNames = {'US': 'United States'}
+
     # Get the data and fill with '' all null values
     confirmed = pd.read_csv(os.path.join(ABS_PATH, CONFIRMED_PATH))
     confirmed.fillna(value='', inplace=True)
@@ -36,8 +39,13 @@ def generateCovidData():
     # Merge all three datasets base on the country
     for idx in confirmed.index:
 
+        if idx in countryNames:
+            countryName = countryNames[idx]
+        else:
+            countryName = idx  
+
         aux = {}
-        aux['Country'] = idx
+        aux['Country'] = countryName
         cols = list(confirmed.columns)[4:]
 
         # This variables are to figure out when was the last day that there was a covid case
@@ -60,7 +68,7 @@ def generateCovidData():
         covidInstance.append(aux)
 
         covid.append({
-            'Country': idx,
+            'Country': countryName,
             'Cases': sum(confirmed.loc[idx, cols]),
             'Deaths': sum(deaths.loc[idx, cols]),
             'Recovered': sum(recovered.loc[idx, cols]),
