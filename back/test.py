@@ -3,8 +3,7 @@ imports
 """
 
 import unittest
-import script
-import scrapper
+import app
 
 
 class TestBackend(unittest.TestCase):
@@ -13,11 +12,14 @@ class TestBackend(unittest.TestCase):
         self.assertEqual(True, True)
 
     def test_scrapper(self):
-        scrapper.main()
         pass
 
-    def test_script(self):
+    def test_app(self):
         pass
+
+    def test_error(self):
+        result = app.get_country("Atlantis")
+        self.assertEqual(result.status_code, 404)
 
 if __name__ == '__main__':
     unittest.main()
