@@ -1,16 +1,18 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import App from './App';
 import ShallowRenderer from 'react-test-renderer/shallow';
 import renderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
+import { configure, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16'
 
-import About from './components/about/About';
-import AllCountries from './components/country/countries';
-import CountryMedia from './components/country/countryInstance';
-import AllCities from './components/city/cities';
-import CityMedia from './components/city/cityInstance';
+import App from '../App';
+import About from '../components/about/About';
+import AllCountries from '../components/country/countries';
+import CountryMedia from '../components/country/countryInstance';
+import AllCities from '../components/city/cities';
+import CityMedia from '../components/city/cityInstance';
 
+configure({ adapter: new Adapter() });
 
 // References: 
 // https://testing-library.com/docs/queries/about/
@@ -55,31 +57,40 @@ test('render component template', () => {
 });
 
 // https://jestjs.io/docs/snapshot-testing
+// on the first run of npm test, __snapshots__ is created
+// and future runs of npm test will check against it
 test('snapshot template', () => {
     
+    //expect().toMatchSnapshot();
+});
+
+test('Splash section render', () => {
+    const levelOne = shallow(<App />);
+    expect(levelOne).toMatchSnapshot();
 });
 
 test('About section render', () => {
     const levelOne = shallow(<About />);
+    expect(levelOne).toMatchSnapshot();
 
 });
 
 test('Country Model section render', () => {
     const levelOne = shallow(<AllCountries />);
-
+    expect(levelOne).toMatchSnapshot();
 });
 
-test('Country Instance section render', () => {
-    const levelOne = shallow(<CountryMedia />);
-
-});
+// test('Country Instance section render', () => {
+//     const levelOne = shallow(<CountryMedia />);
+//     expect(levelOne).toMatchSnapshot();
+// });
 
 test('City Model section render', () => {
     const levelOne = shallow(<AllCities />);
-
+    expect(levelOne).toMatchSnapshot();
 });
 
-test('City Instance section render', () => {
-    const levelOne = shallow(<CityMedia />);
-
-});
+// test('City Instance section render', () => {
+//     const levelOne = shallow(<CityMedia />);
+//     expect(levelOne).toMatchSnapshot();
+// });

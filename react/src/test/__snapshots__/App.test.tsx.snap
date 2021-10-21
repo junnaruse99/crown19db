@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`About section render 1`] = `ShallowWrapper {}`;
+
+exports[`City Model section render 1`] = `ShallowWrapper {}`;
+
+exports[`Country Model section render 1`] = `ShallowWrapper {}`;
+
+exports[`Splash section render 1`] = `ShallowWrapper {}`;
