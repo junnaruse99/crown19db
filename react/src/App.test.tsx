@@ -7,10 +7,8 @@ import { shallow } from 'enzyme';
 
 import About from './components/about/About';
 import AllCountries from './components/country/countries';
-import CountryRow from './components/country/country';
 import CountryMedia from './components/country/countryInstance';
 import AllCities from './components/city/cities';
-import CityRow from './components/city/city';
 import CityMedia from './components/city/cityInstance';
 
 
@@ -63,5 +61,25 @@ test('snapshot template', () => {
 
 test('About section render', () => {
     const levelOne = shallow(<About />);
+
+});
+
+test('Country Model section render', () => {
+    const levelOne = shallow(<AllCountries />);
+
+});
+
+test('Country Instance section render', () => {
+    const levelOne = shallow(<CountryMedia />);
+
+});
+
+test('City Model section render', () => {
+    const levelOne = shallow(<AllCities />);
+
+});
+
+test('City Instance section render', () => {
+    const levelOne = shallow(<CityMedia />);
 
 });
