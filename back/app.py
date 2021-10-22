@@ -92,43 +92,43 @@ class CovidInstance(db.Model):
 db.create_all()
 
 
-@app.route("/v1/models/country/all", methods=["GET"])
+@app.route("/api/v1/models/country/all", methods=["GET"])
 def get_country_all():
     return Country.query.all()
 
-@app.route("/v1/models/country/name=<countryName>", methods=["GET"])
-def get_country(countryName):
-    country = Country.query.filter_by(name=countryName).first_or_404(description='There is no data with {}'.format(countryName))
+@app.route("/api/v1/models/country/id=<countryId>", methods=["GET"])
+def get_country(countryId):
+    country = Country.query.filter_by(name=countryId).first_or_404(description='There is no data with {}'.format(countryId))
     return country.id
 
-@app.route("/v1/models/city/all")
+@app.route("/api/v1/models/city/all")
 def get_city_all():
     # TODO query database
     return "city all"
 
-@app.route("/v1/models/city/name=<cityName>")
-def get_city(cityName):
+@app.route("/api/v1/models/city/id=<cityId>")
+def get_city(cityId):
     # TODO query database
-    return "city " + cityName
+    return "city " + cityId
 
-@app.route("/v1/models/covid/all")
+@app.route("/api/v1/models/covid/all")
 def get_covid_all():
     # TODO query database
     return open("covid.json", "r").read()
 
-@app.route("/v1/models/covid/country=<countryName>")
-def get_covid(countryName):
+@app.route("/api/v1/models/covid/id=<countryId>")
+def get_covid(countryId):
     # TODO query database
     covidData = json.load(open("covid.json", "r"))
-    return "covid " + countryName
+    return "covid " + countryId
 
-# TODO(adam) prepend /api
 @app.route("/")
-@app.route("/v1")
-@app.route("/v1/models")
-@app.route("/v1/models/country")
-@app.route("/v1/models/city")
-@app.route("/v1/models/covid")
+@app.route("/api")
+@app.route("/api/v1")
+@app.route("/api/v1/models")
+@app.route("/api/v1/models/country")
+@app.route("/api/v1/models/city")
+@app.route("/api/v1/models/covid")
 def index():
     postmanUrl = "https://documenter.getpostman.com/view/17756516/UUy4cRDr"
     output = f"\
