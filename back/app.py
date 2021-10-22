@@ -1,6 +1,8 @@
 # To run the API server locally:
 # - cd back
 # - pip install flask
+# - sudo apt-get install libpq-dev
+# - pip install psycopg2
 # - python app.py
 # - localhost:5000
 # To deploy the API server to prod:
@@ -15,6 +17,7 @@ from Controller.City import City
 app = Flask(__name__)
 app.config['QLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# TODO read-in username and password
 app.config ['SQLALCHEMY_DATABASE_URI'] = \
     "postgresql+psycopg2://coviddb:crown19db!"\
     "@crown19db.ck9wwhipyc5v.us-west-2.rds.amazonaws.com:5432/postgres"
@@ -25,7 +28,7 @@ country_schema = CountrySchema()
 
 #### TODO Join Currency, Language and TimeZone tables to country tables (This information I was planning on using it for the instance)
 
-@app.route("/v1/models/country/all", methods=["GET"])
+@app.route("/api/v1/models/country/all", methods=["GET"])
 def get_country_all():
     # Country.query.'' returns an object so use of the schema to transform it into an object
     countries = [country_schema.dump(country_obj) for country_obj in Country.query.all()]
