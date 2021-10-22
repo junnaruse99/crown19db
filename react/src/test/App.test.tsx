@@ -19,6 +19,7 @@ configure({ adapter: new Adapter() });
 // https://jestjs.io/docs/snapshot-testing
 // https://enzymejs.github.io/enzyme/docs/api/shallow.html
 // https://reactjs.org/docs/shallow-renderer.html
+// https://gitlab.com/forbesye/fitsbits/-/tree/master/front-end/src/__tests__
 
 /**
  * Simply expects the amount of times a particular piece of text 
