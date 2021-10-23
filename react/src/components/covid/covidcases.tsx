@@ -60,29 +60,3 @@ const CovidCases = () => {
 }
  
 export default CovidCases;
-
-
-
-{/* <div className='container'>
-            <div className="row">
-            <h2>Covid Entry</h2>
-                <table className="table">
-                    <thead className="thead-dark">
-                        <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">Number of cases</th>
-                        <th scope="col">Number of deaths</th>
-                        <th scope="col">Number of recovers</th>
-                        <th scope="col">Country with most cases</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {currentCovidCases.map( covid => (    
-                            <Covid 
-                            key={covid.Date}
-                            covid={covid} 
-                            />
-                        ))}
-                    </tbody>
-                </table>
-            </div> */}
