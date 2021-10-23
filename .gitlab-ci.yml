@@ -1,10 +1,11 @@
 stages:
   - deploy
   - run
+  - test
 
 npm-run:
   stage: run
-  image: pooepw/coviddb:dev # change to correct image
+  image: pooepw/coviddb:dev
   script:
   - ls
   - cd react
@@ -43,3 +44,18 @@ deploy_production:
     - git checkout main
   script:
     - /root/.local/bin/eb deploy coviddb-api-prod
+
+postman_tests:
+  stage: test
+  image: 
+    name: postman/newman_alpine33
+    entrypoint: [""]
+  script:
+    - newman --version
+
+backend_tests:
+  stage: test
+  script:
+    - cd back
+    - pip install -r requirements.txt
+    - python test.py
