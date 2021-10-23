@@ -36,32 +36,29 @@ function ContributorExhibit(props: any) {
   return (
     <div className="container">
       <div className="about-contributor card">
-        <div className="about-contributor-child" style={{textAlign: "center"}}>
-          <h4>{contributor.name}</h4>
+        <h4 style={{textAlign: "center", marginTop: '15px'}}>{contributor.name}</h4>
+        <div className="about-contributor-header">
           <img src={contributor.photo} alt="contributor" className="about-contributor-pfp" />
         </div>
 
         <div className="about-contributor-child">
-          <p>
-            <h6>Bio:</h6>
-            <ul>
-              <li>{contributor.bio}</li>
-            </ul>
-          </p>
-
-          <h6>Responsibilities:</h6>
-          <ul>{
-            contributor.responsibilities.map( responsibility => (
-              <li>{responsibility}</li>
+          <h6 style={{textAlign: "center", fontSize: '20px'}}>Responsibilities:</h6>
+          <div className='contributor-block'>{
+            contributor.responsibilities.map(responsibility => (
+                <span>{responsibility}<br /></span>
             ))
-          }</ul>
+          }</div>
 
-          <h6>Contributions:</h6>
-          <ul>
-            <li>Number of commits: {contributor.gitInfo.numCommits + ''}</li>
-            <li>Number of issues: {contributor.gitInfo.numIssues + ''}</li>
-            <li>Number of unit tests: {contributor.gitInfo.numUnitTests + ''}</li>
-          </ul>
+          <h6 style={{textAlign: "center", fontSize: '20px'}}>Contributions:</h6>
+          <div className='contributor-block'>
+            <span>{contributor.gitInfo.numCommits + ''} Commits, </span>
+            <span>{contributor.gitInfo.numIssues + ''} Issues, </span>
+            <span>{contributor.gitInfo.numUnitTests + ''} Unit Tests</span>
+          </div>
+          
+          <p style={{textAlign: "justify"}}>
+            {contributor.bio}
+          </p>
         </div>
       </div>
     </div>
