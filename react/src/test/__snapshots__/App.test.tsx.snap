@@ -6,4 +6,6 @@ exports[`City Model section render 1`] = `ShallowWrapper {}`;
 
 exports[`Country Model section render 1`] = `ShallowWrapper {}`;
 
+exports[`Navbar test 1`] = `ShallowWrapper {}`;
+
 exports[`Splash section render 1`] = `ShallowWrapper {}`;

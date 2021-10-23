@@ -81,17 +81,22 @@ test('Country Model section render', () => {
     expect(levelOne).toMatchSnapshot();
 });
 
-// test('Country Instance section render', () => {
-//     const levelOne = shallow(<CountryMedia />);
-//     expect(levelOne).toMatchSnapshot();
-// });
+test('Country Instance section render', () => {
+    const levelOne = shallow(<CountryMedia />);
+    expect(levelOne).toMatchSnapshot();
+});
 
 test('City Model section render', () => {
     const levelOne = shallow(<AllCities />);
     expect(levelOne).toMatchSnapshot();
 });
 
-// test('City Instance section render', () => {
-//     const levelOne = shallow(<CityMedia />);
-//     expect(levelOne).toMatchSnapshot();
-// });
+test('City Instance section render', () => {
+    const levelOne = shallow(<CityMedia />);
+    expect(levelOne).toMatchSnapshot();
+});
+
+test('Navbar test', () => {
+    const levelOne = shallow(<AllCities />);
+    expect(levelOne).toMatchSnapshot();
+});
