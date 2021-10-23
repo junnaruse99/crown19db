@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 const Covid = ({ covid }) => {
     let day = covid.date.slice(0, 10).replace(/-/g, '/');
     let countryName = covid.country.replace(/\s/g, '-');
+<<<<<<< HEAD
 
     const history = useHistory();
     const handleRowClick = () => {
@@ -14,6 +15,10 @@ const Covid = ({ covid }) => {
     
     return(
         <tr onClick={handleRowClick} style={{'cursor': 'pointer'}}>
+=======
+    return(
+        <tr>
+>>>>>>> 5bddd1cd040919cbb00439ea2e7f0497944086d3
         <th scope="row"><Link to={"/covid/" + countryName}>{covid.country}</Link></th>
         <td>{covid.confirmed}</td>
         <td>{covid.deaths}</td>
