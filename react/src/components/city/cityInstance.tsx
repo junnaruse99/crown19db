@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import SimpleMap from '../map/SimpleMap';
@@ -54,12 +55,9 @@ const CityInstance = () => {
                                             <th scope="row">Country</th>
                                             <td><Link to={"/country/"+ city['country/province/state']}>{city['country/province/state']}</Link></td>
                                             </tr>
-                                            <tr>
-                                            <th scope="row">Last date of covid case</th>
-                                            <td><Link to={"/covid/"+ date}>{city.covid}</Link></td>
-                                            </tr>
                                         </tbody>
                                     </table>
+                                    <a href={"/covid/" + city['country/province/state'].replace(/ /g, '-')} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{city['country/province/state']}'s Covid Data</a>
                                 </p>
                             </div>
                         </div>

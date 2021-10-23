@@ -3,7 +3,8 @@ import Covid from './covid';
 import ReactPaginate from 'react-paginate';
 
 const CovidCases = () => {
-    const covidcases = require('../../covid.json');
+    // const covidcases = require('../../covid.json');
+    const covidcases = require('../../covidTotals.json');
 
     const [currentCovidCases, setCurrentCovidCases] = useState(covidcases.slice(0, 9));
 
@@ -14,21 +15,23 @@ const CovidCases = () => {
     return ( 
         <div className='container'>
             <div className="row">
-            <h2>Covid Entry</h2>
+            <h2>Country Covid Data</h2>
                 <table className="table">
                     <thead className="thead-dark">
                         <tr>
-                        <th scope="col">Date</th>
+                        <th scope="col">Country</th>
                         <th scope="col">Number of cases</th>
                         <th scope="col">Number of deaths</th>
-                        <th scope="col">Number of recovers</th>
-                        <th scope="col">Country with most cases</th>
+                        <th scope="col">Number of recovered</th>
+                        <th scope="col">Last updated</th>
+                        <th scope="col">Country Info</th>
+                        <th scope="col">Capital</th>
                         </tr>
                     </thead>
                     <tbody>
                         {currentCovidCases.map( covid => (    
                             <Covid 
-                            key={covid.Date}
+                            key={covid.country}
                             covid={covid} 
                             />
                         ))}
@@ -57,3 +60,29 @@ const CovidCases = () => {
 }
  
 export default CovidCases;
+
+
+
+{/* <div className='container'>
+            <div className="row">
+            <h2>Covid Entry</h2>
+                <table className="table">
+                    <thead className="thead-dark">
+                        <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Number of cases</th>
+                        <th scope="col">Number of deaths</th>
+                        <th scope="col">Number of recovers</th>
+                        <th scope="col">Country with most cases</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {currentCovidCases.map( covid => (    
+                            <Covid 
+                            key={covid.Date}
+                            covid={covid} 
+                            />
+                        ))}
+                    </tbody>
+                </table>
+            </div> */}
