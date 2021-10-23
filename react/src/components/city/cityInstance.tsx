@@ -2,6 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import SimpleMap from '../map/SimpleMap';
+import LocaleInfo from '../localeInfo/localeInfo'
 
 const CityInstance = () => {
     const {cities} = require('../../city.json');
@@ -63,6 +64,12 @@ const CityInstance = () => {
                                 </p>
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        <LocaleInfo
+                            location={cityName}
+                            showNews={true}
+                            showTests={false}/>
                     </div>
                 </div>
             ) : <h2>This page is under construction</h2>} 
