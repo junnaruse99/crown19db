@@ -34,33 +34,35 @@ function ContributorExhibit(props: any) {
   var contributor: ContributorInfo = props.contributor;
 
   return (
-    <div className="about-contributor">
-      <div className="about-contributor-child">
-        <h4>{contributor.name}</h4>
-        <img src={contributor.photo} alt="contributor" className="about-contributor-pfp" />
-      </div>
+    <div className="container">
+      <div className="about-contributor card">
+        <div className="about-contributor-child" style={{textAlign: "center"}}>
+          <h4>{contributor.name}</h4>
+          <img src={contributor.photo} alt="contributor" className="about-contributor-pfp" />
+        </div>
 
-      <div className="about-contributor-child">
-        <p>
-          <h6>Bio:</h6>
+        <div className="about-contributor-child">
+          <p>
+            <h6>Bio:</h6>
+            <ul>
+              <li>{contributor.bio}</li>
+            </ul>
+          </p>
+
+          <h6>Responsibilities:</h6>
+          <ul>{
+            contributor.responsibilities.map( responsibility => (
+              <li>{responsibility}</li>
+            ))
+          }</ul>
+
+          <h6>Contributions:</h6>
           <ul>
-            <li>{contributor.bio}</li>
+            <li>Number of commits: {contributor.gitInfo.numCommits + ''}</li>
+            <li>Number of issues: {contributor.gitInfo.numIssues + ''}</li>
+            <li>Number of unit tests: {contributor.gitInfo.numUnitTests + ''}</li>
           </ul>
-        </p>
-
-        <h6>Responsibilities:</h6>
-        <ul>{
-          contributor.responsibilities.map( responsibility => (
-            <li>{responsibility}</li>
-          ))
-        }</ul>
-
-        <h6>Contributions:</h6>
-        <ul>
-          <li>Number of commits: {contributor.gitInfo.numCommits + ''}</li>
-          <li>Number of issues: {contributor.gitInfo.numIssues + ''}</li>
-          <li>Number of unit tests: {contributor.gitInfo.numUnitTests + ''}</li>
-        </ul>
+        </div>
       </div>
     </div>
   );
@@ -269,16 +271,16 @@ export default function About(props) {
       {/* Name, photo, bio, major responsibilities (ex: frontend vs backend team),  */}
       {/* # of commits, issues, and unit tests contributed of each team member */}
       <h2>Contributors and contributor stats </h2>
-      <p>
-        {
-          contributorStats.map( contributor => (
-            <p>
-              <ContributorExhibit contributor={contributor}/>
-            </p>
-          ))
-        }
-      </p>
-
+      <div className="contributor-container">
+          {
+            contributorStats.map( contributor => (
+              <p>
+                <ContributorExhibit contributor={contributor}/>
+              </p>
+            ))
+          }
+      </div>
+      
       {/* Total # of commits, issues, and unit tests */}
       <h2>Overall project stats</h2>
       <p>
