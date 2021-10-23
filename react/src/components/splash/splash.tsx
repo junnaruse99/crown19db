@@ -5,6 +5,7 @@ import cities from './splashAssets/cities.jpeg'
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import LocaleInfo from '../localeInfo/localeInfo';
 import './splash.css';
 
 const Splash = () => {
@@ -54,6 +55,21 @@ const Splash = () => {
                             </Card.Body>
                         </a>
                         </Card>
+                    </Col>
+                </Row>
+                <br/>
+                <Row>
+                    <Col>
+                        <LocaleInfo
+                        location={'near by'}
+                        showNews={true}
+                        showTests={false}/>
+                    </Col>
+                    <Col>
+                        <LocaleInfo
+                        location={'near by'}
+                        showNews={false}
+                        showTests={true}/>
                     </Col>
                 </Row>
             </div>
