@@ -58,10 +58,20 @@ const Splash = () => {
                     </Col>
                 </Row>
                 <br/>
-                <LocaleInfo
-                    location={'near by'}
-                    showNews={false}
-                    showTests={true}/>
+                <Row>
+                    <Col>
+                        <LocaleInfo
+                        location={'near by'}
+                        showNews={true}
+                        showTests={false}/>
+                    </Col>
+                    <Col>
+                        <LocaleInfo
+                        location={'near by'}
+                        showNews={false}
+                        showTests={true}/>
+                    </Col>
+                </Row>
             </div>
         </div>
     )

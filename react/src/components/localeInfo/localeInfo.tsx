@@ -14,14 +14,15 @@ const LocaleInfo = ({ location, showNews, showTests }) => {
         + 'covid ' + searchType
         + '&count=5';
 
+    const localeInfoHeader = location === 'near by' && showTests ?
+        'Find a COVID test near you:'
+        : location === 'near by' && showNews ?
+            'Discover COVID news near you:'
+            : `COVID ${searchType} in ${location}:`;
+
     return(
         <div style={{'height': '600px', 'width': '100%'}} >
-            {
-                location === 'near by' && showTests ?
-                    <h3>Find a COVID test near you:</h3>
-                    :
-                    <h3>COVID {searchType} in {location}:</h3>
-            }
+            <h3>{localeInfoHeader}</h3>
             <iframe
                 src={searchQuery}
                 height="100%"
