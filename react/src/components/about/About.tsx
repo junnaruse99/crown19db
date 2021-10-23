@@ -51,12 +51,15 @@ function ContributorExhibit(props: any) {
 
           <h6 style={{textAlign: "center", fontSize: '20px'}}>Contributions:</h6>
           <div className='contributor-block'>
-            <span>{contributor.gitInfo.numCommits + ''} Commits, </span>
-            <span>{contributor.gitInfo.numIssues + ''} Issues, </span>
-            <span>{contributor.gitInfo.numUnitTests + ''} Unit Tests</span>
+            <span style={{fontWeight: "bold"}}>{contributor.gitInfo.numCommits + ''} </span>
+            <span> Commits, </span>
+            <span style={{fontWeight: "bold"}}>{contributor.gitInfo.numIssues + ''} </span>
+            <span> Issues, </span>
+            <span style={{fontWeight: "bold"}}>{contributor.gitInfo.numUnitTests + ''} </span>
+            <span>Unit Tests</span>
           </div>
           
-          <p style={{textAlign: "justify"}}>
+          <p>
             {contributor.bio}
           </p>
         </div>
@@ -246,28 +249,26 @@ export default function About(props) {
      */
 
     <div className='container'>
-      <h1>About CovidDB</h1>
-
-      <p></p>
+      <h1 style={{textAlign: "center", fontSize: "50px"}}>About CovidDB</h1><br />
 
       {/* Description of site (purpose, intended users) */}
-      <h2>Purpose</h2>
-      <p>
+      <h2 style={{textAlign: "center"}}>Purpose</h2>
+      <p style={{textAlign: "center"}}>
         In the ever-evolving world of COVID-19, CovidDB is here to help you 
         keep track of your changing health environment. We help you get the
         information you need by organizing information about COVID-19 cases
         per country and city over time.
-      </p>
+      </p><br />
 
       {/* Explanation of the interesting result of integrating disparate data */}
-      <h2>Interesting findings</h2>
-      <p>
+      <h2 style={{textAlign: "center"}}>Interesting findings</h2>
+      <p style={{textAlign: "center"}}>
         It's hard to find APIs that supply COVID data per city.
-      </p>
+      </p><br />
 
       {/* Name, photo, bio, major responsibilities (ex: frontend vs backend team),  */}
       {/* # of commits, issues, and unit tests contributed of each team member */}
-      <h2>Contributors and contributor stats </h2>
+      <h2 style={{textAlign: "center"}}>Contributors and contributor stats </h2><br />
       <div className="contributor-container">
           {
             contributorStats.map( contributor => (
@@ -276,17 +277,18 @@ export default function About(props) {
               </p>
             ))
           }
-      </div>
+      </div><br />
       
       {/* Total # of commits, issues, and unit tests */}
-      <h2>Overall project stats</h2>
-      <p>
-        <ul>
-          <li>Total number of commits: {totalStats?.gitInfo.numCommits + ''}</li>
-          <li>Total number of issues: {totalStats?.gitInfo.numIssues + ''}</li>
-          <li>Total number of unit tests: {totalStats?.gitInfo.numUnitTests + ''}</li>
-        </ul>
-      </p>
+      <h2 style={{textAlign: "center"}}>Overall project stats</h2>
+      <div style={{textAlign: "center"}}>
+        <span style={{fontWeight: "bold"}}>{totalStats?.gitInfo.numCommits + ''} </span>
+        <span>Total Commits, </span>
+        <span style={{fontWeight: "bold"}}>{totalStats?.gitInfo.numIssues + ''} </span>
+        <span>Total Issues, </span>
+        <span style={{fontWeight: "bold"}}>{totalStats?.gitInfo.numUnitTests + ''} </span>
+        <span>Total Unit Tests, </span>
+      </div><br />
 
       {/* Links to APIs and additional data sources, and how each was scraped */}
       <h2>Our sources</h2>
