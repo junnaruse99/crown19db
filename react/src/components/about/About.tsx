@@ -69,26 +69,10 @@ function ContributorExhibit(props: any) {
 }
 
 function SourceExhibit(props: any) {
-/*
-    <li>
-    GitLab contributors API - an API endpoint that returns information
-        about the project in terms of the contributors that have worked
-        on it and how many commits they have made.
-    <ul><li><a href="https://gitlab.com/api/v4/projects/29917081/repository/contributors">
-      https://gitlab.com/api/v4/projects/29917081/repository/contributors
-    </a></li></ul>
-    </li>
-*/
-
   return (
   <div>
     <li>
-      {props.name} - {props.description}
-      <ul>
-        <li>
-          <a href={props.link}>{props.link}</a>
-        </li>
-      </ul>
+      <a href={props.link}>{props.name}</a> - {props.description}
     </li>
   </div>
   );
@@ -340,42 +324,50 @@ export default function About(props) {
       <p>
         <ul>
           <li>
-            HTML - a mark-up language that tells your browser how to display 
-                    our website.
+            <a href="https://www.w3schools.com/html/">HTML</a> -
+            a mark-up language that tells your browser how to display 
+            our website.
           </li>
           <li>
-            Bootstrap - a framework for CSS that makes it easier to write CSS
-                        for our website so our website is appealing to the 
-                        human eye.
+            <a href="https://getbootstrap.com/">Bootstrap</a> -
+            a framework for CSS that makes it easier to write CSS
+            for our website so our website is appealing to the 
+            human eye.
           </li>
           <li>
-            TypeScript - used to implement any dynamic part of the website
-                          (such as dynamic git statistics). Used as an 
-                          alternative to JavaScript so type mismatching can be 
-                          caught at compile time rather than runtime.
+            <a href="https://www.typescriptlang.org/">TypeScript</a> -
+            used to implement any dynamic part of the website
+            (such as dynamic git statistics). Used as an 
+            alternative to JavaScript so type mismatching can be 
+            caught at compile time rather than runtime.
           </li>
           <li>
-            React - used to create the frontend in a component-based way with 
-                    convenientpackages to easily implement things like page 
-                    routing. Mainly serves as an easier way to write HTML and
-                    interweave it with TypeScript.
+            <a href="https://reactjs.org/">React</a> -
+            used to create the frontend in a component-based way with 
+            convenientpackages to easily implement things like page 
+            routing. Mainly serves as an easier way to write HTML and
+            interweave it with TypeScript.
           </li>
           <li>
-            Git - used for version control of source code; helps developers 
-                  work on the same codebase while working on their own systems 
-                  by automatically merging their work into a signle
-                  codebase.
+            <a href="https://git-scm.com/">Git</a> -
+            used for version control of source code; helps developers 
+            work on the same codebase while working on their own systems 
+            by automatically merging their work into a signle
+            codebase.
           </li>
           <li>
-            GitLab - a remote repository that serves as a third party hosting
-                      our codebase in a centralized spot.
+            <a href="https://about.gitlab.com/company/">Gitlab</a> -
+            a remote repository that serves as a third party hosting
+            our codebase in a centralized spot.
           </li>
           <li>
-            AWS - a cloud-based server-hosting platform that hosts our website.
+            <a href="https://aws.amazon.com/">Amazon Web Serivces</a> -
+            a cloud-based server-hosting platform that hosts our website.
           </li>
           <li>
-            Postman - a tool to conveniently and concisely document the API for
-                      our website.
+            <a href="https://www.postman.com/">Postman</a> -
+            a tool to conveniently and concisely document the API for
+            our website.
           </li>
         </ul>
       </p>
@@ -385,6 +377,11 @@ export default function About(props) {
         <a href="https://documenter.getpostman.com/view/17756516/UUy4cRDr">
           https://documenter.getpostman.com/view/17756516/UUy4cRDr
         </a>
+      </p>
+
+      <h2>CovidDB is open-sourced!</h2>
+      <p>
+        You can find our open-source repo on <a href="https://gitlab.com/mgrubbs/coviddb">GitLab</a>
       </p>
       
     </div>
