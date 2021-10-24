@@ -118,5 +118,21 @@ def get_covidInstance_by_countryId(countryId):
 
     return jsonify(covids_obj)
 
+#### ELSE #####
+@app.route("/")
+@app.route("/api")
+@app.route("/api/v1")
+@app.route("/api/v1/models")
+@app.route("/api/v1/models/country")
+@app.route("/api/v1/models/city")
+@app.route("/api/v1/models/covid")
+def index():
+    postmanUrl = "https://documenter.getpostman.com/view/17756516/UUy4cRDr"
+    output = f"\
+        To learn how to use CovidDB's API, please visit our\
+        <a href=\"{postmanUrl}\">Postman</a> documentation."
+    return output
+
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
