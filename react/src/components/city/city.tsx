@@ -1,12 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const City = ({ city }) => {
     // If city name are two or more words, use a '-' as a separator
     let cityName = city.Name.replace(/\s/g, '-');
 
+    const history = useHistory();
+    const handleRowClick = () => {
+        history.push('/city/' + cityName);
+    }
+
     return(
-        <tr>
+        <tr onClick={handleRowClick} style={{'cursor': 'pointer'}}>
         <th scope="row">{city.id}</th>
         <td><Link to={'/city/' + cityName}>{city.Name}</Link></td>
         <td>{city.Latitude}</td>
