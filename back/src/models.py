@@ -136,7 +136,7 @@ class CountrySchema(ma.Schema):
     )
     city = fields.Nested(
         'CitySchema',
-        only=['id'],
+        only=['id', 'name'],
         required=False,
         many=False
     )
@@ -146,8 +146,8 @@ class CountrySchema(ma.Schema):
 class CountrySchemaReduced(ma.Schema):
     id = fields.Integer(required=True)
     officialName = fields.String(required=True)
-    region = fields.String(required=True)
-    subregion = fields.String(required=True)
+    continent = fields.String(required=True)
+    flag = fields.String(required=True)
     area = fields.Integer(required=True)
     population = fields.Integer(required=True)
 
@@ -173,7 +173,7 @@ class CitySchema(ma.Schema):
     longitude = fields.Float(required=True)
     population = fields.Integer(required=True)
     timeZone = fields.String(required=True)
-    country_id = fields.Integer()
+    country_id = fields.Integer(required=True)
 
     class Meta:
         ordered = True

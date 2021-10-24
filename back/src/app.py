@@ -14,7 +14,7 @@ import traceback
 from models import (
     app, Country, Currency, Language, TimeZone, City, CovidInstance, Covid,
     country_schema, language_schema, currency_schema, timezone_schema, city_schema,
-    covid_schema, covidInstance_schema, country_schema_reduced )
+    covid_schema, covidInstance_schema, country_schema_reduced, db )
 from init_db import init_db
 
 #### COUNTRY ####
@@ -51,9 +51,15 @@ def get_country_by_id(id):
 @app.route("/api/v1/models/city/all", methods=["GET"])
 def get_city_all():
     # Country.query.'' returns an object so use of the schema to transform it into an object
-    cities = City.query.all()
+    cities = db.session.query(City, Country.commonName).filter(City.country_id == Country.id).all()
     # jsonify to transform it to json
-    return jsonify([city_schema.dump(city) for city in cities])
+    cities_obj = []
+    for city in cities:
+        city_aux = city_schema.dump(city[0])
+        city_aux['country'] = city[1]
+        cities_obj.append(city_aux)
+
+    return jsonify(cities_obj)
 
 @app.route("/api/v1/models/city/name=<cityName>", methods=["GET"])
 def get_city_by_name(cityName):
@@ -65,17 +71,25 @@ def get_city_by_name(cityName):
 @app.route("/api/v1/models/city/id=<id>", methods=["GET"])
 def get_city_by_id(id):
     # Remeber that format of country name is lower case and separated by '-' and lowercase (POSTMAN)
-    city = City.query.filter_by(id=id).first_or_404(description='There is no data with {}'.format(id))
-    return jsonify(city_schema.dump(city))
+    city = db.session.query(City, Country.commonName).filter(City.id == id, City.country_id == Country.id).first_or_404(description='There is no data with {}'.format(id))
+    city_obj = city_schema.dump(city[0])
+    city_obj['country'] = city[1]
+    return jsonify(city_obj)
 
 
 #### COVID #####
 @app.route("/api/v1/models/covid/all", methods=["GET"])
 def get_covid_all():
     # Country.query.'' returns an object so use of the schema to transform it into an object
-    covids = Covid.query.all()
+    covids = db.session.query(Covid, Country.commonName).filter(Covid.country_id == Country.id).all()
     # jsonify to transform it to json
-    return jsonify([covid_schema.dump(covid) for covid in covids])
+    covids_obj = []
+    for covid in covids:
+        covid_aux = covid_schema.dump(covid[0])
+        covid_aux['country'] = covid[1]
+        covids_obj.append(covid_aux)
+
+    return jsonify(covids_obj)
 
 @app.route("/api/v1/models/covid/country_id=<countryId>", methods=["GET"])
 def get_covid_by_countryId(countryId):
@@ -84,17 +98,25 @@ def get_covid_by_countryId(countryId):
 
 @app.route("/api/v1/models/covid/id=<id>", methods=["GET"])
 def get_covid_by_id(id):
-    # Remeber that format of country name is lower case and separated by '-' and lowercase (POSTMAN)
-    covid = Covid.query.filter_by(id=id).first_or_404(description='There is no data with {}'.format(id))
-    return jsonify(covid_schema.dump(covid))
+    covid = db.session.query(Covid, Country.commonName).filter(Covid.id == id, Covid.country_id == Country.id).first_or_404(description='There is no data with {}'.format(id))
+    covid_obj = covid_schema.dump(covid[0])
+    covid_obj['country'] = covid[1]
+    return jsonify(covid_obj)
 
 # COVID INSTANCE
 
 @app.route("/api/v1/models/covidInstance/country_id=<countryId>", methods=["GET"])
 def get_covidInstance_by_countryId(countryId):
-    # Remeber that format of country name is lower case and separated by '-' and lowercase (POSTMAN)
-    covidInstances = CovidInstance.query.filter_by(country_id=countryId).all()
-    return jsonify([covidInstance_schema.dump(covidInstance) for covidInstance in covidInstances])
+    # Country.query.'' returns an object so use of the schema to transform it into an object
+    covidInstances = db.session.query(CovidInstance, Country.commonName).filter(CovidInstance.country_id == countryId, CovidInstance.country_id == Country.id).all()
+    # jsonify to transform it to json
+    covids_obj = []
+    for covid in covidInstances:
+        covid_aux = covidInstance_schema.dump(covid[0])
+        covid_aux['country'] = covid[1]
+        covids_obj.append(covid_aux)
+
+    return jsonify(covids_obj)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
