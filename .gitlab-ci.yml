@@ -34,4 +34,4 @@ deploy_production:
   before_script:
     - git checkout main
   script:
-    - git checkout dev
+    - git checkout main
