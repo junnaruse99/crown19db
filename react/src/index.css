@@ -41,10 +41,20 @@ a {
   border:None;
 }
 
-
 .pagination li:nth-child(2), .pagination li:nth-last-child(1){
   border-left:1px solid #D3D3D3;
 }
 
-
 /* END OF PAGINATION */
+
+/* START OF MODEL HOVERING */
+.modelrow {
+  cursor: pointer;
+}
+.modelrow:hover {
+  background-color: #0096ff;
+  opacity: 0.5;
+  color: black;
+  font-weight: bold;
+}
+/* END OF MODEL HOVERING */
