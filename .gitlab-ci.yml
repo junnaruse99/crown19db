@@ -23,6 +23,7 @@ deploy_develop:
   before_script:
     - git checkout dev
   script:
+    - git checkout dev
 
 deploy_production:
   image: python:3.6-stretch
@@ -32,3 +33,5 @@ deploy_production:
   stage: deploy
   before_script:
     - git checkout main
+  script:
+    - git checkout dev
