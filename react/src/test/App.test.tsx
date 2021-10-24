@@ -8,7 +8,9 @@ import * as Enzyme from 'enzyme'
 
 import App from '../App';
 import About from '../components/about/About';
+import Country from '../components/country/country';
 import AllCountries from '../components/country/countries';
+import City from '../components/city/city';
 import AllCities from '../components/city/cities';
 import Covid from '../components/covid/covid';
 import CovidCases from '../components/covid/covidcases';
@@ -16,6 +18,8 @@ import CovidDate from '../components/covid/covidDate';
 import CardRow from '../components/covid/cardRow';
 import CovidInstance from '../components/covid/covidInstance'
 import Navbar from '../components/layout/navbar'
+import SimpleMap from '../components/map/SimpleMap'
+import LocaleInfo from '../components/localeInfo/localeInfo'
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -64,13 +68,50 @@ test('Country Model section render', () => {
     expect(levelOne).toMatchSnapshot();
 });
 
+test('Singular Country snapshot test', () => {
+    const dummyInfo = {
+        id: 1,
+        name: "United States",
+        Gdp: "20.94 Trillion Dollars as of 2020",
+        Population: "329.5 million as of 2020",
+        "Population density": "36 (P/Km²)",
+        Flag: "https://www.countryflags.io/us/flat/64.png",
+        Area: "3.797 million mi²",
+        Map: "",
+        Capital: "Washington DC",
+        Latitude: "38.897957",
+        Longitude: "-97.036560",
+        Covid: "10/2/21"
+    }
+    const levelOne = shallow(
+        <Country
+            country={dummyInfo}
+        />);
+    expect(levelOne).toMatchSnapshot();
+});
+
 test('City Model section render', () => {
     const levelOne = shallow(<AllCities />);
     expect(levelOne).toMatchSnapshot();
 });
 
-test('Navbar test', () => {
-    const levelOne = shallow(<Navbar />);
+test('Singular City snapshot test', () => {
+    const dummyInfo = {
+        id: 2,
+        Name: "Mexico City",
+        Latitude: "19.4326",
+        Longitude: "-99.1332",
+        Population: "12,294,193",
+        Map: "",
+        "Time zone": "America/Mexico City",
+        "country/province/state": "Mexico",
+        img: "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i9EEQ2PmgRmI/v1/1200x937.jpg",
+        covid: "10/2/21"
+    }
+    const levelOne = shallow(
+        <City
+            city={dummyInfo}
+        />);
     expect(levelOne).toMatchSnapshot();
 });
 
@@ -89,6 +130,33 @@ test('Card Row for Covid test', () => {
     const levelOne = shallow(
         <CardRow 
             info={dummyInfo}
+        />);
+    expect(levelOne).toMatchSnapshot();
+});
+
+test('Navbar test', () => {
+    const levelOne = shallow(<Navbar />);
+    expect(levelOne).toMatchSnapshot();
+});
+
+test('Map component test', () => {
+    const dummyInfo={center: 
+                        {lat:100,
+                         lng:100},
+                     zoom:10}
+    const levelOne = shallow(
+        <SimpleMap 
+            info={dummyInfo}
+        />);
+    expect(levelOne).toMatchSnapshot();
+});
+
+test('Locale information test', () => {
+    const levelOne = shallow(
+        <LocaleInfo
+            location= "Brazil"
+            showNews={true}
+            showTests={false}
         />);
     expect(levelOne).toMatchSnapshot();
 });
