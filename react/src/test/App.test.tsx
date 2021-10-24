@@ -9,9 +9,7 @@ import * as Enzyme from 'enzyme'
 import App from '../App';
 import About from '../components/about/About';
 import AllCountries from '../components/country/countries';
-import CountryMedia from '../components/country/countryInstance';
 import AllCities from '../components/city/cities';
-import CityMedia from '../components/city/cityInstance';
 import Covid from '../components/covid/covid';
 import CovidCases from '../components/covid/covidcases';
 import CovidDate from '../components/covid/covidDate';
@@ -27,28 +25,6 @@ Enzyme.configure({ adapter: new Adapter() });
 // https://enzymejs.github.io/enzyme/docs/api/shallow.html
 // https://reactjs.org/docs/shallow-renderer.html
 // https://gitlab.com/forbesye/fitsbits/-/tree/master/front-end/src/__tests__
-
-// /**
-//  * Simply expects the amount of times a particular piece of text 
-//  * should be on the screen. 
-//  * Read further from https://testing-library.com/docs/queries/about/
-//  * for more understanding on getBy... or getAllBy...
-//  **/
-// test('renders links', () => {
-//     render(<App />);
-//     const splashLink = screen.getAllByText(/CovidDB/i);
-//     expect(splashLink).toHaveLength(2);
-//     const homeLink = screen.getByText(/Home/i);
-//     expect(homeLink).toBeInTheDocument();
-//     const aboutLink = screen.getByText(/About us/i);
-//     expect(aboutLink).toBeInTheDocument();
-//     const countryModelLink = screen.getByText(/Country/i);
-//     expect(countryModelLink).toBeInTheDocument();
-//     const cityModelLink = screen.getAllByText(/City/i);
-//     expect(cityModelLink).toHaveLength(2);
-//     const covidModelLink = screen.getAllByText(/Covid/i);
-//     expect(covidModelLink).toHaveLength(6);
-// });
 
 // // https://enzymejs.github.io/enzyme/docs/api/shallow.html for shallow
 // // https://reactjs.org/docs/shallow-renderer.html for ShallowRenderer
@@ -88,18 +64,8 @@ test('Country Model section render', () => {
     expect(levelOne).toMatchSnapshot();
 });
 
-test('Country Instance section render', () => {
-    const levelOne = shallow(<CountryMedia />);
-    expect(levelOne).toMatchSnapshot();
-});
-
 test('City Model section render', () => {
     const levelOne = shallow(<AllCities />);
-    expect(levelOne).toMatchSnapshot();
-});
-
-test('City Instance section render', () => {
-    const levelOne = shallow(<CityMedia />);
     expect(levelOne).toMatchSnapshot();
 });
 
@@ -114,7 +80,15 @@ test('Covid Cases test', () => {
 });
 
 test('Card Row for Covid test', () => {
-    let dummyInfo = {"foo", "bar", "foo", "bar", "to", null};
-    const levelOne = shallow(<CardRow />);
+    const dummyInfo={name:"foo",
+                     description:"bar",
+                     condition:false,
+                     Component:"null",
+                     to:"h",
+                     img:null}
+    const levelOne = shallow(
+        <CardRow 
+            info={dummyInfo}
+        />);
     expect(levelOne).toMatchSnapshot();
 });

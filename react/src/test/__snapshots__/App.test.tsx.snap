@@ -2,13 +2,13 @@
 
 exports[`About section render 1`] = `ShallowWrapper {}`;
 
+exports[`Card Row for Covid test 1`] = `ShallowWrapper {}`;
+
 exports[`City Model section render 1`] = `ShallowWrapper {}`;
 
 exports[`Country Model section render 1`] = `ShallowWrapper {}`;
 
 exports[`Covid Cases test 1`] = `ShallowWrapper {}`;
-
-exports[`Covid test 1`] = `ShallowWrapper {}`;
 
 exports[`Navbar test 1`] = `ShallowWrapper {}`;
 

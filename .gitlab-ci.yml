@@ -52,3 +52,10 @@ postman_tests:
     entrypoint: [""]
   script:
     - newman --version
+
+frontend_tests:
+  stage: test
+  script:
+    - cd react
+    - npm install
+    - npm test
