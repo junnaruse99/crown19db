@@ -70,11 +70,11 @@ function ContributorExhibit(props: any) {
 
 function SourceExhibit(props: any) {
   return (
-  <div>
-    <li>
-      <a href={props.link}>{props.name}</a> - {props.description}
-    </li>
-  </div>
+    <div className='about-widget card'>
+      <h4 style={{textAlign: "center"}}>{props.name}</h4>
+      <span style={{textAlign: "justify"}}>{props.description}</span>
+      <a href={props.link} className="stretched-link"></a>
+    </div>
   );
 }
 
@@ -272,22 +272,21 @@ export default function About(props) {
         <span>Total Issues, </span>
         <span style={{fontWeight: "bold"}}>{totalStats?.gitInfo.numUnitTests + ''} </span>
         <span>Total Unit Tests, </span>
-      </div><br />
+      </div><br /><br />
 
       {/* Links to APIs and additional data sources, and how each was scraped */}
-      <h2>Our sources</h2>
-      <p>
-        <ul>
+      <h2 style={{textAlign: "center"}}>Our sources</h2><br />
+      <div className="sources-container">
           <SourceExhibit 
             name={'GitLab contributors API'}
-            description={'an API endpoint that returns information \
+            description={'An API endpoint that returns information \
               about the project in terms of the contributors that have worked \
               on it and how many commits they have made.'}
             link={'https://gitlab.com/api/v4/projects/29917081/repository/contributors'}
           />
           <SourceExhibit 
             name={'GitLab issues API'}
-            description={'an API endpoint that returns information \
+            description={'An API endpoint that returns information \
               about the project in terms of the issues that have been \
               submitted to the repo on GitLab.'}
             link={'https://gitlab.com/api/v4/projects/29917081/issues'}
@@ -316,11 +315,10 @@ export default function About(props) {
             description={'Interactive maps were provided by Google Maps.'}
             link={'https://www.google.com/maps'}
           />
-        </ul>
-      </p>
+      </div>
 
       {/* Tools used and a description of how they were used */}
-      <h2>How we did it</h2>
+      <h2>Tools Used</h2>
       <p>
         <ul>
           <li>
