@@ -1,15 +1,51 @@
-.about-contributor {
-  display: flex;
+.about-contributor {    
   grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
+
+  height: 800px;
+  margin-right: 30px;
+  margin-bottom: 20px;
+}
+
+.about-contributor-header {
+  margin-left: 5%;
+  margin-right: 5%;
+  height: 300px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .about-contributor-child {
   margin-left: 5%;
+  margin-right: 5%;
+  justify-content: center;
 }
 
 .about-contributor-pfp {
   height: auto;
   width: 225px;
   border-radius: 5px;
+}
+
+.contributor-container, .sources-container, .tools-container, .covidDB-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.contributor-block {
+  margin-bottom: 30px;
+  width: auto;
+  text-align: center;
+}
+
+.about-widget {
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.about-widget:hover {
+  background: lightblue;
 }
