@@ -14,7 +14,7 @@ import traceback
 from models import (
     app, Country, Currency, Language, TimeZone, City, CovidInstance, Covid,
     country_schema, language_schema, currency_schema, timezone_schema, city_schema,
-    covid_schema, covidInstance_schema )
+    covid_schema, covidInstance_schema, country_schema_reduced )
 from init_db import init_db
 
 #### COUNTRY ####
@@ -23,7 +23,15 @@ def get_country_all():
     # Country.query.'' returns an object so use of the schema to transform it into an object
     countries = Country.query.all()
     # jsonify to transform it to json
-    return jsonify(countries=[country_schema.dump(country) for country in countries])
+    return jsonify([country_schema.dump(country) for country in countries])
+
+# e.g. .../interval=1-10
+@app.route("/api/v1/models/country/all/reduced", methods=["GET"])
+def get_country_by_ids():
+    # Country.query.'' returns an object so use of the schema to transform it into an object
+    countries = Country.query.all()
+    # jsonify to transform it to json
+    return jsonify([country_schema_reduced.dump(country) for country in countries])
 
 @app.route("/api/v1/models/country/name=<countryName>", methods=["GET"])
 def get_country_by_name(countryName):
@@ -45,7 +53,7 @@ def get_city_all():
     # Country.query.'' returns an object so use of the schema to transform it into an object
     cities = City.query.all()
     # jsonify to transform it to json
-    return jsonify(cities=[city_schema.dump(city) for city in cities])
+    return jsonify([city_schema.dump(city) for city in cities])
 
 @app.route("/api/v1/models/city/name=<cityName>", methods=["GET"])
 def get_city_by_name(cityName):
@@ -67,7 +75,7 @@ def get_covid_all():
     # Country.query.'' returns an object so use of the schema to transform it into an object
     covids = Covid.query.all()
     # jsonify to transform it to json
-    return jsonify(cities=[covid_schema.dump(covid) for covid in covids])
+    return jsonify([covid_schema.dump(covid) for covid in covids])
 
 @app.route("/api/v1/models/covid/country_id=<countryId>", methods=["GET"])
 def get_covid_by_countryId(countryId):

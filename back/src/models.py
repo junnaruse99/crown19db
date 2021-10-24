@@ -2,8 +2,11 @@ from flask import Flask
 from init_db import init_db
 from flask_marshmallow import Marshmallow
 from marshmallow import fields
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 db = init_db(app)
 ma = Marshmallow(app)
 
@@ -140,6 +143,14 @@ class CountrySchema(ma.Schema):
     class Meta:
         ordered = True
 
+class CountrySchemaReduced(ma.Schema):
+    id = fields.Integer(required=True)
+    officialName = fields.String(required=True)
+    region = fields.String(required=True)
+    subregion = fields.String(required=True)
+    area = fields.Integer(required=True)
+    population = fields.Integer(required=True)
+
 class LanguageSchema(ma.Schema):
     id = fields.Int(required=True)
     country_id = fields.Str(required=True)
@@ -192,6 +203,7 @@ class CovidInstanceSchema(ma.Schema):
 
 ##### Instanciating the schemas #####
 country_schema = CountrySchema()
+country_schema_reduced = CountrySchemaReduced()
 language_schema = LanguageSchema()
 currency_schema = CurrencySchema()
 timezone_schema = TimezoneSchema()
