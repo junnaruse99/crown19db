@@ -52,8 +52,20 @@ a {
   cursor: pointer;
 }
 .modelrow:hover {
-  background-color: #0096ff;
-  opacity: 0.5;
-  color: black;
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
 }
 /* END OF MODEL HOVERING */
+
+/* START OF GRID CSS */
+.row-grid {
+  display: grid;
+  grid-template-rows: repeat(auto-fill,minmax(350px,1fr));
+  grid-template-columns: repeat(auto-fill,minmax(270px,1fr));
+  grid-gap: 16px;
+  gap: 16px
+}
+
+.img-card-grid {
+  height: 20vh;
+}
+

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Country from './country';
 import ReactPaginate from 'react-paginate';
 import clientAxios from '../../config/axios';
+import Loading from '../layout/Loading';
 
 const Countries = () => {
 
@@ -10,8 +11,8 @@ const Countries = () => {
         area: number;
         officialName: string;
         population: number;
-        region: string;
-        subregion: string;
+        continent: string;
+        flag: string;
     }
     const [msg, setMsg] = useState('');
     const [countries, setCountries] = useState<Country[]>();
@@ -22,7 +23,7 @@ const Countries = () => {
             const response = await clientAxios.get<Country[]>('/api/v1/models/country/all/reduced' )
                 .then(response => {
                     setCountries(response.data)
-                    setCurrentCountries(response.data.slice(0, 10))
+                    setCurrentCountries(response.data.slice(0, 12))
                 });
         } catch (error) {
             setMsg('There was an error');
@@ -35,7 +36,7 @@ const Countries = () => {
 
     const handlePageClick = (data) => {
         if (countries) {
-            setCurrentCountries(countries.slice(data.selected*10, data.selected*10 + 10))
+            setCurrentCountries(countries.slice(data.selected*12, data.selected*12 + 12))
         }
     }
 
@@ -45,27 +46,15 @@ const Countries = () => {
                 (countries && currentCountries) ?                 
                 <>
                     <div className="row">
-                    <h2>Countries</h2>
-                    <table className="grid">
-                        <thead className="thead-dark">
-                            <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Country</th>
-                            <th scope="col">Area</th>
-                            <th scope="col">Population</th>
-                            <th scope="col">Region</th>
-                            <th scope="col">Subregion</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {currentCountries? currentCountries.map( country => (    
-                                <Country 
-                                key={country.id}
-                                country={country} 
-                                />
-                            )) : <div className="spinner-border">Loading</div>}
-                        </tbody>
-                    </table>
+                        <h2>Countries</h2>
+                    </div>
+                    <div className="row-grid">
+                        {currentCountries? currentCountries.map( country => (    
+                            <Country 
+                            key={country.id}
+                            country={country} 
+                            />
+                        )) : <div className="spinner-border">Loading</div>}
                     </div>
                     <div className="row">
                         {"There are " + countries.length + " countries"}
@@ -76,7 +65,7 @@ const Countries = () => {
                             previousLabel={'<<'}
                             nextLabel={'>>'}
                             breakLabel={'...'}
-                            pageCount={countries.length/10}
+                            pageCount={countries.length/12}
                             marginPagesDisplayed={1}
                             pageRangeDisplayed={4}
                             onPageChange={handlePageClick}
@@ -84,13 +73,7 @@ const Countries = () => {
                             activeClassName={'pagination-active'}
                         />
                     </div>
-                </> :
-                <>
-                    <div className="text-center">
-                        <div className="spinner-border" />
-                        <div>Loading</div>
-                    </div>
-                </>
+                </> : <Loading />
             )}
         </div>
     )
