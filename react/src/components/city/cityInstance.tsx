@@ -47,13 +47,10 @@ const CityInstance = () => {
             {msg ? (<h3> {msg} </h3>) : 
                 city ? (
                     <div className="row align-items-center">
-                        <div className="col-8">
-                            <SimpleMap info={{center:{lat:city.latitude, lng:city.longitude}, zoom:11}}/>
-                        </div>
-                        <div className="col-4">
+                        <div className="col-md-4 col-12">
                             <div className="card">
                                 <h2 className="text-center text-uppercase font-weigh-bold mb-0">{city.name}</h2>
-                                <img className="card-img-top" src={''} alt={city.name}/>
+                                {/* <img className="card-img-top" src={''} alt={city.name}/> */}
                                 <div className="card-body">
                                     <p className="card-text">
                                         <table className="table">
@@ -76,12 +73,15 @@ const CityInstance = () => {
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <a href={"/covid/" + city.name.replace(/ /g, '-')} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{city['country/province/state']}'s Covid Data</a>
+                                        <a href={"/covid/" + city.country_id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{city.country}'s Covid Data</a>
                                     </p>
                                 </div>
-                            </div>
+                            </div><br /><br />
                         </div>
-                        <div>
+                        <div className="col-md-8 col-12">
+                            <SimpleMap info={{center:{lat:city.latitude, lng:city.longitude}, zoom:11}}/>
+                        </div>
+                        <div><br /><br />
                             <LocaleInfo
                                 location={city.name}
                                 showNews={true}
