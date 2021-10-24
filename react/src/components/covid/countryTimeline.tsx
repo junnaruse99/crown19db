@@ -5,6 +5,7 @@ import CovidDate from './covidDate';
 import { Chart} from "react-google-charts";
 import Datetime from 'react-datetime';
 import "react-datetime/css/react-datetime.css";
+import { NumberArray } from 'd3';
 
 
 const CountryTimeline = () => {
@@ -16,10 +17,6 @@ const CountryTimeline = () => {
     country = country.replace(/-/g, ' ');
 
     const [currentCovidCases, setCurrentCovidCases] = useState(covidcases.slice(0, 9));
-
-    let data = prepData()
-    data.unshift(["Deaths Daily", "Recovered Daily", "Cases Daily"])
-    console.log(data)
 
     const handlePageClick = (data) => {
         setCurrentCovidCases(covidcases.slice(data.selected*9, data.selected*9+9))
@@ -67,32 +64,8 @@ const CountryTimeline = () => {
                     activeClassName={'pagination-active'}
                 />
             </div>
-            <div>
-            <Chart
-                width={'100%'}
-                height={'100%'}
-                chartType="LineChart"
-                loader={<div>Loading Chart</div>}
-                data={data}
-                options={{
-                    hAxis: {
-                      title: 'Time',
-                    },
-                    vAxis: {
-                      title: 'Amount',
-                    },
-                    series: {
-                      1: { curveType: 'function' },
-                    },
-                }}
-            />
-            </div>
         </div>
     )
-
-    function prepData(){
-        return currentCovidCases.map(x => [x.deaths_daily, x.recovered_daily, x.cases_daily]);
-    }
 }
 
 
