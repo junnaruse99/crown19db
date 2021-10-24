@@ -1,10 +1,20 @@
+import { useParams } from 'react-router-dom';
 import React, { useState } from 'react';
-import Covid from './covid';
 import ReactPaginate from 'react-paginate';
+import CovidDate from './covidDate';
+import { Chart} from "react-google-charts";
+import Datetime from 'react-datetime';
+import "react-datetime/css/react-datetime.css";
+import { NumberArray } from 'd3';
 
-const CovidCases = () => {
-    // const covidcases = require('../../covid.json');
-    const covidcases = require('../../covidTotals.json');
+
+const CountryTimeline = () => {
+    let { country } = useParams();
+    if (country === "US"){
+        country = "United-States"
+    }
+    const covidcases = require('../../' + country + 'CovidTimeline.json');
+    country = country.replace(/-/g, ' ');
 
     const [currentCovidCases, setCurrentCovidCases] = useState(covidcases.slice(0, 9));
 
@@ -15,24 +25,23 @@ const CovidCases = () => {
     return ( 
         <div className='container'>
             <div className="row">
-            <h2>Country Covid Data</h2>
-                <table className="table">
+            <h2>{country} Covid Timeline</h2>
+                <table className="grid">
                     <thead className="thead-dark">
                         <tr>
-                        <th scope="col">Country</th>
-                        <th scope="col">Number of cases</th>
-                        <th scope="col">Number of deaths</th>
-                        <th scope="col">Number of recovered</th>
-                        <th scope="col">Last updated</th>
-                        <th scope="col">Country Info</th>
-                        <th scope="col">Capital</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Cases daily</th>
+                        <th scope="col">Deaths daily</th>
+                        <th scope="col">Recovered Daily</th>
+                        <th scope="col">Total cases then</th>
+                        <th scope="col">Total deaths then</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {currentCovidCases.map( covid => (    
-                            <Covid 
-                            key={covid.country}
-                            covid={covid} 
+                        {currentCovidCases.map( covidDate => (    
+                            <CovidDate
+                            key={covidDate.timelines}
+                            date={covidDate} 
                             />
                         ))}
                     </tbody>
@@ -58,5 +67,7 @@ const CovidCases = () => {
         </div>
     )
 }
+
+
  
-export default CovidCases;
+export default CountryTimeline;
