@@ -277,7 +277,7 @@ export default function About(props) {
       {/* Links to APIs and additional data sources, and how each was scraped */}
       <h2 style={{textAlign: "center"}}>Our sources</h2><br />
       <div className="sources-container">
-          <SourceExhibit 
+          {/* <SourceExhibit 
             name={'GitLab contributors API'}
             description={'An API endpoint that returns information \
               about the project in terms of the contributors that have worked \
@@ -285,90 +285,83 @@ export default function About(props) {
             link={'https://gitlab.com/api/v4/projects/29917081/repository/contributors'}
           />
           <SourceExhibit 
-            name={'GitLab issues API'}
+            name={'GitLab Issues API'}
             description={'An API endpoint that returns information \
               about the project in terms of the issues that have been \
               submitted to the repo on GitLab.'}
             link={'https://gitlab.com/api/v4/projects/29917081/issues'}
-          />
+          /> */}
           <SourceExhibit 
-            name={'COVID-19 cases data'}
+            name={'COVID-19 Cases Data'}
             description={'Our data about COVID-19 cases is supplied by this \
               API endpoint. The data was compiled by John Hopkins University.'}
             link={'https://data.humdata.org/dataset/novel-coronavirus-2019-ncov-cases'}
           />
-          <SourceExhibit 
-            name={'Country flags'}
-            description={'The below website is used to supply the images of \
-              of country flags that we display.'}
-            link={'https://www.countryflags.io/'}
+           <SourceExhibit 
+            name={'General Country Data'}
+            description={'The below website was used to determine general \
+              information about a country such as it\'s population, timezone, \
+              and coordinates.'}
+            link={'https://restcountries.com/'}
           />
           <SourceExhibit 
-            name={'General city data'}
+            name={'General City Data'}
             description={'The below website was used to determine general \
               information about a city such as it\'s population, timezone, \
               and coordinates.'}
-            link={'https://public.opendatasoft.com/explore/dataset/geonames-all-cities-with-a-population-1000/table/?disjunctive.cou_name_en&sort=name'}
+            link={'https://simplemaps.com/data/world-cities'}
           />
-          <SourceExhibit 
+          {/* <SourceExhibit 
             name={'City and country maps'}
             description={'Interactive maps were provided by Google Maps.'}
             link={'https://www.google.com/maps'}
-          />
-      </div>
+          /> */}
+      </div><br /><br />
 
       {/* Tools used and a description of how they were used */}
-      <h2>Tools Used</h2>
-      <p>
-        <ul>
-          <li>
-            <a href="https://www.w3schools.com/html/">HTML</a> -
-            a mark-up language that tells your browser how to display 
-            our website.
-          </li>
-          <li>
-            <a href="https://getbootstrap.com/">Bootstrap</a> -
-            a framework for CSS that makes it easier to write CSS
-            for our website so our website is appealing to the 
-            human eye.
-          </li>
-          <li>
-            <a href="https://www.typescriptlang.org/">TypeScript</a> -
-            used to implement any dynamic part of the website
-            (such as dynamic git statistics). Used as an 
-            alternative to JavaScript so type mismatching can be 
-            caught at compile time rather than runtime.
-          </li>
-          <li>
-            <a href="https://reactjs.org/">React</a> -
-            used to create the frontend in a component-based way with 
-            convenientpackages to easily implement things like page 
-            routing. Mainly serves as an easier way to write HTML and
-            interweave it with TypeScript.
-          </li>
-          <li>
-            <a href="https://git-scm.com/">Git</a> -
-            used for version control of source code; helps developers 
-            work on the same codebase while working on their own systems 
-            by automatically merging their work into a signle
-            codebase.
-          </li>
-          <li>
-            <a href="https://about.gitlab.com/company/">Gitlab</a> -
-            a remote repository that serves as a third party hosting
-            our codebase in a centralized spot.
-          </li>
-          <li>
-            <a href="https://aws.amazon.com/">Amazon Web Serivces</a> -
-            a cloud-based server-hosting platform that hosts our website.
-          </li>
-          <li>
-            <a href="https://www.postman.com/">Postman</a> -
-            a tool to conveniently and concisely document the API for
-            our website.
-          </li>
-        </ul>
-      </p>
+      <h2 style={{textAlign: "center"}}>Tools Used</h2><br />
+      <div className="tools-container">
+        <SourceExhibit 
+          name={"HTML"}
+          description={"A mark-up language that tells your browser how to display our website."}
+          link={"https://www.w3schools.com/html/"}
+        />
+        <SourceExhibit 
+          name={"Bootstrap"}
+          description={"A framework for CSS that makes it easier to write CSS for our website so our website is appealing to the human eye."}
+          link={"https://getbootstrap.com/"}
+        />
+        <SourceExhibit 
+          name={"TypeScript"}
+          description={"Used to implement any dynamic part of the website (such as dynamic git statistics). Used as an alternative to JavaScript so type mismatching can be caught at compile time rather than runtime."}
+          link={"https://www.typescriptlang.org/"}
+        />
+        <SourceExhibit 
+          name={"React"}
+          description={"Used to create the frontend in a component-based way with convenient packages to easily implement things like page routing. Mainly serves as an easier way to write HTML and interweave it with TypeScript."}
+          link={"https://reactjs.org/"}
+        />
+        <SourceExhibit 
+          name={"Git"}
+          description={"Used for version control of source code; helps developers work on the same codebase while working on their own systems by automatically merging their work into a single codebase."}
+          link={"https://git-scm.com/"}
+        />
+        <SourceExhibit 
+          name={"GitLab"}
+          description={"A remote repository that serves as a third party hosting our codebase in a centralized spot."}
+          link={"https://about.gitlab.com/company/"}
+        />
+        <SourceExhibit 
+          name={"Amazon Web Services"}
+          description={"A cloud-based platform that is used to host our website."}
+          link={"https://aws.amazon.com/"}
+        />
+        <SourceExhibit 
+          name={"Postman"}
+          description={"A tool to conveniently and concisely document the API for our website."}
+          link={"https://www.postman.com/"}
+        />
+      </div>
 
       <h2>CovidDB documentation</h2>
       <p>
