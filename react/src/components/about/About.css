@@ -29,7 +29,7 @@
   border-radius: 5px;
 }
 
-.contributor-container, .sources-container, .tools-container {
+.contributor-container, .sources-container, .tools-container, .covidDB-container {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
@@ -42,7 +42,7 @@
 }
 
 .about-widget {
-  padding: 10px;
+  padding: 30px;
   margin-bottom: 30px;
 }
 

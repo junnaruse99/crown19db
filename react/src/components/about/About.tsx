@@ -361,20 +361,21 @@ export default function About(props) {
           description={"A tool to conveniently and concisely document the API for our website."}
           link={"https://www.postman.com/"}
         />
-      </div>
-
-      <h2>CovidDB documentation</h2>
-      <p>
-        <a href="https://documenter.getpostman.com/view/17756516/UUy4cRDr">
-          https://documenter.getpostman.com/view/17756516/UUy4cRDr
-        </a>
-      </p>
-
-      <h2>CovidDB is open-sourced!</h2>
-      <p>
-        You can find our open-source repo on <a href="https://gitlab.com/mgrubbs/coviddb">GitLab</a>
-      </p>
-      
+      </div><br /><br />
+        
+      <h2 style={{textAlign: "center"}}>Learn More</h2><br />
+      <div className="covidDB-container">
+        <SourceExhibit 
+          name={"Our GitLab Repository"}
+          description={"CovidDB is open-sourced! You can find our online repository by clicking here!"}
+          link={"https://gitlab.com/mgrubbs/coviddb"}
+        />
+        <SourceExhibit
+          name={"Our API Documenation:"}
+          description={"Curious about how we handle our data? Check out our documentation for CovidDB's API!"}
+          link={"https://documenter.getpostman.com/view/17756516/UUy4cRDr"}
+        />
+      </div><br />
     </div>
   );
 }
