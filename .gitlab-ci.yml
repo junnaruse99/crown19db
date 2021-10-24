@@ -21,9 +21,13 @@ deploy_develop:
       - $CI_COMMIT_BRANCH == "dev"
   stage: deploy
   before_script:
+    - pip install awsebcli --upgrade --user
+    - chmod +x ./.eb-config.sh
+    - ./.eb-config.sh
     - git checkout dev
   script:
-    - git checkout dev
+    - cd back
+    - /root/.local/bin/eb deploy coviddb-api-prod # TODO change to coviddb-api-dev
 
 deploy_production:
   image: python:3.6-stretch
@@ -32,6 +36,10 @@ deploy_production:
       - $CI_COMMIT_BRANCH == "main"
   stage: deploy
   before_script:
+    - pip install awsebcli --upgrade --user
+    - cd back
+    - chmod +x ./.eb-config.sh
+    - ./.eb-config.sh
     - git checkout main
   script:
-    - git checkout main
+    - /root/.local/bin/eb deploy coviddb-api-prod
