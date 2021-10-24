@@ -1,24 +1,39 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChild, faMountain } from '@fortawesome/free-solid-svg-icons';
 
 const Country = ({ country }) => {
-    // let capitalName = country.Capital.replace(/\s/g, '-');
-    let countryName = country.officialName.replace(/\s/g, '-');
 
     const history = useHistory();
-    const handleRowClick = () => {
-        history.push("/country/"+ countryName);
+    const handleCardClick = () => {
+        history.push("/country/"+ country.id);
     }
 
+    // TODO : fix the css, is super ugly
     return(
-        <tr onClick={handleRowClick} className='modelrow'>
-        <th scope="row">{country.id}</th>
-        <td>{country.officialName}</td>
-        <td>{country.area}</td>
-        <td>{country.population}</td>
-        <td>{country.region}</td>
-        <td>{country.subregion}</td>
-        </tr>
+        <div className='card modelrow' onClick={handleCardClick}>
+            <img className='card-img-top img-card-grid' src={country.flag} alt='Country flag'/>
+            <h5 className='card-title text-center mt-6'>{country.officialName}</h5>
+            <div className='card-body'>
+                <div className='row'>
+                    <div className='col-6 d-flex justify-content-around'>
+                        <FontAwesomeIcon icon={faChild}/>
+                        <span className='font-weight-bold'>{country.population}</span>
+                    </div>
+                    <div className='col-6 d-flex justify-content-around'>
+                        <FontAwesomeIcon icon={faMountain}/>
+                        <span className='font-weight-bold'>{country.area}</span>
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className='col-12 d-flex justify-content-around'>
+                        <p>Country: </p>
+                        <p>{country.continent}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 }
  
