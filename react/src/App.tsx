@@ -10,6 +10,7 @@ import Navbar from './components/layout/navbar';
 import CountryInstance from './components/country/countryInstance';
 import CityInstance from './components/city/cityInstance';
 import CovidInstance from './components/covid/covidInstance';
+import CountryTimeline from './components/covid/countryTimeline';
 require('dotenv').config();
 
 function Index() {
@@ -37,6 +38,7 @@ export default function App() {
         <Route exact path="/covid" component={CovidCases} />
         <Route exact path="/country/:countryName" children={<CountryInstance />} />
         <Route exact path="/city/:cityName" children={<CityInstance />} />
+        <Route exact path="/covid/:country" children={<CountryTimeline />} />
         <Route exact path="/covid/:date" children={<CovidInstance />} />
       </div>
       </Switch>

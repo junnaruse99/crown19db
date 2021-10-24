@@ -46,11 +46,11 @@ const Countries = () => {
                 <>
                     <div className="row">
                     <h2>Countries</h2>
-                    <table className="table">
+                    <table className="grid">
                         <thead className="thead-dark">
                             <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Name</th>
+                            <th scope="col">Country</th>
                             <th scope="col">Area</th>
                             <th scope="col">Population</th>
                             <th scope="col">Region</th>
