@@ -71,10 +71,7 @@ const CountryInstance = () => {
             {msg ? (<h3> {msg} </h3>) : 
                 country ? (
                     <div className="row">
-                        <div className="col-8">
-                            <SimpleMap info={{center:{lat:parseFloat(country.latitude), lng:parseFloat(country.longitude)}, zoom:4}}/>
-                        </div>
-                        <div className="col-4">
+                        <div className="col-md-4 col-12">
                             <div className="card">
                                 <h2 className="text-center text-uppercase font-weigh-bold mb-0">{country.officialName}</h2>
                                 {country.flag ? (
@@ -112,9 +109,12 @@ const CountryInstance = () => {
                                         <a href={"/covid/" + country.id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{country.commonName}'s Covid Data</a>
                                     </p>
                                 </div>
-                            </div>
+                            </div><br /><br />
                         </div>
-                        <div>
+                        <div className="col-md-8 col-12">
+                            <SimpleMap info={{center:{lat:parseFloat(country.latitude), lng:parseFloat(country.longitude)}, zoom:4}}/>
+                        </div>
+                        <div><br /><br />
                             <LocaleInfo
                                 location={country.commonName}
                                 showNews={true}
