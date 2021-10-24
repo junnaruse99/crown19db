@@ -1,76 +1,95 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import SimpleMap from '../map/SimpleMap';
 import LocaleInfo from '../localeInfo/localeInfo'
+import clientAxios from '../../config/axios';
+import Loading from '../layout/Loading';
+import Cities from './cities';
 
 const CityInstance = () => {
-    const {cities} = require('../../city.json');
-    let { cityName } = useParams();
-    cityName = cityName.replace(/-/g, ' ');
-    let city;
+    let { id } = useParams();
 
+    interface City {
+        country: string;
+        country_id: number;
+        id: number;
+        name: string;
+        population: number;
+        latitude: number;
+        longitude: number;
+    }
+    
     // Find city
-    for (let i = 0; i < cities.length; i++) {
-        if (cityName === cities[i].Name) {
-            city = cities[i];
-            console.log(city);
+    const [city, setCity] = useState<City>();
+    const [msg, setMsg] = useState('');
+
+    // Get city from api
+    const getCity = async () => {
+        try {
+            const response = await clientAxios.get<City>(`/api/v1/models/city/id=${id}`)
+                .then(response => {
+                    setCity(response.data)
+                });
+        } catch (error) {
+            setMsg('There was an error');
         }
     }
 
-    let date = city.covid.replace(/\//g, '-');
+    useEffect(() => {
+        getCity();
+    }, []);
+
 
     return (
         <div className='container'>
-            {city ? (
-                <div className="row align-items-center">
-                    <div className="col-8">
-                        <SimpleMap info={{center:{lat:parseFloat(city.Latitude), lng:parseFloat(city.Longitude)}, zoom:11}}/>
-                    </div>
-                    <div className="col-4">
-                        <div className="card">
-                            <h2 className="text-center text-uppercase font-weigh-bold mb-0">{cityName}</h2>
-                            <img className="card-img-top" src={city.img} alt={cityName}/>
-                            <div className="card-body">
-                                <p className="card-text">
-                                    <table className="table">
-                                        <tbody>
-                                            <tr>
-                                            <th scope="row">Latitude</th>
-                                            <td>{city.Latitude}</td>
-                                            </tr>
-                                            <tr>
-                                            <th scope="row">Longitude</th>
-                                            <td>{city.Longitude}</td>
-                                            </tr>
-                                            <tr>
-                                            <th scope="row">Population</th>
-                                            <td>{city.Population}</td>
-                                            </tr>
-                                            <tr>
-                                            <th scope="row">Time zone</th>
-                                            <td>{city["Time zone"]}</td>
-                                            </tr>
-                                            <tr>
-                                            <th scope="row">Country</th>
-                                            <td><Link to={"/country/"+ city['country/province/state']}>{city['country/province/state']}</Link></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <a href={"/covid/" + city['country/province/state'].replace(/ /g, '-')} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{city['country/province/state']}'s Covid Data</a>
-                                </p>
+            {msg ? (<h3> {msg} </h3>) : 
+                city ? (
+                    <div className="row align-items-center">
+                        <div className="col-8">
+                            <SimpleMap info={{center:{lat:city.latitude, lng:city.longitude}, zoom:11}}/>
+                        </div>
+                        <div className="col-4">
+                            <div className="card">
+                                <h2 className="text-center text-uppercase font-weigh-bold mb-0">{city.name}</h2>
+                                <img className="card-img-top" src={''} alt={city.name}/>
+                                <div className="card-body">
+                                    <p className="card-text">
+                                        <table className="table">
+                                            <tbody>
+                                                <tr>
+                                                <th scope="row">Latitude</th>
+                                                <td>{city.latitude}</td>
+                                                </tr>
+                                                <tr>
+                                                <th scope="row">Longitude</th>
+                                                <td>{city.longitude}</td>
+                                                </tr>
+                                                <tr>
+                                                <th scope="row">Population</th>
+                                                <td>{city.population}</td>
+                                                </tr>
+                                                <tr>
+                                                <th scope="row">Country</th>
+                                                <td><Link to={"/country/"+ city.country_id}>{city.country}</Link></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <a href={"/covid/" + city.name.replace(/ /g, '-')} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{city['country/province/state']}'s Covid Data</a>
+                                    </p>
+                                </div>
                             </div>
                         </div>
+                        <div>
+                            <LocaleInfo
+                                location={city.name}
+                                showNews={true}
+                                showTests={false}/>
+                        </div>
                     </div>
-                    <div>
-                        <LocaleInfo
-                            location={cityName}
-                            showNews={true}
-                            showTests={false}/>
-                    </div>
-                </div>
-            ) : <h2>This page is under construction</h2>} 
+                ) : <Loading />
+            }
         </div>
     )
 }

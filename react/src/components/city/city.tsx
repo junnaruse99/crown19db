@@ -1,25 +1,23 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import clientAxios from '../../config/axios';
 
 const City = ({ city }) => {
     // If city name are two or more words, use a '-' as a separator
-    let cityName = city.Name.replace(/\s/g, '-');
 
     const history = useHistory();
     const handleRowClick = () => {
-        history.push('/city/' + cityName);
+        history.push('/city/' + city.id);
     }
 
     return(
-        <tr onClick={handleRowClick} style={{'cursor': 'pointer'}}>
+        <tr onClick={handleRowClick} className='modelrow'>
         <th scope="row">{city.id}</th>
-        <td><Link to={'/city/' + cityName}>{city.Name}</Link></td>
-        <td>{city.Latitude}</td>
-        <td>{city.Longitude}</td>
-        <td>{city.Population}</td>
-        <td>{city['Time zone']}</td>
-        <td><Link to={"/country/"+ city['country/province/state']}>{city['country/province/state']}</Link></td>
+        <td>{city.name}</td>
+        <td>{city.latitude}</td>
+        <td>{city.longitude}</td>
+        <td>{city.population}</td>
+        <td>{city.country}</td>
         </tr>
     )
 }

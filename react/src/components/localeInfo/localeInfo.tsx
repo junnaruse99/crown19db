@@ -25,7 +25,7 @@ const LocaleInfo = ({ location, showNews, showTests }) => {
             <h3>{localeInfoHeader}</h3>
             <iframe
                 src={searchQuery}
-                height="100%"
+                height="90%"
                 width="100%"
                 title="Local COVID information"
                 style={{'border': '1px solid black'}}
