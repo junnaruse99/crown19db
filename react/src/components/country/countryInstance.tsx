@@ -53,10 +53,9 @@ const CountryInstance = () => {
                                             <th scope="row">Captial</th>
                                             <td><Link to={"/city/"+ country.Capital}>{country.Capital}</Link></td>
                                             </tr>
-                                            <th scope="row">Last Date of Covid Case</th>
-                                            <td><Link to={"/covid/"+ country.Covid.replace(/\//g, '-')}>{country.Covid}</Link></td>
                                         </tbody>
                                     </table>
+                                    <a href={"/covid/" + countryName.replace(/ /g, '-')} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{countryName}'s Covid Data</a>
                                 </p>
                             </div>
                         </div>
