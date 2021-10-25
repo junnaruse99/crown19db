@@ -11,125 +11,114 @@
 from flask import Flask, jsonify, json, Response
 from flask_sqlalchemy import SQLAlchemy
 import traceback
-from Controller.Country import Country, Currency, Language, TimeZone, CountrySchema
-from Controller.City import City
+from models import (
+    app, Country, Currency, Language, TimeZone, City, CovidInstance, Covid,
+    country_schema, language_schema, currency_schema, timezone_schema, city_schema,
+    covid_schema, covidInstance_schema, country_schema_reduced, db )
+from init_db import init_db
 
-app = Flask(__name__)
-app.config['QLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-# TODO read-in username and password
-app.config ['SQLALCHEMY_DATABASE_URI'] = \
-    "postgresql+psycopg2://coviddb:crown19db!"\
-    "@crown19db.ck9wwhipyc5v.us-west-2.rds.amazonaws.com:5432/postgres"
-
-db = SQLAlchemy(app)
-
-class Country(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(), unique=True, nullable=False)
-    gdp = db.Column(db.String(), unique=False, nullable=False)
-    population = db.Column(db.String(), unique=False, nullable=False)
-    populationDensity = db.Column(db.String(), unique=False, nullable=False)
-    flag = db.Column(db.String(), unique=True, nullable=False)
-    area = db.Column(db.String(), unique=False, nullable=False)
-    capitalId = db.relationship('City', backref='country', lazy=True, uselist=False)
-    latitude = db.Column(db.Float, unique=False, nullable=False)
-    longitude = db.Column(db.Float, unique=False, nullable=False)
-
-    def __repr__(self):
-        return '<Country %r>' % self.name
-
-    def __init__(self, name=None, gdp=None,  population=None, populationDensity=None, flag=None, area=None, capitalId=None, latitude=None, longitude=None):
-        self.name = name
-        self.gdp = gdp
-        self.population = population
-        self.populationDensity = populationDensity
-        self.flag = flag
-        self. area = area
-        self.capitalId = capitalId
-        self.latitude = latitude
-        self.longitude = longitude
-
-class CountryName(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(), unique=True, nullable=False)
-
-class City(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(), unique=True, nullable=False)
-    latitude = db.Column(db.Float, unique=True, nullable=False)
-    longitude = db.Column(db.Float, unique=True, nullable=False)
-    population = db.Column(db.String(), unique=True, nullable=False)
-    timeZone = db.Column(db.String(), unique=True, nullable=False)
-    countryName = db.relationship('Country', backref='city', lazy=True, uselist=False)
-    cityImg = db.Column(db.String(), unique=True, nullable=False)
-
-    def __repr__(self):
-        return '<City %r>' % self.name
-
-class Covid(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    countryId = db.relationship('Country', backref='covid', lazy=True, uselist=False)
-    cases = db.Column(db.String(), unique=True, nullable=False)
-    recovered = db.Column(db.String(), unique=True, nullable=False)
-    deaths = db.Column(db.String(), unique=True, nullable=False)
-    lastCovidCase = db.Column(db.DateTime, unique=True, nullable=False)
-    
-    def __repr__(self):
-        return '<Covid for country %r>' % self.countryId
-
-class CovidInstance(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    countryId = db.relationship('Country', backref='covid', lazy=True, uselist=False)
-    date = db.Column(db.DateTime, unique=True, nullable=False)
-    totalCases = db.Column(db.String(), unique=True, nullable=False)
-    totalRecovered = db.Column(db.String(), unique=True, nullable=False)
-    totalDeaths = db.Column(db.String(), unique=True, nullable=False)
-    
-    def __repr__(self):
-        return '<Covid in %r for country %r>' % (self.date, self.countryId)
-
-
-db.create_all()
-country_schema = CountrySchema()
-
-#### TODO Join Currency, Language and TimeZone tables to country tables (This information I was planning on using it for the instance)
-
-
+#### COUNTRY ####
 @app.route("/api/v1/models/country/all", methods=["GET"])
 def get_country_all():
     # Country.query.'' returns an object so use of the schema to transform it into an object
-    countries = [country_schema.dump(country_obj) for country_obj in Country.query.all()]
+    countries = Country.query.all()
     # jsonify to transform it to json
-    return jsonify(countries=countries)
-    # return Country.query.all()
+    return jsonify([country_schema.dump(country) for country in countries])
 
-@app.route("/api/v1/models/country/id=<countryId>", methods=["GET"])
-def get_country(countryId):
-    country = Country.query.filter_by(name=countryId).first_or_404(description='There is no data with {}'.format(countryId))
-    return country.id
+# e.g. .../interval=1-10
+@app.route("/api/v1/models/country/all/reduced", methods=["GET"])
+def get_country_by_ids():
+    # Country.query.'' returns an object so use of the schema to transform it into an object
+    countries = Country.query.all()
+    # jsonify to transform it to json
+    return jsonify([country_schema_reduced.dump(country) for country in countries])
 
-@app.route("/api/v1/models/city/all")
+@app.route("/api/v1/models/country/name=<countryName>", methods=["GET"])
+def get_country_by_name(countryName):
+    # Remeber that format of country name is lower case and separated by '-' and lowercase (POSTMAN)
+    countryName = ' '.join([word.capitalize() for word in countryName.split('-')])
+    country = Country.query.filter_by(commonName=countryName).first_or_404(description='There is no data with {}'.format(countryName))
+    return jsonify(country_schema.dump(country))
+
+@app.route("/api/v1/models/country/id=<id>", methods=["GET"])
+def get_country_by_id(id):
+    # Remeber that format of country name is lower case and separated by '-' and lowercase (POSTMAN)
+    country = Country.query.filter_by(id=id).first_or_404(description='There is no data with {}'.format(id))
+    return jsonify(country_schema.dump(country))
+
+
+#### CITY ####
+@app.route("/api/v1/models/city/all", methods=["GET"])
 def get_city_all():
-    # TODO query database
-    return "city all"
+    # Country.query.'' returns an object so use of the schema to transform it into an object
+    cities = db.session.query(City, Country.commonName).filter(City.country_id == Country.id).all()
+    # jsonify to transform it to json
+    cities_obj = []
+    for city in cities:
+        city_aux = city_schema.dump(city[0])
+        city_aux['country'] = city[1]
+        cities_obj.append(city_aux)
 
-@app.route("/api/v1/models/city/id=<cityId>")
-def get_city(cityId):
-    # TODO query database
-    return "city " + cityId
+    return jsonify(cities_obj)
 
-@app.route("/api/v1/models/covid/all")
+@app.route("/api/v1/models/city/name=<cityName>", methods=["GET"])
+def get_city_by_name(cityName):
+    # Remeber that format of country name is lower case and separated by '-' and lowercase (POSTMAN)
+    cityName = ' '.join([word.capitalize() for word in cityName.split('-')])
+    city = City.query.filter_by(name=cityName).first_or_404(description='There is no data with {}'.format(cityName))
+    return jsonify(city_schema.dump(city))
+
+@app.route("/api/v1/models/city/id=<id>", methods=["GET"])
+def get_city_by_id(id):
+    # Remeber that format of country name is lower case and separated by '-' and lowercase (POSTMAN)
+    city = db.session.query(City, Country.commonName).filter(City.id == id, City.country_id == Country.id).first_or_404(description='There is no data with {}'.format(id))
+    city_obj = city_schema.dump(city[0])
+    city_obj['country'] = city[1]
+    return jsonify(city_obj)
+
+
+#### COVID #####
+@app.route("/api/v1/models/covid/all", methods=["GET"])
 def get_covid_all():
-    # TODO query database
-    return open("covid.json", "r").read()
+    # Country.query.'' returns an object so use of the schema to transform it into an object
+    covids = db.session.query(Covid, Country.commonName).filter(Covid.country_id == Country.id).all()
+    # jsonify to transform it to json
+    covids_obj = []
+    for covid in covids:
+        covid_aux = covid_schema.dump(covid[0])
+        covid_aux['country'] = covid[1]
+        covids_obj.append(covid_aux)
 
-@app.route("/api/v1/models/covid/id=<countryId>")
-def get_covid(countryId):
-    # TODO query database
-    covidData = json.load(open("covid.json", "r"))
-    return "covid " + countryId
+    return jsonify(covids_obj)
 
+@app.route("/api/v1/models/covid/country_id=<countryId>", methods=["GET"])
+def get_covid_by_countryId(countryId):
+    covid = Covid.query.filter_by(country_id=countryId).first_or_404(description='There is no data with {}'.format(countryId))
+    return jsonify(covid_schema.dump(covid))
+
+@app.route("/api/v1/models/covid/id=<id>", methods=["GET"])
+def get_covid_by_id(id):
+    covid = db.session.query(Covid, Country.commonName).filter(Covid.id == id, Covid.country_id == Country.id).first_or_404(description='There is no data with {}'.format(id))
+    covid_obj = covid_schema.dump(covid[0])
+    covid_obj['country'] = covid[1]
+    return jsonify(covid_obj)
+
+# COVID INSTANCE
+
+@app.route("/api/v1/models/covidInstance/country_id=<countryId>", methods=["GET"])
+def get_covidInstance_by_countryId(countryId):
+    # Country.query.'' returns an object so use of the schema to transform it into an object
+    covidInstances = db.session.query(CovidInstance, Country.commonName).filter(CovidInstance.country_id == countryId, CovidInstance.country_id == Country.id).all()
+    # jsonify to transform it to json
+    covids_obj = []
+    for covid in covidInstances:
+        covid_aux = covidInstance_schema.dump(covid[0])
+        covid_aux['country'] = covid[1]
+        covids_obj.append(covid_aux)
+
+    return jsonify(covids_obj)
+
+#### ELSE #####
 @app.route("/")
 @app.route("/api")
 @app.route("/api/v1")
@@ -144,19 +133,6 @@ def index():
         <a href=\"{postmanUrl}\">Postman</a> documentation."
     return output
 
-
-@app.route("/v1/models/country/name=<countryName>", methods=["GET"])
-def get_country_by_name(countryName):
-    # Remeber that format of country name is lower case and separated by '-' and lowercase (POSTMAN)
-    countryName = ' '.join([word.capitalize() for word in countryName.split('-')])
-    country = Country.query.filter_by(commonName=countryName).first_or_404(description='There is no data with {}'.format(countryName))
-    return jsonify(country_schema.dump(country))
-
-@app.route("/v1/models/country/id=<id>", methods=["GET"])
-def get_country_by_id(id):
-    # Remeber that format of country name is lower case and separated by '-' and lowercase (POSTMAN)
-    country = Country.query.filter_by(id=id).first_or_404(description='There is no data with {}'.format(id))
-    return jsonify(country_schema.dump(country))
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)

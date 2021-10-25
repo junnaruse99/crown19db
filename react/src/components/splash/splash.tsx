@@ -3,8 +3,6 @@ import countries from './splashAssets/countries.jpg'
 import covid from './splashAssets/covid.jpeg'
 import cities from './splashAssets/cities.jpeg'
 import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import LocaleInfo from '../localeInfo/localeInfo';
 import './splash.css';
 
@@ -16,8 +14,8 @@ const Splash = () => {
             <p></p>
             <p>Select the information you are after today.</p>
             <div className="container">
-                <Row>
-                    <Col className='col-12 col-md-4 mb-2'> 
+                <div className='row'>
+                    <div className='col-12 col-md-4 mb-2'> 
                         <Card className='w-100 h-100'>
                             <a className="card-block stretched-link text-decoration-none" href="/country">
                             <Card.Img className="splash-card-image" variant="top" src={countries} />
@@ -29,8 +27,8 @@ const Splash = () => {
                             </Card.Body>
                             </a>
                         </Card>
-                    </Col>
-                    <Col className='col-12 col-md-4 mb-2'> 
+                    </div>
+                    <div className='col-12 col-md-4 mb-2'> 
                         <Card className='mb-2 w-100 h-100'>
                             <a className="card-block stretched-link text-decoration-none" href="/city">
                             <Card.Img className="splash-card-image" variant="top" src={cities} />
@@ -42,8 +40,8 @@ const Splash = () => {
                             </Card.Body>
                             </a>
                         </Card>
-                    </Col>
-                    <Col className='col-12 col-md-4 mb-2'> 
+                    </div>
+                    <div className='col-12 col-md-4 mb-2'> 
                         <Card className='mb-2 w-100 h-100'>
                         <a className="card-block stretched-link text-decoration-none" href="/covid">
                             <Card.Img className="splash-card-image" variant="top" src={covid} />
@@ -55,23 +53,23 @@ const Splash = () => {
                             </Card.Body>
                         </a>
                         </Card>
-                    </Col>
-                </Row>
+                    </div>
+                </div>
                 <br/>
-                <Row>
-                    <Col>
+                <div className='row'>
+                    <div className='col-12 col-md-6'>
                         <LocaleInfo
                         location={'near by'}
                         showNews={true}
                         showTests={false}/>
-                    </Col>
-                    <Col>
+                    </div>
+                    <div className='col-12 col-md-6'>
                         <LocaleInfo
                         location={'near by'}
                         showNews={false}
                         showTests={true}/>
-                    </Col>
-                </Row>
+                    </div>
+                </div>
             </div>
         </div>
     )

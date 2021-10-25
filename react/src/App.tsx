@@ -36,10 +36,9 @@ export default function App() {
         <Route exact path="/country" component={Countries} />
         <Route exact path="/city" component={City} />
         <Route exact path="/covid" component={CovidCases} />
-        <Route exact path="/country/:countryName" children={<CountryInstance />} />
-        <Route exact path="/city/:cityName" children={<CityInstance />} />
-        <Route exact path="/covid/:country" children={<CountryTimeline />} />
-        <Route exact path="/covid/:date" children={<CovidInstance />} />
+        <Route exact path="/country/:id" children={<CountryInstance />} />
+        <Route exact path="/city/:id" children={<CityInstance />} />
+        <Route exact path="/covid/:country_id" children={<CountryTimeline />} />
       </div>
       </Switch>
     </Router>
