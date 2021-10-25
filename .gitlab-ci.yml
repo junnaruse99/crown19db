@@ -59,3 +59,10 @@ frontend_tests:
     - cd react
     - npm install
     - npm test
+
+backend_tests:
+  stage: test
+  script:
+    - cd back
+    - pip install -r requirements.txt
+    - python test.py
