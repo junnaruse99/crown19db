@@ -22,7 +22,7 @@ const CovidCases = () => {
 
     const getCovidCases = async () => {
         try {
-            const response = await clientAxios.get<CovidCases[]>('/api/v1/models/covid/all' )
+            const response = await clientAxios.get<CovidCases[]>('/v1/models/covid/all' )
                 .then(response => {
                     setCovidCases(response.data)
                     setCurrentCovid(response.data.slice(0, 10))
