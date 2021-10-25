@@ -12,14 +12,12 @@ import Country from '../components/country/country';
 import AllCountries from '../components/country/countries';
 import City from '../components/city/city';
 import AllCities from '../components/city/cities';
-import Covid from '../components/covid/covid';
 import CovidCases from '../components/covid/covidcases';
-import CovidDate from '../components/covid/covidDate';
 import CardRow from '../components/covid/cardRow';
-import CovidInstance from '../components/covid/covidInstance'
 import Navbar from '../components/layout/navbar'
 import SimpleMap from '../components/map/SimpleMap'
 import LocaleInfo from '../components/localeInfo/localeInfo'
+import Loading from '../components/layout/Loading'
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -158,5 +156,11 @@ test('Locale information test', () => {
             showNews={true}
             showTests={false}
         />);
+    expect(levelOne).toMatchSnapshot();
+});
+
+test('Loading test', () => {
+    const levelOne = shallow(
+        <Loading />);
     expect(levelOne).toMatchSnapshot();
 });

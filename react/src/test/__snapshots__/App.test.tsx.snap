@@ -10,6 +10,8 @@ exports[`Country Model section render 1`] = `ShallowWrapper {}`;
 
 exports[`Covid Cases test 1`] = `ShallowWrapper {}`;
 
+exports[`Loading test 1`] = `ShallowWrapper {}`;
+
 exports[`Locale information test 1`] = `ShallowWrapper {}`;
 
 exports[`Map component test 1`] = `ShallowWrapper {}`;
