@@ -60,9 +60,10 @@ frontend_tests:
     - npm install
     - npm test
 
-#backend_tests:
-#  stage: test
-#  script:
-#    - cd back
-#    - pip install -r requirements.txt
-#    - python test.py
+backend_tests:
+  stage: test
+  image: python:3.6-stretch
+  script:
+    - cd back
+    - pip install -r requirements.txt
+    - python test.py
