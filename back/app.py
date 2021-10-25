@@ -3,6 +3,7 @@
 # - pip install flask
 # - sudo apt-get install libpq-dev
 # - pip install psycopg2
+# - pip install -r requirements.txt
 # - python app.py
 # - localhost:5000
 # To deploy the API server to prod:
@@ -18,7 +19,7 @@ from models import (
 from init_db import init_db
 
 #### COUNTRY ####
-@app.route("/api/v1/models/country/all", methods=["GET"])
+@app.route("/v1/models/country/all", methods=["GET"])
 def get_country_all():
     # Country.query.'' returns an object so use of the schema to transform it into an object
     countries = Country.query.all()
@@ -26,21 +27,21 @@ def get_country_all():
     return jsonify([country_schema.dump(country) for country in countries])
 
 # e.g. .../interval=1-10
-@app.route("/api/v1/models/country/all/reduced", methods=["GET"])
+@app.route("/v1/models/country/all/reduced", methods=["GET"])
 def get_country_by_ids():
     # Country.query.'' returns an object so use of the schema to transform it into an object
     countries = Country.query.all()
     # jsonify to transform it to json
     return jsonify([country_schema_reduced.dump(country) for country in countries])
 
-@app.route("/api/v1/models/country/name=<countryName>", methods=["GET"])
+@app.route("/v1/models/country/name=<countryName>", methods=["GET"])
 def get_country_by_name(countryName):
     # Remeber that format of country name is lower case and separated by '-' and lowercase (POSTMAN)
     countryName = ' '.join([word.capitalize() for word in countryName.split('-')])
     country = Country.query.filter_by(commonName=countryName).first_or_404(description='There is no data with {}'.format(countryName))
     return jsonify(country_schema.dump(country))
 
-@app.route("/api/v1/models/country/id=<id>", methods=["GET"])
+@app.route("/v1/models/country/id=<id>", methods=["GET"])
 def get_country_by_id(id):
     # Remeber that format of country name is lower case and separated by '-' and lowercase (POSTMAN)
     country = Country.query.filter_by(id=id).first_or_404(description='There is no data with {}'.format(id))
@@ -48,7 +49,7 @@ def get_country_by_id(id):
 
 
 #### CITY ####
-@app.route("/api/v1/models/city/all", methods=["GET"])
+@app.route("/v1/models/city/all", methods=["GET"])
 def get_city_all():
     # Country.query.'' returns an object so use of the schema to transform it into an object
     cities = db.session.query(City, Country.commonName).filter(City.country_id == Country.id).all()
@@ -61,14 +62,14 @@ def get_city_all():
 
     return jsonify(cities_obj)
 
-@app.route("/api/v1/models/city/name=<cityName>", methods=["GET"])
+@app.route("/v1/models/city/name=<cityName>", methods=["GET"])
 def get_city_by_name(cityName):
     # Remeber that format of country name is lower case and separated by '-' and lowercase (POSTMAN)
     cityName = ' '.join([word.capitalize() for word in cityName.split('-')])
     city = City.query.filter_by(name=cityName).first_or_404(description='There is no data with {}'.format(cityName))
     return jsonify(city_schema.dump(city))
 
-@app.route("/api/v1/models/city/id=<id>", methods=["GET"])
+@app.route("/v1/models/city/id=<id>", methods=["GET"])
 def get_city_by_id(id):
     # Remeber that format of country name is lower case and separated by '-' and lowercase (POSTMAN)
     city = db.session.query(City, Country.commonName).filter(City.id == id, City.country_id == Country.id).first_or_404(description='There is no data with {}'.format(id))
@@ -78,7 +79,7 @@ def get_city_by_id(id):
 
 
 #### COVID #####
-@app.route("/api/v1/models/covid/all", methods=["GET"])
+@app.route("/v1/models/covid/all", methods=["GET"])
 def get_covid_all():
     # Country.query.'' returns an object so use of the schema to transform it into an object
     covids = db.session.query(Covid, Country.commonName).filter(Covid.country_id == Country.id).all()
@@ -91,12 +92,12 @@ def get_covid_all():
 
     return jsonify(covids_obj)
 
-@app.route("/api/v1/models/covid/country_id=<countryId>", methods=["GET"])
+@app.route("/v1/models/covid/country_id=<countryId>", methods=["GET"])
 def get_covid_by_countryId(countryId):
     covid = Covid.query.filter_by(country_id=countryId).first_or_404(description='There is no data with {}'.format(countryId))
     return jsonify(covid_schema.dump(covid))
 
-@app.route("/api/v1/models/covid/id=<id>", methods=["GET"])
+@app.route("/v1/models/covid/id=<id>", methods=["GET"])
 def get_covid_by_id(id):
     covid = db.session.query(Covid, Country.commonName).filter(Covid.id == id, Covid.country_id == Country.id).first_or_404(description='There is no data with {}'.format(id))
     covid_obj = covid_schema.dump(covid[0])
@@ -105,7 +106,7 @@ def get_covid_by_id(id):
 
 # COVID INSTANCE
 
-@app.route("/api/v1/models/covidInstance/country_id=<countryId>", methods=["GET"])
+@app.route("/v1/models/covidInstance/country_id=<countryId>", methods=["GET"])
 def get_covidInstance_by_countryId(countryId):
     # Country.query.'' returns an object so use of the schema to transform it into an object
     covidInstances = db.session.query(CovidInstance, Country.commonName).filter(CovidInstance.country_id == countryId, CovidInstance.country_id == Country.id).all()
@@ -120,12 +121,11 @@ def get_covidInstance_by_countryId(countryId):
 
 #### ELSE #####
 @app.route("/")
-@app.route("/api")
-@app.route("/api/v1")
-@app.route("/api/v1/models")
-@app.route("/api/v1/models/country")
-@app.route("/api/v1/models/city")
-@app.route("/api/v1/models/covid")
+@app.route("/v1")
+@app.route("/v1/models")
+@app.route("/v1/models/country")
+@app.route("/v1/models/city")
+@app.route("/v1/models/covid")
 def index():
     postmanUrl = "https://documenter.getpostman.com/view/17756516/UUy4cRDr"
     output = f"\

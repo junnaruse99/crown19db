@@ -53,7 +53,7 @@ const CountryInstance = () => {
     // Get city from api
     const getCountry = async () => {
         try {
-            const response = await clientAxios.get<Country>(`/api/v1/models/country/id=${id}`)
+            const response = await clientAxios.get<Country>(`/v1/models/country/id=${id}`)
                 .then(response => {
                     setCountry(response.data)
                 });

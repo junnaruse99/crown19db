@@ -22,7 +22,7 @@ const Cities = () => {
 
     const getCities = async () => {
         try {
-            let response = await clientAxios.get<City[]>('/api/v1/models/city/all' )
+            let response = await clientAxios.get<City[]>('/v1/models/city/all' )
                 .then(response => {
                     setCities(response.data);
                     setCurrentCities(response.data.slice(0, 10));
