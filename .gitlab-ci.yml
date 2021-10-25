@@ -53,7 +53,7 @@ deploy_production:
     - /root/.local/bin/eb deploy coviddb-api-prod
 
 postman_tests:
-  stage: test
+  stage: tests
   image: 
     name: postman/newman_alpine33
     entrypoint: [""]
@@ -61,7 +61,7 @@ postman_tests:
     - newman --version
 
 frontend_tests:
-  stage: test
+  stage: tests
   script:
     - cd react
     - npm install
