@@ -17,9 +17,8 @@ image: node:latest
 
 test_python:
   stage: tests
-  image: python:3
+  image: python:3.7
   script:
-    - apt-get install libpython3-dev
     - pip install -r back/requirements.txt
     - python back/test.py
 
