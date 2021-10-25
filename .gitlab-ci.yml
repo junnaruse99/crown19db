@@ -19,7 +19,7 @@ test_python:
   stage: tests
   image: python:3.6-stretch
   script:
-    - sudo apt-get install libpq-dev
+    - apt-get install libpq-dev
     - pip install -r back/requirements.txt
     - python back/test.py
 
