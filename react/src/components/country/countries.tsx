@@ -20,7 +20,7 @@ const Countries = () => {
 
     const getCountries = async () => {
         try {
-            const response = await clientAxios.get<Country[]>('/api/v1/models/country/all/reduced' )
+            const response = await clientAxios.get<Country[]>('/v1/models/country/all/reduced' )
                 .then(response => {
                     setCountries(response.data)
                     setCurrentCountries(response.data.slice(0, 12))

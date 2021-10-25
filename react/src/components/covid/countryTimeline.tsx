@@ -28,7 +28,7 @@ const CountryTimeline = () => {
     // Get covid instance from api
     const getCovid = async () => {
         try {
-            const response = await clientAxios.get<CovidInstance[]>(`/api/v1/models/covidInstance/country_id=${country_id}`)
+            const response = await clientAxios.get<CovidInstance[]>(`/v1/models/covidInstance/country_id=${country_id}`)
                 .then(response => {
                     setCovid(response.data)
                     setCurrentCovid(response.data.slice(0, 10))
