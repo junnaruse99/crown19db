@@ -49,29 +49,31 @@ const CovidCases = () => {
                 <>
                     <div className="row">
                     <h2>Country Covid Data</h2>
-                        <table className="table">
-                            <thead className="thead-dark">
-                                <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Country</th>
-                                <th scope="col">Number of cases</th>
-                                <th scope="col">Number of deaths</th>
-                                <th scope="col">Number of recovered</th>
-                                <th scope="col">Last updated</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {currentCovid.map( covid => (    
-                                    <Covid 
-                                    key={covid.id}
-                                    covid={covid} 
-                                    />
-                                ))}
-                            </tbody>
-                        </table>
+                        <div style={{width: '100%', overflow:'scroll', overflowX: 'auto', overflowY: "auto"}}>
+                            <table className="table">
+                                <thead className="thead-dark">
+                                    <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Country</th>
+                                    <th scope="col">Number of cases</th>
+                                    <th scope="col">Number of deaths</th>
+                                    <th scope="col">Number of recovered</th>
+                                    <th scope="col">Last updated</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {currentCovid.map( covid => (    
+                                        <Covid 
+                                        key={covid.id}
+                                        covid={covid} 
+                                        />
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div className="row">
-                        {"There are " + currentCovid.length + " covid dates"}
+                        {"There are " + covidCases.length + " covid dates"}
                     </div>
                     {/* Pagination css is in index.css */}
                     <div className="row d-flex justify-content-center">
@@ -79,7 +81,7 @@ const CovidCases = () => {
                             previousLabel={'<<'}
                             nextLabel={'>>'}
                             breakLabel={'...'}
-                            pageCount={currentCovid.length/10}
+                            pageCount={covidCases.length/10}
                             marginPagesDisplayed={1}
                             pageRangeDisplayed={4}
                             onPageChange={handlePageClick}

@@ -49,26 +49,28 @@ const Cities = () => {
                 <>
                     <div className="row">
                         <h2>Cities</h2>
-                        <table className="table">
-                            <thead className="thead-dark">
-                                <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Latitude</th>
-                                <th scope="col">Longitude</th>
-                                <th scope="col">Population</th>
-                                <th scope="col">Country</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {currentCities.map( city => (    
-                                    <City 
-                                    key={city.id}
-                                    city={city} 
-                                    />
-                                ))}
-                            </tbody>
-                        </table>
+                        <div style={{width: '100%', overflow:'scroll', overflowX: 'auto', overflowY: "auto"}}>
+                            <table className="table">
+                                <thead className="thead-dark">
+                                    <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Latitude</th>
+                                    <th scope="col">Longitude</th>
+                                    <th scope="col">Population</th>
+                                    <th scope="col">Country</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {currentCities.map( city => (    
+                                        <City 
+                                        key={city.id}
+                                        city={city} 
+                                        />
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div className="row">
                         {"There are " + cities.length + " cities"}
