@@ -6,7 +6,7 @@ if __name__ == "__main__":
     if platform == "win32":
         PATH = "./gui_tests/chromedriver.exe"
     elif platform == "linux":
-        PATH = "./gui_tests/chromedriver_linux"
+        PATH = "./gui_tests/chromedriver"
     else:
         print("Unsupported OS")
         exit(-1)
