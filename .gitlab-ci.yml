@@ -61,7 +61,7 @@ gui_tests:
     # - curl -sS -L https://dl.google.com/linux/linux_signing_key.pub | 
     #   apt-key add -
 
-    - wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_94_amd64.deb \
+    - wget --no-verbose -O /tmp/chrome.deb http://security.ubuntu.com/ubuntu/pool/universe/c/chromium-browser/chromium-browser_94.0.4606.81-0ubuntu0.18.04.1_i386.deb \
     - apt install -y /tmp/chrome.deb \
     - rm /tmp/chrome.deb
 
