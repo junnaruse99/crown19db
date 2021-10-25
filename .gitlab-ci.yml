@@ -66,3 +66,27 @@ frontend_tests:
     - cd react
     - npm install
     - npm test
+
+gui_tests:
+  stage: tests
+  image: python:3.7
+  script:
+    - pip install selenium
+    - cd react
+
+    - apt-get update -q -y
+    - apt-get install nodejs npm -y
+    - apt-get --yes install libnss3
+    - apt-get --yes install libgconf-2-4
+    - apt-get install libx11-xcb1
+
+    - curl -sS -L https://dl.google.com/linux/linux_signing_key.pub | 
+      apt-key add -
+
+    - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ 
+      stable main" > /etc/apt/sources.list.d/google.list
+    - apt-get update -q -y
+    - apt-get install -y google-chrome-stable
+    - npm install
+
+    - python3 gui_tests.py
