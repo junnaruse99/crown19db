@@ -17,9 +17,9 @@ image: node:latest
 
 test_python:
   stage: tests
-  image: python:latest
+  image: python:3
   script:
-    - apt-get install libpq-dev
+    - apt-get install python3-dev
     - pip install -r back/requirements.txt
     - python back/test.py
 
