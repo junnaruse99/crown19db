@@ -1,11 +1,11 @@
 stages:
   - deploy
   - run
-  - test
+  - tests
 
 npm-run:
   stage: run
-  image: pooepw/coviddb:dev
+  image: pooepw/coviddb:dev # change to correct image
   script:
   - ls
   - cd react
@@ -14,6 +14,13 @@ npm-run:
   - CI=false npm run-script build
 
 image: node:latest
+
+test_python:
+  stage: tests
+  image: python:3.7
+  script:
+    - pip install -r back/requirements.txt
+    - python back/test.py
 
 deploy_develop:
   image: python:3.6-stretch
@@ -59,10 +66,3 @@ frontend_tests:
     - cd react
     - npm install
     - npm test
-
-backend_tests:
-  stage: test
-  image: python:3.7
-  script:
-    - pip install -r back/requirements.txt
-    - python back/test.py
