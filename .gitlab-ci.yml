@@ -17,14 +17,11 @@ image: node:latest
 
 test_python:
   stage: tests
-  image: python:latest
+  image: python:3.6-stretch
   script:
-    - cd back
-    - apt-get install -y python3-pip python3-dev build-essential vim
-    - apt-get -y install nginx
     - sudo apt-get install libpq-dev
-    - pip install -r requirements.txt
-    - python test.py
+    - pip install -r back/requirements.txt
+    - python back/test.py
 
 deploy_develop:
   image: python:3.6-stretch
