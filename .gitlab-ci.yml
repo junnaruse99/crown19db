@@ -62,7 +62,7 @@ frontend_tests:
 
 backend_tests:
   stage: test
-  image: python:3.6-stretch
+  image: python:3
   script:
     - cd back
     - pip install -r requirements.txt
