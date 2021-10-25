@@ -19,7 +19,7 @@ test_python:
   stage: tests
   image: python:3
   script:
-    - apt-get install python3-dev
+    - apt-get install libpython3-dev
     - pip install -r back/requirements.txt
     - python back/test.py
 
