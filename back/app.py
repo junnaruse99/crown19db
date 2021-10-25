@@ -1,8 +1,7 @@
 # To run the API server locally:
 # - cd back
-# - pip install flask
 # - sudo apt-get install libpq-dev
-# - pip install psycopg2
+# - pip install -r requirements.txt
 # - python app.py
 # - localhost:5000
 # To deploy the API server to prod:
@@ -27,7 +26,7 @@ def get_country_all():
 
 # e.g. .../interval=1-10
 @app.route("/api/v1/models/country/all/reduced", methods=["GET"])
-def get_country_by_ids():
+def get_country_all_reduced():
     # Country.query.'' returns an object so use of the schema to transform it into an object
     countries = Country.query.all()
     # jsonify to transform it to json
@@ -103,7 +102,7 @@ def get_covid_by_id(id):
     covid_obj['country'] = covid[1]
     return jsonify(covid_obj)
 
-# COVID INSTANCE
+# COVID INSTANCEpip3 install 
 
 @app.route("/api/v1/models/covidInstance/country_id=<countryId>", methods=["GET"])
 def get_covidInstance_by_countryId(countryId):
