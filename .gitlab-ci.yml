@@ -1,6 +1,7 @@
 stages:
   - deploy
   - run
+  - tests
 
 npm-run:
   stage: run
@@ -13,6 +14,13 @@ npm-run:
   - CI=false npm run-script build
 
 image: node:latest
+
+test_python:
+  stage: tests
+  image: python:3.6-stretch
+  script:
+    - cd back
+    - python test.py
 
 deploy_develop:
   image: python:3.6-stretch
