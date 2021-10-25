@@ -27,10 +27,23 @@ class NavbarTest(unittest.TestCase):
         self.assertEqual(header.text, "Welcome to CovidDB")
         self.assertEqual(self.driver.current_url, url)
 
+    def test_collapse_button(self):
+        link_list = self.driver.find_elements(By.CLASS_NAME, "nav-link")
+        for link in link_list:
+            self.assertFalse(link.is_displayed())
+
+        self.driver.find_element(By.CLASS_NAME, "navbar-toggler").click()
+        for link in link_list:
+            self.assertTrue(link.is_displayed())
+
+        self.driver.find_element(By.CLASS_NAME, "navbar-toggler").click()
+        for link in link_list:
+            self.assertFalse(link.is_displayed())
+
     def test_home_button(self):
         self.driver.find_element(By.CLASS_NAME, "navbar-toggler").click()
         link = self.driver.find_elements(By.CLASS_NAME, "nav-link")[0]
-        self.assertEqual(link.get_attribute("innerText"), "Home")
+        self.assertEqual(link.text, "Home")
         link.click()
         header = self.driver.find_element(By.TAG_NAME, "h1")
         self.assertEqual(header.text, "Welcome to CovidDB")
@@ -39,7 +52,7 @@ class NavbarTest(unittest.TestCase):
     def test_about_button(self):
         self.driver.find_element(By.CLASS_NAME, "navbar-toggler").click()
         link = self.driver.find_elements(By.CLASS_NAME, "nav-link")[1]
-        self.assertEqual(link.get_attribute("innerText"), "About us")
+        self.assertEqual(link.text, "About us")
         link.click()
         header = self.driver.find_element(By.TAG_NAME, "h1")
         self.assertEqual(header.text, "About CovidDB")
@@ -48,27 +61,27 @@ class NavbarTest(unittest.TestCase):
     def test_country_button(self):
         self.driver.find_element(By.CLASS_NAME, "navbar-toggler").click()
         link = self.driver.find_elements(By.CLASS_NAME, "nav-link")[2]
-        self.assertEqual(link.get_attribute("innerText"), "Country")
+        self.assertEqual(link.text, "Country")
         link.click()
-        header = WebDriverWait(self.driver, timeout=5).until(lambda d: d.find_element(By.TAG_NAME, "h2"))
+        header = WebDriverWait(self.driver, timeout=10).until(lambda d: d.find_element(By.TAG_NAME, "h2"))
         self.assertEqual(header.text, "Countries")
         self.assertEqual(self.driver.current_url, url + "country")
 
     def test_city_button(self):
         self.driver.find_element(By.CLASS_NAME, "navbar-toggler").click()
         link = self.driver.find_elements(By.CLASS_NAME, "nav-link")[3]
-        self.assertEqual(link.get_attribute("innerText"), "City")
+        self.assertEqual(link.text, "City")
         link.click()
-        header = WebDriverWait(self.driver, timeout=5).until(lambda d: d.find_element(By.TAG_NAME, "h2"))
+        header = WebDriverWait(self.driver, timeout=10).until(lambda d: d.find_element(By.TAG_NAME, "h2"))
         self.assertEqual(header.text, "Cities")
         self.assertEqual(self.driver.current_url, url + "city")
 
     def test_covid_button(self):
         self.driver.find_element(By.CLASS_NAME, "navbar-toggler").click()
         link = self.driver.find_elements(By.CLASS_NAME, "nav-link")[4]
-        self.assertEqual(link.get_attribute("innerText"), "Covid")
+        self.assertEqual(link.text, "Covid")
         link.click()
-        header = WebDriverWait(self.driver, timeout=5).until(lambda d: d.find_element(By.TAG_NAME, "h2"))
+        header = WebDriverWait(self.driver, timeout=10).until(lambda d: d.find_element(By.TAG_NAME, "h2"))
         self.assertEqual(header.text, "Country Covid Data")
         self.assertEqual(self.driver.current_url, url + "covid")
 

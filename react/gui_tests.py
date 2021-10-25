@@ -13,3 +13,4 @@ if __name__ == "__main__":
 
     # Run all GUI tests:
     os.system("python ./gui_tests/navbar_tests.py " + PATH)
+    os.system("python ./gui_tests/splash_tests.py " + PATH)
