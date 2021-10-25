@@ -1,6 +1,5 @@
 stages:
   - deploy
-  - test
   - run
   - tests
 
@@ -24,7 +23,7 @@ test_python:
     - python back/test.py
 
 postman_tests:
-  stage: test
+  stage: tests
   image:
     name: postman/newman_alpine33
     entrypoint: [""]
