@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 
-url = "http://localhost:3000/"
+url = "https://dev.crown19db.me/"
 path = sys.argv[1]
 
 class SplashTest(unittest.TestCase):
@@ -16,7 +16,6 @@ class SplashTest(unittest.TestCase):
         options.add_argument('--headless')
         options.add_argument('--log-level=3')
         options.add_argument('--no-sandbox')
-        options.add_argument('--disable-dev-shm-usage')
         cls.driver = webdriver.Chrome(path, options=options)
         cls.driver.get(url)
 
