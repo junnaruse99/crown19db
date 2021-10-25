@@ -20,6 +20,7 @@ test_python:
   image: python:3.6-stretch
   script:
     - cd back
+    - pip install -r requirements.txt
     - python test.py
 
 deploy_develop:
