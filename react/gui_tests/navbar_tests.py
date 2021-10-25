@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 
-url = "http://localhost:3000/"
+url = "https://dev.crown19db.me/"
 path = sys.argv[1]
 
 class NavbarTest(unittest.TestCase):
