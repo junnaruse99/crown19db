@@ -26,7 +26,7 @@ def get_country_all():
 
 # e.g. .../interval=1-10
 @app.route("/api/v1/models/country/all/reduced", methods=["GET"])
-def get_country_by_ids():
+def get_country_all_reduced():
     # Country.query.'' returns an object so use of the schema to transform it into an object
     countries = Country.query.all()
     # jsonify to transform it to json
