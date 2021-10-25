@@ -7,7 +7,7 @@ if __name__ == "__main__":
         PATH = "./gui_tests/chromedriver.exe"
     elif platform == "linux":
         PATH = "./gui_tests/chromedriver"
-        os.chmod('/path/to/chromedriver', 0o755)
+        os.chmod('/gui_tests/chromedriver', 0o755)
     else:
         print("Unsupported OS")
         exit(-1)
