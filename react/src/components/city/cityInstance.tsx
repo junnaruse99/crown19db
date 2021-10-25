@@ -28,7 +28,7 @@ const CityInstance = () => {
     // Get city from api
     const getCity = async () => {
         try {
-            const response = await clientAxios.get<City>(`/api/v1/models/city/id=${id}`)
+            const response = await clientAxios.get<City>(`/v1/models/city/id=${id}`)
                 .then(response => {
                     setCity(response.data)
                 });

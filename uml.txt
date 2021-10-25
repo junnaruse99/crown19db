@@ -1,51 +1,70 @@
 @startuml
-Country <|..|> Covid
-Country <|..|> City
-Country <|.. CovidInstance
+Covid }|-- Country
+CovidInstance }|-- Country
+City -- Country
+Language }|-- Country
+TimeZone }|-- Country
+Currency }|-- Country
 
 class Country {
   int id 
-  varchar[20] name
-  varchar[50] GDP
-  varchar[50] Population
-  varchar[50] PopulationDensity
-  varchar[500] Flag
-  varchar[25] Area
-  int capitalId
-  Float Latitude
-  Float Longitude
+  string commonName
+  string officialName
+  string region
+  string subregion
+  string flag
+  string coatOfArms
+  string maps
+  int area
+  float latitude
+  float longitude
+  int population
+  string continent
+}
+
+class Currency {
+  int id
+  int country_id
+  string name
+}
+
+class Language {
+  int id
+  int country_id
+  string name
+}
+
+class TimeZone {
+  int id
+  int country_id
+  string zone
 }
 
 class City {
   int id 
-  varchar[20] Name
-  Float Latitude
-  Float Longitude
+  string name
+  float Latitude
+  float Longitude
   int Population
-  varchar[30] TimeZone
-  int countryId 
-  varchar[500] cityImg
+  string TimeZone
+  int country_id 
 }
 
 class Covid {
   int id 
   int countryId 
-  int totalCases
-  int totalRecovered
-  int totalDeaths
-  Date lastCovidCase
+  int cases
+  int recovered
+  int deaths
+  date lastCovidCase
 }
 
 class CovidInstance {
   int id 
   Date Date
   int countryId 
-  int Cases
-  int Recovered
-  int Deaths
-  int getTotalCases(int countryId)
-  int getTotalRecovered(int countryId)
-  int getTotalDeaths(int countryId)
-  int getLastCovidCase(int countryId)
+  int totalCases
+  int totalRecovered
+  int totalDeaths
 }
 @enduml
