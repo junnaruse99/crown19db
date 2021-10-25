@@ -1,5 +1,6 @@
 stages:
   - deploy
+  - test
   - run
   - tests
 
@@ -21,6 +22,16 @@ test_python:
   script:
     - pip install -r back/requirements.txt
     - python back/test.py
+
+postman_tests:
+  stage: test
+  image:
+    name: postman/newman_alpine33
+    entrypoint: [""]
+  script:
+    - newman --version
+    - newman run postman.json
+
 
 deploy_develop:
   image: python:3.6-stretch
@@ -51,14 +62,6 @@ deploy_production:
     - git checkout main
   script:
     - /root/.local/bin/eb deploy coviddb-api-prod
-
-postman_tests:
-  stage: tests
-  image: 
-    name: postman/newman_alpine33
-    entrypoint: [""]
-  script:
-    - newman --version
 
 frontend_tests:
   stage: tests
