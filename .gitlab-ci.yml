@@ -1,6 +1,7 @@
 stages:
   - deploy
   - run
+  - tests
 
 npm-run:
   stage: run
@@ -45,6 +46,7 @@ deploy_production:
     - /root/.local/bin/eb deploy coviddb-api-prod
 
 gui_tests:
+  stage: tests
   image: python:3.7
   script:
     - pip install selenium
