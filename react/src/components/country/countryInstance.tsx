@@ -102,7 +102,9 @@ const CountryInstance = () => {
                                                 </tr>
                                                 <tr>
                                                 <th scope="row">Capital</th>
-                                                <td><Link to={"/city/"+ country.city.id}>{country.city.name}</Link></td>
+                                                {country.city ? (
+                                                   <td><Link to={"/city/"+ country.city.id}>{country.city.name}</Link></td>
+                                                ) : <td>None</td>}
                                                 </tr>
                                             </tbody>
                                         </table>
