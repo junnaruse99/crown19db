@@ -1,7 +1,7 @@
 stages:
   - deploy
-  - test
   - run
+  - tests
 
 npm-run:
   stage: run
@@ -16,7 +16,7 @@ npm-run:
 image: node:latest
 
 postman_tests:
-  stage: test
+  stage: tests
   image:
     name: postman/newman_alpine33
     entrypoint: [""]
@@ -24,6 +24,12 @@ postman_tests:
     - newman --version
     - newman run postman.json
 
+test_python:
+  stage: tests
+  image: python:3.7
+  script:
+    - pip install -r back/requirements.txt
+    - python back/test.py
 
 deploy_develop:
   image: python:3.6-stretch
