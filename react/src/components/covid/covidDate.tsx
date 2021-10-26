@@ -6,9 +6,9 @@ const CovidDate = ({ covid }) => {
     return(
         <tr>
         <td>{covid.date.slice(0,10)}</td>
-        <td>{covid.totalCases}</td>
-        <td>{covid.totalDeaths}</td>
-        <td>{covid.totalRecovered}</td>
+        <td>{covid.totalCases.toLocaleString("en-US")}</td>
+        <td>{covid.totalDeaths.toLocaleString("en-US")}</td>
+        <td>{covid.totalRecovered.toLocaleString("en-US")}</td>
         </tr>
     )
 }

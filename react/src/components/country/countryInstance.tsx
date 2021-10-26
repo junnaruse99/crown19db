@@ -86,11 +86,11 @@ const CountryInstance = () => {
                                             <tbody>
                                                 <tr>
                                                 <th scope="row">Area</th>
-                                                <td>{country.area}</td>
+                                                <td>{country.area.toLocaleString("en-US")}</td>
                                                 </tr>
                                                 <tr>
                                                 <th scope="row">Population</th>
-                                                <td>{country.population}</td>
+                                                <td>{country.population.toLocaleString("en-US")}</td>
                                                 </tr>
                                                 <tr>
                                                 <th scope="row">Region</th>

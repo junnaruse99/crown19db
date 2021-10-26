@@ -65,7 +65,7 @@ const CityInstance = () => {
                                                 </tr>
                                                 <tr>
                                                 <th scope="row">Population</th>
-                                                <td>{city.population}</td>
+                                                <td>{city.population.toLocaleString("en-US")}</td>
                                                 </tr>
                                                 <tr>
                                                 <th scope="row">Country</th>
