@@ -1,7 +1,7 @@
 import React from 'react';
 import countries from './splashAssets/countries.jpg'
-import covid from './splashAssets/covid.jpeg'
-import cities from './splashAssets/cities.jpeg'
+import covid from './splashAssets/covid.jpg'
+import cities from './splashAssets/cities.jpg'
 import Card from 'react-bootstrap/Card';
 import LocaleInfo from '../localeInfo/localeInfo';
 import './splash.css';
