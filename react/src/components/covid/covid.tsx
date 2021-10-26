@@ -12,7 +12,7 @@ const Covid = ({ covid }) => {
     return(
         <tr onClick={handleRowClick} className='modelrow'>
         <th scope="row">{covid.id}</th>
-        <td>{covid.country}</td>
+        <td>{covid.country.commonName}</td>
         <td>{covid.cases.toLocaleString("en-US")}</td>
         <td>{covid.deaths.toLocaleString("en-US")}</td>
         <td>{covid.recovered.toLocaleString("en-US")}</td>

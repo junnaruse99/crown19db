@@ -8,6 +8,10 @@ class EndpointTest(unittest.TestCase):
     def checkAttributes(self, att_obj, attributes):
         all_att = True
 
+        # Check that both are same size
+        if len(att_obj) != len(attributes):
+            all_att = False
+
         # Check the attributes of the return object
         for att in att_obj:
             if att in attributes:
@@ -53,7 +57,7 @@ class EndpointTest(unittest.TestCase):
     def test_get_country_all_reduced(self):
         countries = json.loads(app.get_country_all_reduced().data)
 
-        attributes = {"id", "officialName", "flag", "area", "population", "continent"}
+        attributes = {'id', 'officialName', 'flag', 'area', 'population', 'continent', 'city'}
 
         all_att = self.checkAttributes(countries[0], attributes)
 
@@ -140,26 +144,14 @@ class EndpointTest(unittest.TestCase):
         all_att = self.checkAttributes(cities[0], attributes)
 
         self.assertEqual(len(cities), 226)
-        self.assertEqual(cities[0]["country"], "Malaysia")
-        self.assertEqual(cities[0]["population"], 8285000)
+        self.assertEqual(cities[0]['country']['commonName'], "Malaysia")
+        self.assertEqual(cities[0]['population'], 8285000)
         self.assertEqual(all_att, True)
 
     def test_get_city_by_name(self):
-        city = json.loads(app.get_city_by_name("lima").data)
+        city = json.loads(app.get_city_by_name('lima').data)
 
-        attributes = {
-            "id",
-            "country_id",
-            "latitude",
-            "longitude",
-            "name",
-            "population",
-            "timeZone",
-        }
-
-        self.assertEqual(
-            type(city) == list, False
-        )  # Make sure that it does not returns a list
+        attributes = {'id', 'country_id',  'latitude', 'longitude', 'name', 'population', 'timeZone', 'country'}
 
         all_att = self.checkAttributes(city, attributes)
 
@@ -186,43 +178,26 @@ class EndpointTest(unittest.TestCase):
         all_att = self.checkAttributes(city, attributes)
 
         self.assertEqual(all_att, True)
-        self.assertEqual(city["country"], "Guatemala")
+        self.assertEqual(city['country']['commonName'], "Guatemala")
 
     def test_get_covid_all(self):
         covid = json.loads(app.get_covid_all().data)
-
-        attributes = {
-            "id",
-            "cases",
-            "country",
-            "country_id",
-            "deaths",
-            "lastCovidCase",
-            "recovered",
-        }
-
+        
+        attributes = {'id', 'cases', 'country', 'country_id', 'deaths', 'lastCovidCase', 'recovered', 'country'}
+        
         all_att = self.checkAttributes(covid[0], attributes)
 
-        self.assertEqual(len(covid), 190)
-        self.assertEqual(covid[0]["country"], "Afghanistan")
-        self.assertEqual(covid[0]["deaths"], 18289880)
+        self.assertEqual(len(covid), 191)
+        self.assertEqual(covid[0]['country']['commonName'], "Afghanistan")
+        self.assertEqual(covid[0]['deaths'], 18289880)
         self.assertEqual(all_att, True)
 
     def test_get_covid_by_countrId(self):
         covid = json.loads(app.get_covid_by_countryId(109).data)
 
-        attributes = {
-            "id",
-            "cases",
-            "country_id",
-            "deaths",
-            "lastCovidCase",
-            "recovered",
-        }
+        attributes = {'id', 'cases', 'country_id', 'deaths', 'lastCovidCase', 'recovered', 'country'}
 
-        self.assertEqual(
-            type(covid) == list, False
-        )  # Make sure that it does not returns a list
+        self.assertEqual(type(covid) == list, False) # Make sure that it does not returns a list 
         all_att = self.checkAttributes(covid, attributes)
 
         self.assertEqual(all_att, True)
@@ -247,26 +222,18 @@ class EndpointTest(unittest.TestCase):
         all_att = self.checkAttributes(covid, attributes)
 
         self.assertEqual(all_att, True)
-        self.assertEqual(covid["country"], "Malta")
+        self.assertEqual(covid['country']['commonName'], 'Malta')
 
     def test_get_covidInstance_by_countrId(self):
         covid = json.loads(app.get_covidInstance_by_countryId(10).data)
 
-        attributes = {
-            "id",
-            "totalCases",
-            "country",
-            "country_id",
-            "totalDeaths",
-            "date",
-            "totalRecovered",
-        }
+        attributes = {'id', 'totalCases', 'country', 'country_id', 'totalDeaths', 'date', 'totalRecovered', 'city'}
 
         self.assertEqual(len(covid), 616)
         all_att = self.checkAttributes(covid[0], attributes)
 
-        self.assertEqual(covid[0]["country"], "Laos")
-        self.assertEqual(covid[0]["totalCases"], 24916)
+        self.assertEqual(covid[0]['country']['commonName'], "Laos")
+        self.assertEqual(covid[0]['totalCases'], 24916)
         self.assertEqual(all_att, True)
 
     def test_else_router(self):

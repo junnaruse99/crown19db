@@ -2,13 +2,13 @@ import os
 import json
 import traceback
 from datetime import datetime
-from models import Country, Covid, CovidInstance, db
+from models import Country, Covid, CovidInstance, City, db
 import pandas as pd
 
-ABS_PATH = os.path.abspath("..")
-CONFIRMED_PATH = "data/time_series_covid19_confirmed_global.csv"
-DEATH_PATH = "data/time_series_covid19_deaths_global.csv"
-RECOVERED_PATH = "data/time_series_covid19_recovered_global.csv"
+ABS_PATH = os.path.abspath('.')
+CONFIRMED_PATH = 'data/time_series_covid19_confirmed_global.csv'
+DEATH_PATH = 'data/time_series_covid19_deaths_global.csv'
+RECOVERED_PATH = 'data/time_series_covid19_recovered_global.csv'
 
 COVID_DICT = {
     "Burma": "Myanmar",
@@ -26,8 +26,8 @@ COVID_DICT = {
 
 def generateCovidData():
 
-    # Make a dict to not have country duplicates
-    countries = set()
+    # Make a dict to avoid having country duplicates
+    countries = set() 
 
     # Get the data and fill with '' all null values
     confirmed = pd.read_csv(os.path.join(ABS_PATH, CONFIRMED_PATH))
@@ -61,9 +61,19 @@ def generateCovidData():
             else:
                 country_name = idx
 
+            # Get country obj
             country_obj = Country.query.filter_by(commonName=country_name).first()
 
             if country_obj and country_name not in countries:
+
+                # Get city obj
+                city_obj = City.query.filter_by(country_id=country_obj.id).first()
+
+                if city_obj:
+                    city_id = city_obj.id
+                else:
+                    city_id = None
+
                 dates = list(confirmed.columns)[4:]
 
                 # This variables are to figure out when was the last day that there was a covid case
@@ -73,15 +83,16 @@ def generateCovidData():
                 # Go through the list in descending order
                 for date in dates[::-1]:
 
-                    covidInstance_total.append(
-                        CovidInstance(
-                            country_id=country_obj.id,
-                            date=datetime.strptime(date, "%m/%d/%y").date(),
-                            totalCases=int(confirmed.loc[idx, date]),
-                            totalRecovered=int(deaths.loc[idx, date]),
-                            totalDeaths=int(recovered.loc[idx, date]),
-                        )
-                    )
+                    covidInstance_total.append(CovidInstance(
+                        country_id=country_obj.id,
+                        date=datetime.strptime(date, '%m/%d/%y').date(),
+                        totalCases=int(confirmed.loc[idx, date]),
+                        totalRecovered=int(deaths.loc[idx, date]),
+                        totalDeaths=int(recovered.loc[idx, date]),
+                        city_id = city_id,
+                        country=country_obj,
+                        city = city_obj
+                    ))
 
                     # If I find that there were more than 0 covid cases and that the flag was not raised, then I found the last day
                     if confirmed.loc[idx, date] != 0 and flagLastDate == False:
@@ -90,13 +101,13 @@ def generateCovidData():
 
                 covid_total.append(
                     Covid(
-                        country_id=country_obj.id,
-                        cases=sum(confirmed.loc[idx, dates]),
-                        recovered=sum(deaths.loc[idx, dates]),
-                        deaths=sum(recovered.loc[idx, dates]),
-                        lastCovidCase=datetime.strptime(lastDate, "%m/%d/%y").date(),
-                    )
-                )
+                    country_id=country_obj.id,
+                    cases=sum(confirmed.loc[idx, dates]),
+                    recovered=sum(deaths.loc[idx, dates]),
+                    deaths=sum(recovered.loc[idx, dates]),
+                    lastCovidCase=datetime.strptime(lastDate, '%m/%d/%y').date(),
+                    country=country_obj
+                    ))
 
                 countries.add(country_name)
 
