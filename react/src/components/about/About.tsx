@@ -290,7 +290,7 @@ export default function About(props) {
           <SourceExhibit 
             name={'COVID-19 Cases Data'}
             description={'Our data about COVID-19 cases is supplied by this \
-              API endpoint. The data was compiled by John Hopkins University.'}
+              source. The data was compiled by John Hopkins University.'}
             link={'https://data.humdata.org/dataset/novel-coronavirus-2019-ncov-cases'}
           />
            <SourceExhibit 
