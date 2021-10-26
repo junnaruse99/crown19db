@@ -19,11 +19,15 @@ const Country = ({ country }) => {
                 <div className='row'>
                     <div className='col-6 d-flex justify-content-around'>
                         <FontAwesomeIcon icon={faChild}/>
-                        <span className='font-weight-bold'>{country.population}</span>
+                        <span className='font-weight-bold'>
+                            {country.population.toLocaleString("en-US")}
+                        </span>
                     </div>
                     <div className='col-6 d-flex justify-content-around'>
                         <FontAwesomeIcon icon={faMountain}/>
-                        <span className='font-weight-bold'>{country.area}</span>
+                        <span className='font-weight-bold'>
+                            {country.area.toLocaleString("en-US")}
+                        </span>
                     </div>
                 </div>
                 <div className='row'>
