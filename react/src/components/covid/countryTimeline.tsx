@@ -146,7 +146,7 @@ const CountryTimeline = () => {
                         </table>
                     </div>
                     <div className="row">
-                        {"There are " + covid.length + " covid dates"}
+                        {"There are " + covid.length + " countries"}
                     </div>
                     {/* Pagination css is in index.css */}
                     <div className="row d-flex justify-content-center">
