@@ -7,7 +7,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 
-url = "https://dev.crown19db.me/"
+# TODO automatically set subdomain based on what 
+# branch the test is running in
+url = "https://www.crown19db.me/"
 path = sys.argv[1]
 
 class SplashTest(unittest.TestCase):
