@@ -1,10 +1,9 @@
 import React from 'react';
 import countries from './splashAssets/countries.jpg'
-import covid from './splashAssets/covid.jpeg'
-import cities from './splashAssets/cities.jpeg'
+import covid from './splashAssets/covid.jpg'
+import cities from './splashAssets/cities.jpg'
 import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import LocaleInfo from '../localeInfo/localeInfo';
 import './splash.css';
 
 const Splash = () => {
@@ -15,9 +14,9 @@ const Splash = () => {
             <p></p>
             <p>Select the information you are after today.</p>
             <div className="container">
-                <Row>
-                    <Col> 
-                        <Card style={{ width: '24rem', height: '24rem'} }>
+                <div className='row'>
+                    <div className='col-12 col-md-4 mb-2'> 
+                        <Card className='w-100 h-100'>
                             <a className="card-block stretched-link text-decoration-none" href="/country">
                             <Card.Img className="splash-card-image" variant="top" src={countries} />
                             <Card.Body>
@@ -28,9 +27,9 @@ const Splash = () => {
                             </Card.Body>
                             </a>
                         </Card>
-                    </Col>
-                    <Col> 
-                        <Card style={{ width: '24rem', height: '24rem' }}>
+                    </div>
+                    <div className='col-12 col-md-4 mb-2'> 
+                        <Card className='mb-2 w-100 h-100'>
                             <a className="card-block stretched-link text-decoration-none" href="/city">
                             <Card.Img className="splash-card-image" variant="top" src={cities} />
                             <Card.Body>
@@ -41,9 +40,9 @@ const Splash = () => {
                             </Card.Body>
                             </a>
                         </Card>
-                    </Col>
-                    <Col> 
-                        <Card style={{ width: '24rem', height: '24rem' }}>
+                    </div>
+                    <div className='col-12 col-md-4 mb-2'> 
+                        <Card className='mb-2 w-100 h-100'>
                         <a className="card-block stretched-link text-decoration-none" href="/covid">
                             <Card.Img className="splash-card-image" variant="top" src={covid} />
                             <Card.Body>
@@ -54,8 +53,23 @@ const Splash = () => {
                             </Card.Body>
                         </a>
                         </Card>
-                    </Col>
-                </Row>
+                    </div>
+                </div>
+                <br/>
+                <div className='row'>
+                    <div className='col-12 col-md-6'>
+                        <LocaleInfo
+                        location={'near by'}
+                        showNews={true}
+                        showTests={false}/>
+                    </div>
+                    <div className='col-12 col-md-6'>
+                        <LocaleInfo
+                        location={'near by'}
+                        showNews={false}
+                        showTests={true}/>
+                    </div>
+                </div>
             </div>
         </div>
     )

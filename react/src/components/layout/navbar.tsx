@@ -1,31 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
+
+    const [collapseClass, handleCollapeClass] = useState('collapse');
+
+    const handleClick = () => {
+        if (collapseClass === 'collapse') {
+            handleCollapeClass('')
+        } else {
+            handleCollapeClass('collapse')
+        }
+    }
+
     return ( 
-        <nav className="navbar navbar-expand navbar-dark bg-dark mb-5">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
             <div className='container'>
                 <Link to='/' className="navbar-brand">CovidDB</Link>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button onClick={handleClick} className="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
 
-                <div className="collapse navbar-collapse">
+                <div className={collapseClass + " navbar-collapse"}>
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item active">
-                            <Link to='/' className="nav-link">Home</Link>
+                            <Link onClick={handleClick} to='/' className="nav-link">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to='/about' className="nav-link">About us</Link>
+                            <Link onClick={handleClick} to='/about' className="nav-link">About us</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to='/country' className="nav-link">Country</Link>
+                            <Link onClick={handleClick} to='/country' className="nav-link">Country</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to='/city' className="nav-link">City</Link>
+                            <Link onClick={handleClick} to='/city' className="nav-link">City</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to='/covid' className="nav-link">Covid</Link>
+                            <Link onClick={handleClick} to='/covid' className="nav-link">Covid</Link>
                         </li>
                     </ul>
                 </div>

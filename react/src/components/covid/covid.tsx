@@ -1,15 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const Covid = ({ covid }) => {
-    let date = covid.Date.replace(/\//g, '-');
+    const history = useHistory();
+
+    const handleRowClick = () => {
+        history.push("/covid/" + covid.country_id);
+    }
+    
     return(
-        <tr>
-        <th scope="row"><Link to={"/covid/" + date}>{covid.Date}</Link></th>
-        <td>{covid.Cases}</td>
-        <td>{covid.Deaths}</td>
-        <td>{covid.Recovered}</td>
-        <td><Link to={"country/" + covid['Country-cases'][0].replace(/\s/g, '-')}>{covid['Country-cases']}</Link></td>
+        <tr onClick={handleRowClick} className='modelrow'>
+        <th scope="row">{covid.id}</th>
+        <td>{covid.country}</td>
+        <td>{covid.cases.toLocaleString("en-US")}</td>
+        <td>{covid.deaths.toLocaleString("en-US")}</td>
+        <td>{covid.recovered.toLocaleString("en-US")}</td>
+        <td>{covid.lastCovidCase.slice(0,10)}</td>
         </tr>
     )
 }

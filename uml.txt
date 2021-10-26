@@ -1,0 +1,70 @@
+@startuml
+Covid }|-- Country
+CovidInstance }|-- Country
+City -- Country
+Language }|-- Country
+TimeZone }|-- Country
+Currency }|-- Country
+
+class Country {
+  int id 
+  string commonName
+  string officialName
+  string region
+  string subregion
+  string flag
+  string coatOfArms
+  string maps
+  int area
+  float latitude
+  float longitude
+  int population
+  string continent
+}
+
+class Currency {
+  int id
+  int country_id
+  string name
+}
+
+class Language {
+  int id
+  int country_id
+  string name
+}
+
+class TimeZone {
+  int id
+  int country_id
+  string zone
+}
+
+class City {
+  int id 
+  string name
+  float Latitude
+  float Longitude
+  int Population
+  string TimeZone
+  int country_id 
+}
+
+class Covid {
+  int id 
+  int countryId 
+  int cases
+  int recovered
+  int deaths
+  date lastCovidCase
+}
+
+class CovidInstance {
+  int id 
+  Date Date
+  int countryId 
+  int totalCases
+  int totalRecovered
+  int totalDeaths
+}
+@enduml

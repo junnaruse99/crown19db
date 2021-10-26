@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import adamPFP from './pfp/adam-pfp.jpg';
 import alejandroPFP from './pfp/alejandro-pfp.jpg';
-import dustanPFP from './pfp/dustan-pfp.jpg';
+import nicholasPFP from './pfp/nicholas-pfp.jpg';
 import markPFP from './pfp/mark-pfp.jpg';
 import junPFP from './pfp/jun-pfp.jpg';
 import './About.css';
@@ -14,9 +14,10 @@ class GitInfo {
   email: string; // Used to match commits to contributors
   username: string; // Used to match issues to contributors
 
-  constructor(email: string, username: string) {
+  constructor(email: string, username: string, tests) {
     this.email = email;
     this.username = username;
+    this.numUnitTests = tests;
   }
 }
 
@@ -34,61 +35,47 @@ function ContributorExhibit(props: any) {
   var contributor: ContributorInfo = props.contributor;
 
   return (
-    <div className="about-contributor">
-      <div className="about-contributor-child">
-        <h4>{contributor.name}</h4>
-        <img src={contributor.photo} alt="contributor" className="about-contributor-pfp" />
-      </div>
+    <div className="container">
+      <div className="about-contributor card">
+        <h4 style={{textAlign: "center", marginTop: '15px'}}>{contributor.name}</h4>
+        <div className="about-contributor-header">
+          <img src={contributor.photo} alt="contributor" className="about-contributor-pfp" />
+        </div>
 
-      <div className="about-contributor-child">
-        <p>
-          <h6>Bio:</h6>
-          <ul>
-            <li>{contributor.bio}</li>
-          </ul>
-        </p>
+        <div className="about-contributor-child">
+          <h6 style={{textAlign: "center", fontSize: '20px'}}>Responsibilities:</h6>
+          <div className='contributor-block'>{
+            contributor.responsibilities.map(responsibility => (
+                <span>{responsibility}<br /></span>
+            ))
+          }</div>
 
-        <h6>Responsibilities:</h6>
-        <ul>{
-          contributor.responsibilities.map( responsibility => (
-            <li>{responsibility}</li>
-          ))
-        }</ul>
-
-        <h6>Contributions:</h6>
-        <ul>
-          <li>Number of commits: {contributor.gitInfo.numCommits + ''}</li>
-          <li>Number of issues: {contributor.gitInfo.numIssues + ''}</li>
-          <li>Number of unit tests: {contributor.gitInfo.numUnitTests + ''}</li>
-        </ul>
+          <h6 style={{textAlign: "center", fontSize: '20px'}}>Contributions:</h6>
+          <div className='contributor-block'>
+            <span style={{fontWeight: "bold"}}>{contributor.gitInfo.numCommits + ''} </span>
+            <span> Commits, </span>
+            <span style={{fontWeight: "bold"}}>{contributor.gitInfo.numIssues + ''} </span>
+            <span> Issues, </span>
+            <span style={{fontWeight: "bold"}}>{contributor.gitInfo.numUnitTests + ''} </span>
+            <span>Unit Tests</span>
+          </div>
+          
+          <p>
+            {contributor.bio}
+          </p>
+        </div>
       </div>
     </div>
   );
 }
 
 function SourceExhibit(props: any) {
-/*
-    <li>
-    GitLab contributors API - an API endpoint that returns information
-        about the project in terms of the contributors that have worked
-        on it and how many commits they have made.
-    <ul><li><a href="https://gitlab.com/api/v4/projects/29917081/repository/contributors">
-      https://gitlab.com/api/v4/projects/29917081/repository/contributors
-    </a></li></ul>
-    </li>
-*/
-
   return (
-  <div>
-    <li>
-      {props.name} - {props.description}
-      <ul>
-        <li>
-          <a href={props.link}>{props.link}</a>
-        </li>
-      </ul>
-    </li>
-  </div>
+    <div className='about-widget card'>
+      <h4 style={{textAlign: "center"}}>{props.name}</h4>
+      <span style={{textAlign: "justify"}}>{props.description}</span>
+      <a href={props.link} className="stretched-link"></a>
+    </div>
   );
 }
 
@@ -106,8 +93,8 @@ async function getContributors() {
           music, hanging out with friends, working on his own CS projects, \
           and hydrating himself with water.',
     responsibilities: [
-      'Create the about page (this page)',],
-    gitInfo: new GitInfo('lilbroadam@gmail.com', 'adamsamuelson'),
+      'Back-end development'],
+    gitInfo: new GitInfo('lilbroadam@gmail.com', 'adamsamuelson', 0),
   };
 
   var alejandroStats: ContributorInfo = {
@@ -117,19 +104,20 @@ async function getContributors() {
           before graduating and starting a full time position at Expedia.\
           He loves pugs and exercising',
     responsibilities: [
-      'City instances and model',
-      'Splash page'],
-    gitInfo: new GitInfo('alejandro_balderas@utexas.edu', 'alejandrobk'),
+      'Front-end development'],
+    gitInfo: new GitInfo('alejandro_balderas@utexas.edu', 'alejandrobk', 0),
   };
 
-  var dustanStats: ContributorInfo = {
-    name: 'Dustan Helm',
-    photo: dustanPFP,
-    bio: 'Dustan is a 4th year computer science student and likes to play guitar, volleyball, and video games',
+  var nicholasStats: ContributorInfo = {
+    name: 'Nicholas Huang',
+    photo: nicholasPFP,
+    bio: 'Nicholas fell in love with programming since high school and has been coding \
+          ever since. Now, he is very proud to work as a developer for CovidDB, working \
+          long hours to ensure that users get all the COVID-19 information that they need',
     responsibilities: [
-      'Hosting (AWS/Namecheap)',
-      'Technical Report'],
-    gitInfo: new GitInfo('dustan.helm@yahoo.com', 'dustan.helm'),
+      'Front-end development',
+      'Front-end unit testing'],
+    gitInfo: new GitInfo('nhua5610@gmail.com', 'OddJerbb', 10),
   };
 
   var junStats: ContributorInfo = {
@@ -139,9 +127,9 @@ async function getContributors() {
           majoring in Mechatronics Engineering. In his free time he likes watching \
           anime and reading manga.',
     responsibilities: [
-      'Country and covid model',
-      'Country and covid instances'],
-    gitInfo: new GitInfo('jun.naruse@gmail.com', 'jun.naruse'),
+      'Back-end development',
+      'Back-end unit testing'],
+    gitInfo: new GitInfo('jun.naruse@gmail.com', 'jun.naruse', 20),
   };
 
   var markStats: ContributorInfo = {
@@ -150,9 +138,8 @@ async function getContributors() {
     bio: 'Mark is in his last semester as a CS major with a certificate \
           in Japanese. He is really into video games.',
     responsibilities: [
-      'User Stories',
-      'Postman'],
-    gitInfo: new GitInfo('siegbalicula@gmail.com', 'mgrubbs'),
+      'Front-end Unit Testing'],
+    gitInfo: new GitInfo('siegbalicula@gmail.com', 'mgrubbs', 10),
   };
 
   var totalStats: ContributorInfo = {
@@ -160,23 +147,20 @@ async function getContributors() {
     photo: '',
     bio: '',
     responsibilities: [],
-    gitInfo: new GitInfo('total', 'total'),
+    gitInfo: new GitInfo('total', 'total', 40),
   };
 
   var contributors: Array<ContributorInfo> = [
     alejandroStats,
     markStats,
-    dustanStats,
+    nicholasStats,
     junStats,
     adamStats,
     totalStats,
   ];
 
-  // Populate gitStats for each contributor
-  const gitlabContributorsPath: string = 'https://gitlab.com/api/v4/projects/29917081/repository/contributors';
-  const gitlabIssuesPath: string = 'https://gitlab.com/api/v4/projects/29917081/issues';
-
   // Get number of commits for each contributor
+  const gitlabContributorsPath: string = 'https://gitlab.com/api/v4/projects/29917081/repository/contributors';
   await fetch(gitlabContributorsPath)
     .then(res => {
       return res.json();
@@ -194,6 +178,7 @@ async function getContributors() {
     });
 
   // Get number of issues opened for each contributor
+  const gitlabIssuesPath: string = 'https://gitlab.com/api/v4/projects/29917081/issues?per_page=100';
   await fetch(gitlabIssuesPath)
     .then(res => {
       return res.json();
@@ -210,8 +195,7 @@ async function getContributors() {
       }
     });
   
-  // TODO calc number of unit tests
-
+  
   return contributors;
 }
 
@@ -245,145 +229,149 @@ export default function About(props) {
      */
 
     <div className='container'>
-      <h1>About CovidDB</h1>
-
-      <p></p>
+      <h1 style={{textAlign: "center", fontSize: "50px"}}>About CovidDB</h1><br />
 
       {/* Description of site (purpose, intended users) */}
-      <h2>Purpose</h2>
-      <p>
+      <h2 style={{textAlign: "center"}}>Purpose</h2>
+      <p style={{textAlign: "center"}}>
         In the ever-evolving world of COVID-19, CovidDB is here to help you 
         keep track of your changing health environment. We help you get the
         information you need by organizing information about COVID-19 cases
         per country and city over time.
-      </p>
+      </p><br />
 
       {/* Explanation of the interesting result of integrating disparate data */}
-      <h2>Interesting findings</h2>
-      <p>
+      <h2 style={{textAlign: "center"}}>Interesting findings</h2>
+      <p style={{textAlign: "center"}}>
         It's hard to find APIs that supply COVID data per city.
-      </p>
+      </p><br />
 
       {/* Name, photo, bio, major responsibilities (ex: frontend vs backend team),  */}
       {/* # of commits, issues, and unit tests contributed of each team member */}
-      <h2>Contributors and contributor stats </h2>
-      <p>
-        {
-          contributorStats.map( contributor => (
-            <p>
-              <ContributorExhibit contributor={contributor}/>
-            </p>
-          ))
-        }
-      </p>
-
+      <h2 style={{textAlign: "center"}}>Contributors and contributor stats </h2><br />
+      <div className="contributor-container">
+          {
+            contributorStats.map( contributor => (
+              <p>
+                <ContributorExhibit contributor={contributor}/>
+              </p>
+            ))
+          }
+      </div><br />
+      
       {/* Total # of commits, issues, and unit tests */}
-      <h2>Overall project stats</h2>
-      <p>
-        <ul>
-          <li>Total number of commits: {totalStats?.gitInfo.numCommits + ''}</li>
-          <li>Total number of issues: {totalStats?.gitInfo.numIssues + ''}</li>
-          <li>Total number of unit tests: {totalStats?.gitInfo.numUnitTests + ''}</li>
-        </ul>
-      </p>
+      <h2 style={{textAlign: "center"}}>Overall project stats</h2>
+      <div style={{textAlign: "center"}}>
+        <span style={{fontWeight: "bold"}}>{totalStats?.gitInfo.numCommits + ''} </span>
+        <span>Total Commits, </span>
+        <span style={{fontWeight: "bold"}}>{totalStats?.gitInfo.numIssues + ''} </span>
+        <span>Total Issues, </span>
+        <span style={{fontWeight: "bold"}}>{totalStats?.gitInfo.numUnitTests + ''} </span>
+        <span>Total Unit Tests, </span>
+      </div><br /><br />
 
       {/* Links to APIs and additional data sources, and how each was scraped */}
-      <h2>Our sources</h2>
-      <p>
-        <ul>
-          <SourceExhibit 
+      <h2 style={{textAlign: "center"}}>Our sources</h2><br />
+      <div className="sources-container">
+          {/* <SourceExhibit 
             name={'GitLab contributors API'}
-            description={'an API endpoint that returns information \
+            description={'An API endpoint that returns information \
               about the project in terms of the contributors that have worked \
               on it and how many commits they have made.'}
             link={'https://gitlab.com/api/v4/projects/29917081/repository/contributors'}
           />
           <SourceExhibit 
-            name={'GitLab issues API'}
-            description={'an API endpoint that returns information \
+            name={'GitLab Issues API'}
+            description={'An API endpoint that returns information \
               about the project in terms of the issues that have been \
               submitted to the repo on GitLab.'}
             link={'https://gitlab.com/api/v4/projects/29917081/issues'}
-          />
+          /> */}
           <SourceExhibit 
-            name={'COVID-19 cases data'}
+            name={'COVID-19 Cases Data'}
             description={'Our data about COVID-19 cases is supplied by this \
-              API endpoint. The data was compiled by John Hopkins University.'}
+              source. The data was compiled by John Hopkins University.'}
             link={'https://data.humdata.org/dataset/novel-coronavirus-2019-ncov-cases'}
           />
-          <SourceExhibit 
-            name={'Country flags'}
-            description={'The below website is used to supply the images of \
-              of country flags that we display.'}
-            link={'https://www.countryflags.io/'}
+           <SourceExhibit 
+            name={'General Country Data'}
+            description={'The below website was used to determine general \
+              information about a country such as it\'s population, timezone, \
+              and coordinates.'}
+            link={'https://restcountries.com/'}
           />
           <SourceExhibit 
-            name={'General city data'}
+            name={'General City Data'}
             description={'The below website was used to determine general \
               information about a city such as it\'s population, timezone, \
               and coordinates.'}
-            link={'https://public.opendatasoft.com/explore/dataset/geonames-all-cities-with-a-population-1000/table/?disjunctive.cou_name_en&sort=name'}
+            link={'https://simplemaps.com/data/world-cities'}
           />
-          <SourceExhibit 
+          {/* <SourceExhibit 
             name={'City and country maps'}
             description={'Interactive maps were provided by Google Maps.'}
             link={'https://www.google.com/maps'}
-          />
-        </ul>
-      </p>
+          /> */}
+      </div><br /><br />
 
       {/* Tools used and a description of how they were used */}
-      <h2>How we did it</h2>
-      <p>
-        <ul>
-          <li>
-            HTML - a mark-up language that tells your browser how to display 
-                    our website.
-          </li>
-          <li>
-            Bootstrap - a framework for CSS that makes it easier to write CSS
-                        for our website so our website is appealing to the 
-                        human eye.
-          </li>
-          <li>
-            TypeScript - used to implement any dynamic part of the website
-                          (such as dynamic git statistics). Used as an 
-                          alternative to JavaScript so type mismatching can be 
-                          caught at compile time rather than runtime.
-          </li>
-          <li>
-            React - used to create the frontend in a component-based way with 
-                    convenientpackages to easily implement things like page 
-                    routing. Mainly serves as an easier way to write HTML and
-                    interweave it with TypeScript.
-          </li>
-          <li>
-            Git - used for version control of source code; helps developers 
-                  work on the same codebase while working on their own systems 
-                  by automatically merging their work into a signle
-                  codebase.
-          </li>
-          <li>
-            GitLab - a remote repository that serves as a third party hosting
-                      our codebase in a centralized spot.
-          </li>
-          <li>
-            AWS - a cloud-based server-hosting platform that hosts our website.
-          </li>
-          <li>
-            Postman - a tool to conveniently and concisely document the API for
-                      our website.
-          </li>
-        </ul>
-      </p>
-
-      <h2>CovidDB documentation</h2>
-      <p>
-        <a href="https://documenter.getpostman.com/view/17756516/UUy4cRDr">
-          https://documenter.getpostman.com/view/17756516/UUy4cRDr
-        </a>
-      </p>
-      
+      <h2 style={{textAlign: "center"}}>Tools Used</h2><br />
+      <div className="tools-container">
+        <SourceExhibit 
+          name={"HTML"}
+          description={"A mark-up language that tells your browser how to display our website."}
+          link={"https://www.w3schools.com/html/"}
+        />
+        <SourceExhibit 
+          name={"Bootstrap"}
+          description={"A framework for CSS that makes it easier to write CSS for our website so our website is appealing to the human eye."}
+          link={"https://getbootstrap.com/"}
+        />
+        <SourceExhibit 
+          name={"TypeScript"}
+          description={"Used to implement any dynamic part of the website (such as dynamic git statistics). Used as an alternative to JavaScript so type mismatching can be caught at compile time rather than runtime."}
+          link={"https://www.typescriptlang.org/"}
+        />
+        <SourceExhibit 
+          name={"React"}
+          description={"Used to create the frontend in a component-based way with convenient packages to easily implement things like page routing. Mainly serves as an easier way to write HTML and interweave it with TypeScript."}
+          link={"https://reactjs.org/"}
+        />
+        <SourceExhibit 
+          name={"Git"}
+          description={"Used for version control of source code; helps developers work on the same codebase while working on their own systems by automatically merging their work into a single codebase."}
+          link={"https://git-scm.com/"}
+        />
+        <SourceExhibit 
+          name={"GitLab"}
+          description={"A remote repository that serves as a third party hosting our codebase in a centralized spot."}
+          link={"https://about.gitlab.com/company/"}
+        />
+        <SourceExhibit 
+          name={"Amazon Web Services"}
+          description={"A cloud-based platform that is used to host our website."}
+          link={"https://aws.amazon.com/"}
+        />
+        <SourceExhibit 
+          name={"Postman"}
+          description={"A tool to conveniently and concisely document the API for our website."}
+          link={"https://www.postman.com/"}
+        />
+      </div><br /><br />
+        
+      <h2 style={{textAlign: "center"}}>Learn More</h2><br />
+      <div className="covidDB-container">
+        <SourceExhibit 
+          name={"Our GitLab Repository"}
+          description={"CovidDB is open-sourced! You can find our online repository by clicking here!"}
+          link={"https://gitlab.com/mgrubbs/coviddb"}
+        />
+        <SourceExhibit
+          name={"Our API Documenation:"}
+          description={"Curious about how we handle our data? Check out our documentation for CovidDB's API!"}
+          link={"https://documenter.getpostman.com/view/17756516/UUy4cRDr"}
+        />
+      </div><br />
     </div>
   );
 }

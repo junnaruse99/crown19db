@@ -18,5 +18,54 @@ code {
 
 a {
   text-decoration: None;
-  color: inherit;
 }
+
+/* START OF PAGINATION */
+.pagination-active {
+  border-radius: 10%;
+  background-color: #0096ff;
+  color: #FFFFFF;
+}
+
+.pagination li {
+  padding: .4em;
+  font-size:1em;
+  height: auto;
+  width: 5vh;
+  text-align: center;
+  border-top:1px solid #D3D3D3;
+  border-bottom:1px solid #D3D3D3;
+}
+
+.pagination li:first-child, .pagination li:last-child {
+  border:None;
+}
+
+.pagination li:nth-child(2), .pagination li:nth-last-child(1){
+  border-left:1px solid #D3D3D3;
+}
+
+/* END OF PAGINATION */
+
+/* START OF MODEL HOVERING */
+.modelrow {
+  cursor: pointer;
+}
+.modelrow:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
+}
+/* END OF MODEL HOVERING */
+
+/* START OF GRID CSS */
+.row-grid {
+  display: grid;
+  grid-template-rows: repeat(auto-fill,minmax(350px,1fr));
+  grid-template-columns: repeat(auto-fill,minmax(270px,1fr));
+  grid-gap: 16px;
+  gap: 16px
+}
+
+.img-card-grid {
+  height: 20vh;
+}
+
