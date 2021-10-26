@@ -71,17 +71,11 @@ test('Country Model section render', () => {
 test('Singular Country snapshot test', () => {
     const dummyInfo = {
         id: 1,
-        name: "United States",
-        Gdp: "20.94 Trillion Dollars as of 2020",
+        officialName: "United States",
         population: "329500000",
-        "Population density": "36 (P/Km²)",
-        Flag: "https://www.countryflags.io/us/flat/64.png",
+        flag: "https://www.countryflags.io/us/flat/64.png",
         area: "3797000",
-        Map: "",
-        Capital: "Washington DC",
-        Latitude: "38.897957",
-        Longitude: "-97.036560",
-        Covid: "10/2/21"
+        continent: "North America"
     }
     const levelOne = shallow(
         <Country
@@ -98,16 +92,11 @@ test('City Model section render', () => {
 test('Singular City snapshot test', () => {
     const dummyInfo = {
         id: 2,
-        Name: "Mexico City",
-        Latitude: "19.4326",
-        Longitude: "-99.1332",
+        name: "Mexico City",
+        latitude: "19.4326",
+        longitude: "-99.1332",
         population: "12,294,193",
-        Map: "",
-        "Time zone": "America/Mexico City",
-        "country/province/state": "Mexico",
-        img: "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i9EEQ2PmgRmI/v1/1200x937.jpg",
-        covid: "10/2/21"
-    }
+        country: "Mexico"}
     const levelOne = shallow(
         <City
             city={dummyInfo}
@@ -122,9 +111,8 @@ test('Covid test', () => {
                     "lastCovidCase":"2021-04-27T00:00:00.000Z",
                     "population":75750184,
                     "recovered":1099133,
-                    "confirmed_daily":7029,
-                    "deaths_daily":41,
-                    "recovered_daily":8101}
+                    "country_id":61,
+                    "id":33}
     const levelOne = shallow(
         <Covid 
             covid={dummyInfo}
@@ -156,11 +144,8 @@ test('CovidDate test', () => {
                 "totalDeaths":3559,
                 "country":"Canada",
                 "date":"2020-04-27T00:00:00.000Z",
-                "population":75750184,
-                "totalRecovered":18268,
-                "confirmed_daily":1619,
-                "deaths_daily":185,
-                "recovered_daily":1385}
+                "totalRecovered":18268}
+
     const levelOne = shallow(
         <CovidDate 
             covid={dummyInfo}
