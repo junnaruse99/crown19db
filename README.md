@@ -19,16 +19,16 @@ ___
 | Mark Grubbs | 15 | 12 |
 ___
 ## Phase 2
-### Project Leader: 
+### Project Leader: Nicholas Huang
 ### Git SHA:
 
 | Person | Est. Time | Actual Time |
 | ------ | :---------: | :-----------: |
-| Adam Samuelson |  |  |
-| Alejandro Balderas |  |  |
-| Nicholas Huang |  |  |
-| Jun Naruse |  |  |
-| Mark Grubbs |  |  |
+| Adam Samuelson | 15 | 35 |
+| Alejandro Balderas | 25 | 27 |
+| Nicholas Huang | 24 | 32 |
+| Jun Naruse | 20 | 30 |
+| Mark Grubbs | 20 | 30 |
 ___
 ## Phase 3
 ### Project Leader: 
@@ -55,5 +55,7 @@ ___
 | Mark Grubbs |  |  |
 ___
 ### Comments:
-The CSS in About.css was referenced from this website https://coder-coder.com/display-divs-side-by-side/
-
+- The CSS in About.css was referenced from this website https://coder-coder.com/display-divs-side-by-side/
+- Phase 2 was implemented while referencing Jefferson's and Caitlin's repos from previous semesters.
+-- https://gitlab.com/forbesye/fitsbits
+-- https://gitlab.com/caitlinlien/cs373-sustainability
