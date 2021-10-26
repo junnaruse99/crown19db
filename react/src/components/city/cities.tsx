@@ -7,13 +7,17 @@ import Loading from '../layout/Loading';
 const Cities = () => {
 
     interface City {
-        country: string;
+        country: Country;
         country_id: number;
         id: number;
         name: string;
         population: number;
         latitude: number;
         longitude: number;
+    }
+
+    interface Country {
+        commonName: string;
     }
 
     const [msg, setMsg] = useState('');

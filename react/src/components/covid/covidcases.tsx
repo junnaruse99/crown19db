@@ -7,13 +7,17 @@ import Loading from '../layout/Loading';
 const CovidCases = () => {
 
     interface CovidCases {
-        country: string;
+        country: Country;
         id: number;
         cases: number;
         deaths: string;
         recovered: number;
         country_id: number;
         lastCovidCase: string;
+    }
+
+    interface Country {
+        commonName: string;
     }
 
     const [msg, setMsg] = useState('');

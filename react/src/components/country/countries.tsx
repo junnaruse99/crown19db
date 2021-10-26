@@ -13,6 +13,11 @@ const Countries = () => {
         population: number;
         continent: string;
         flag: string;
+        capital: City;
+    }
+
+    interface City {
+        name: string;
     }
     const [msg, setMsg] = useState('');
     const [countries, setCountries] = useState<Country[]>();
