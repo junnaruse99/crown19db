@@ -71,7 +71,7 @@ const CountryInstance = () => {
             {msg ? (<h3> {msg} </h3>) : 
                 country ? (
                     <div className="row">
-                        <div className="col-md-4 col-12">
+                        <div className="col-lg-4 col-12">
                             <div className="card">
                                 <h2 className="text-center text-uppercase font-weigh-bold mb-0">{country.officialName}</h2>
                                 {country.flag ? (
@@ -113,7 +113,7 @@ const CountryInstance = () => {
                                 </div>
                             </div><br /><br />
                         </div>
-                        <div className="col-md-8 col-12">
+                        <div className="col-lg-8 col-12">
                             <SimpleMap info={{center:{lat:parseFloat(country.latitude), lng:parseFloat(country.longitude)}, zoom:4}}/>
                         </div>
                         <div><br /><br />
