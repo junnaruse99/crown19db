@@ -20,7 +20,7 @@ ___
 ___
 ## Phase 2
 ### Project Leader: Nicholas Huang
-### Git SHA:
+### Git SHA: 9cea9b0a2887ca4b65720875548910531add718e
 
 | Person | Est. Time | Actual Time |
 | ------ | :---------: | :-----------: |
