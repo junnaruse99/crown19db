@@ -10,52 +10,27 @@ import clientAxios from '../../config/axios';
 import Loading from '../layout/Loading';
 import CovidGraph from '../covidGraph/covidGraph';
 import LocaleInfo from '../localeInfo/localeInfo';
+import { countReset } from 'console';
+import City from '../city/city';
 
 const CountryTimeline = () => {
 
     interface CovidInstance {
-        country: string;
+        country: Country;
         country_id: number;
         date: string;
         id: number;
         totalCases: number;
+        city: City;
+    }
+
+    interface City {
+        name: string;
+        id: number;
     }
 
     interface Country {
-        id: number;
-        area: number;
-        coatOfArms: string;
         commonName: string;
-        officialName: string;
-        continent: string;
-        flag: string;
-        latitude: string;
-        longitude: string;
-        maps: string;
-        population: number;
-        region: string;
-        subregion: string;
-        timezone: TimeZone[];
-        currency: Currency[];
-        language: Language[];
-        city: City;
-    }   
-
-    interface City {
-        id: number;
-        name: string;
-    }
-
-    interface TimeZone {
-        zone: string;
-    }
-
-    interface Currency {
-        zone: string;
-    }
-
-    interface Language {
-        zone: string;
     }
 
     let { country_id } = useParams();
@@ -64,9 +39,6 @@ const CountryTimeline = () => {
     const [currentCovid, setCurrentCovid] = useState<CovidInstance[]>();
     const [msg, setMsg] = useState('');
 
-    const [country, setCountry] = useState<Country>();
-    const [currentCountry, setCurrentCountry] = useState<Country>();
-    // Get covid instance from api
     const getCovid = async () => {
         try {
             const response = await clientAxios.get<CovidInstance[]>(`/v1/models/covidInstance/country_id=${country_id}`)
@@ -79,28 +51,16 @@ const CountryTimeline = () => {
         }
     }
 
-    const getCountry = async () => {
-        try {
-            const response = await clientAxios.get<Country>(`/v1/models/country/id=${country_id}`)
-                .then(response => {
-                    setCountry(response.data)
-                });
-        } catch (error) {
-            setMsg('There was an error');
-        }
-    }
-
     useEffect(() => {
         getCovid();
-        getCountry();
     }, []);
+
+    //add connection to city and country
+    // try catch for countries that are not found
     
     const handlePageClick = (data) => {
         if (covid) {
             setCurrentCovid(covid.slice(data.selected*10, data.selected*10+10))
-        }
-        if (country) {
-            setCurrentCountry(country);
         }
     }
 
@@ -115,16 +75,16 @@ const CountryTimeline = () => {
                 <>
                     <div className="row">
                             <div className='col-12 col-md-4 mb-2'> 
-                                <h2>{covid[0].country} Covid Timeline</h2>
+                                <h2>{covid[0].country.commonName} Covid Timeline</h2>
                             </div>
                             <div className='col-12 col-md-4 mb-2'> 
-                                <a href={"/country/" + country_id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{covid[0].country}'s General Info</a>
+                                <a href={"/country/" + country_id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{covid[0].country.commonName}'s General Info</a>
                             </div>
-                        {country && country.city? (
+                        {covid[0].country && covid[0].city? (
                             <div className='col-12 col-md-4 mb-2'> 
-                                <a href={"/city/" + country.city.id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{country.city.name}'s General Info</a>
+                                <a href={"/city/" + covid[0].city.id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{covid[0].city.name}'s General Info</a>
                             </div>
-                        ) : <div className='col-12 col-md-4 mb-2'> <a href={""} className="btn btn-primary btn-lg disabled w-100" role="button" aria-pressed="true">{covid[0].country} has no capital</a> </div>}
+                        ) : <div className='col-12 col-md-4 mb-2'> <a href={""} className="btn btn-primary btn-lg disabled w-100" role="button" aria-pressed="true">{covid[0].country.commonName} has no capital</a> </div>}
                         <table className="table">
                             <thead className="thead-dark">
                                 <tr>
@@ -145,7 +105,7 @@ const CountryTimeline = () => {
                         </table>
                     </div>
                     <div className="row">
-                        {"There are " + covid.length + " countries"}
+                        {"There are " + covid.length + " dates"}
                     </div>
                     {/* Pagination css is in index.css */}
                     <div className="row d-flex justify-content-center">
@@ -162,11 +122,11 @@ const CountryTimeline = () => {
                         />
                     </div>
                     <div><br />
-                        <CovidGraph location = {covid[0].country}/>
+                        <CovidGraph location = {covid[0].country.commonName}/>
                     </div>
                     <div><br />
                             <LocaleInfo
-                                location={covid[0].country}
+                                location={covid[0].country.commonName}
                                 showNews={true}
                                 showTests={false}/>
                         </div>

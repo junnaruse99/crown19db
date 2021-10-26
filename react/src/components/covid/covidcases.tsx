@@ -7,13 +7,17 @@ import Loading from '../layout/Loading';
 const CovidCases = () => {
 
     interface CovidCases {
-        country: string;
+        country: Country;
         id: number;
         cases: number;
         deaths: string;
         recovered: number;
         country_id: number;
         lastCovidCase: string;
+    }
+
+    interface Country {
+        commonName: string;
     }
 
     const [msg, setMsg] = useState('');
@@ -73,7 +77,7 @@ const CovidCases = () => {
                         </div>
                     </div>
                     <div className="row">
-                        {"There are " + covidCases.length + " covid dates"}
+                        {"There are " + covidCases.length + " countries"}
                     </div>
                     {/* Pagination css is in index.css */}
                     <div className="row d-flex justify-content-center">

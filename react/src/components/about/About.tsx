@@ -357,6 +357,26 @@ export default function About(props) {
           description={"A tool to conveniently and concisely document the API for our website."}
           link={"https://www.postman.com/"}
         />
+        <SourceExhibit 
+          name={"Jest"}
+          description={"Jest is a unit testing framework for Javascript. The main feature used from the framework was the snapshot testing tools for our objects."}
+          link={"https://jestjs.io/ "}
+        />
+        <SourceExhibit 
+          name={"Selenium"}
+          description={"Selenium is an open-source automated testing framework used to validate web applications across different browsers and platforms. It was used to test our website’s GUI."}
+          link={"https://www.selenium.dev/"}
+        />
+        <SourceExhibit 
+          name={"Python’s unittest library"}
+          description={"Python’s built in unit testing framework helped us test the backend functions for our website."}
+          link={"https://docs.python.org/3/library/unittest.html"}
+        />
+        <SourceExhibit 
+          name={"COVID-19 Dashboard"}
+          description={"Interactive graph embedded in our covid timeline instances. The graph displays the specific countries trends in “confirmed”, “deaths”, and “recovered”.."}
+          link={"https://trekhleb.dev/covid-19/"}
+        />
       </div><br /><br />
         
       <h2 style={{textAlign: "center"}}>Learn More</h2><br />

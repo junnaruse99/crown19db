@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`About section render 1`] = `ShallowWrapper {}`;
+
+exports[`Card Row for Covid test 1`] = `ShallowWrapper {}`;
+
+exports[`City Model section render 1`] = `ShallowWrapper {}`;
+
+exports[`Country Model section render 1`] = `ShallowWrapper {}`;
+
+exports[`Covid Cases test 1`] = `ShallowWrapper {}`;
+
+exports[`Covid test 1`] = `ShallowWrapper {}`;
+
+exports[`CovidDate test 1`] = `ShallowWrapper {}`;
+
+exports[`Loading test 1`] = `ShallowWrapper {}`;
+
+exports[`Locale information test 1`] = `ShallowWrapper {}`;
+
+exports[`Map component test 1`] = `ShallowWrapper {}`;
+
+exports[`Navbar test 1`] = `ShallowWrapper {}`;
+
+exports[`Singular City snapshot test 1`] = `ShallowWrapper {}`;
+
+exports[`Singular Country snapshot test 1`] = `ShallowWrapper {}`;
+
+exports[`Splash section render 1`] = `ShallowWrapper {}`;

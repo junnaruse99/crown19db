@@ -12,15 +12,20 @@ const CityInstance = () => {
     let { id } = useParams();
 
     interface City {
-        country: string;
         country_id: number;
         id: number;
         name: string;
         population: number;
         latitude: number;
         longitude: number;
+        country: Country;
+
     }
-    
+
+    interface Country {
+        commonName: string;
+    }
+
     // Find city
     const [city, setCity] = useState<City>();
     const [msg, setMsg] = useState('');
@@ -30,7 +35,8 @@ const CityInstance = () => {
         try {
             const response = await clientAxios.get<City>(`/v1/models/city/id=${id}`)
                 .then(response => {
-                    setCity(response.data)
+                    console.log(response.data);
+                    setCity(response.data);
                 });
         } catch (error) {
             setMsg('There was an error');
@@ -47,7 +53,7 @@ const CityInstance = () => {
             {msg ? (<h3> {msg} </h3>) : 
                 city ? (
                     <div className="row align-items-center">
-                        <div className="col-md-4 col-12">
+                        <div className="col-lg-4 col-12">
                             <div className="card">
                                 <h2 className="text-center text-uppercase font-weigh-bold mb-0">{city.name}</h2>
                                 {/* <img className="card-img-top" src={''} alt={city.name}/> */}
@@ -69,16 +75,16 @@ const CityInstance = () => {
                                                 </tr>
                                                 <tr>
                                                 <th scope="row">Country</th>
-                                                <td><Link to={"/country/"+ city.country_id}>{city.country}</Link></td>
+                                                <td><Link to={"/country/"+ city.country_id}>{city.country.commonName}</Link></td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <a href={"/covid/" + city.country_id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{city.country}'s Covid Data</a>
+                                        <a href={"/covid/" + city.country_id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{city.country.commonName}'s Covid Data</a>
                                     </p>
                                 </div>
                             </div><br /><br />
                         </div>
-                        <div className="col-md-8 col-12">
+                        <div className="col-lg-8 col-12">
                             <SimpleMap info={{center:{lat:city.latitude, lng:city.longitude}, zoom:11}}/>
                         </div>
                         <div><br /><br />

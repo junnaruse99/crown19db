@@ -1,6 +1,7 @@
 stages:
   - deploy
   - run
+  - tests
 
 npm-run:
   stage: run
@@ -13,6 +14,29 @@ npm-run:
   - CI=false npm run-script build
 
 image: node:latest
+
+test_python:
+  stage: tests
+  image: python:3.7
+  script:
+    - pip install -r back/requirements.txt
+    - python back/test.py
+
+postman_tests:
+  stage: tests
+  image:
+    name: postman/newman_alpine33
+    entrypoint: [""]
+  script:
+    - newman --version
+    - newman run postman.json
+
+test_python:
+  stage: tests
+  image: python:3.7
+  script:
+    - pip install -r back/requirements.txt
+    - python back/test.py
 
 deploy_develop:
   image: python:3.6-stretch
@@ -43,3 +67,34 @@ deploy_production:
   script:
     - cd back
     - /root/.local/bin/eb deploy coviddb-api-prod
+
+frontend_tests:
+  stage: tests
+  script:
+    - cd react
+    - npm install
+    - npm test
+
+gui_tests:
+  stage: tests
+  image: python:3.7
+  script:
+    - pip install selenium
+    - cd react
+
+    - apt-get update -q -y
+    - apt-get install nodejs npm -y
+    - apt-get --yes install libnss3
+    - apt-get --yes install libgconf-2-4
+    - apt-get install libx11-xcb1
+
+    - curl -sS -L https://dl.google.com/linux/linux_signing_key.pub | 
+      apt-key add -
+
+    - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ 
+      stable main" > /etc/apt/sources.list.d/google.list
+    - apt-get update -q -y
+    - apt-get install -y google-chrome-stable
+    - npm install
+
+    - python3 gui_tests.py
