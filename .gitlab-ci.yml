@@ -1,5 +1,6 @@
 stages:
   - deploy
+  - test
   - run
 
 npm-run:
@@ -13,6 +14,16 @@ npm-run:
   - CI=false npm run-script build
 
 image: node:latest
+
+postman_tests:
+  stage: test
+  image:
+    name: postman/newman_alpine33
+    entrypoint: [""]
+  script:
+    - newman --version
+    - newman run postman.json
+
 
 deploy_develop:
   image: python:3.6-stretch
