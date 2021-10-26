@@ -6,14 +6,15 @@ from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
+app.config["CORS_HEADERS"] = "Content-Type"
 db = init_db(app)
 ma = Marshmallow(app)
 
 ##### Models #####
 
+
 class Country(db.Model):
-    __tablename__ = 'country'
+    __tablename__ = "country"
 
     id = db.Column(db.Integer, primary_key=True)
     commonName = db.Column(db.String(), nullable=True)
@@ -36,31 +37,35 @@ class Country(db.Model):
     city = db.relationship('City', back_populates='country', uselist=False) # One to one
 
     def __repr__(self):
-        return '<Country %r>' % self.commonName
+        return "<Country %r>" % self.commonName
+
 
 class Currency(db.Model):
-    __tablename__ = 'currency'
+    __tablename__ = "currency"
 
     id = db.Column(db.Integer, primary_key=True)
-    country_id = db.Column(db.Integer, db.ForeignKey('country.id'))
+    country_id = db.Column(db.Integer, db.ForeignKey("country.id"))
     name = db.Column(db.String(), unique=False, nullable=False)
+
 
 class Language(db.Model):
-    __tablename__ = 'language'
+    __tablename__ = "language"
 
     id = db.Column(db.Integer, primary_key=True)
-    country_id = db.Column(db.Integer, db.ForeignKey('country.id'))
+    country_id = db.Column(db.Integer, db.ForeignKey("country.id"))
     name = db.Column(db.String(), unique=False, nullable=False)
 
+
 class TimeZone(db.Model):
-    __tablename__ = 'time_zone'
+    __tablename__ = "time_zone"
 
     id = db.Column(db.Integer, primary_key=True)
-    country_id = db.Column(db.Integer, db.ForeignKey('country.id'))
+    country_id = db.Column(db.Integer, db.ForeignKey("country.id"))
     zone = db.Column(db.String(), unique=False, nullable=False)
 
+
 class City(db.Model):
-    __tablename__ = 'city'
+    __tablename__ = "city"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(), unique=False, nullable=False)
@@ -73,13 +78,14 @@ class City(db.Model):
     covidInstances = db.relationship('CovidInstance', back_populates='city') # one to many
 
     def __repr__(self):
-        return '<City %r>' % self.name
+        return "<City %r>" % self.name
+
 
 class Covid(db.Model):
-    __tablename__ = 'covid'
+    __tablename__ = "covid"
 
     id = db.Column(db.Integer, primary_key=True)
-    country_id = db.Column(db.Integer, db.ForeignKey('country.id'))
+    country_id = db.Column(db.Integer, db.ForeignKey("country.id"))
     cases = db.Column(db.BIGINT, unique=False, nullable=False)
     recovered = db.Column(db.BIGINT, unique=False, nullable=False)
     deaths = db.Column(db.BIGINT, unique=False, nullable=False)
@@ -87,13 +93,14 @@ class Covid(db.Model):
     country = db.relationship('Country', back_populates='covid', uselist=False) # one to one
 
     def __repr__(self):
-        return '<Covid for country %r>' % self.countryId
+        return "<Covid for country %r>" % self.countryId
+
 
 class CovidInstance(db.Model):
-    __tablename__ = 'covid_instance'
-    
+    __tablename__ = "covid_instance"
+
     id = db.Column(db.Integer, primary_key=True)
-    country_id = db.Column(db.Integer, db.ForeignKey('country.id'))
+    country_id = db.Column(db.Integer, db.ForeignKey("country.id"))
     date = db.Column(db.DateTime, unique=False, nullable=False)
     totalCases = db.Column(db.Integer, unique=False, nullable=False)
     totalRecovered = db.Column(db.Integer, unique=False, nullable=False)
@@ -103,10 +110,11 @@ class CovidInstance(db.Model):
     city = db.relationship('City', back_populates='covidInstances') # one to many
 
     def __repr__(self):
-        return '<Covid in %r for country %r>' % (self.date, self.countryId)
+        return "<Covid in %r for country %r>" % (self.date, self.countryId)
 
 
 #### SCHEMAS ####
+
 
 class CountrySchema(ma.Schema):
     id = fields.Integer(required=True)
@@ -122,32 +130,14 @@ class CountrySchema(ma.Schema):
     longitude = fields.Float(required=True)
     population = fields.Integer(required=True)
     continent = fields.String(required=True)
-    language = fields.Nested(
-        'LanguageSchema',
-        only=['name'],
-        required=False,
-        many=True
-    )
-    currency = fields.Nested(
-        'CurrencySchema',
-        only=['name'],
-        required=False,
-        many=True
-    )
-    timezone = fields.Nested(
-        'TimezoneSchema',
-        only=['zone'],
-        required=False,
-        many=True
-    )
-    city = fields.Nested(
-        'CitySchema',
-        only=['id', 'name'],
-        required=False,
-        many=False
-    )
+    language = fields.Nested("LanguageSchema", only=["name"], required=False, many=True)
+    currency = fields.Nested("CurrencySchema", only=["name"], required=False, many=True)
+    timezone = fields.Nested("TimezoneSchema", only=["zone"], required=False, many=True)
+    city = fields.Nested("CitySchema", only=["id", "name"], required=False, many=False)
+
     class Meta:
         ordered = True
+
 
 class CountrySchemaReduced(ma.Schema):
     id = fields.Integer(required=True)
@@ -163,20 +153,24 @@ class CountrySchemaReduced(ma.Schema):
         many=False
     )
 
+
 class LanguageSchema(ma.Schema):
     id = fields.Int(required=True)
     country_id = fields.Str(required=True)
     name = fields.Str(required=True)
+
 
 class CurrencySchema(ma.Schema):
     id = fields.Int(required=True)
     country_id = fields.Str(required=True)
     name = fields.Str(required=True)
 
+
 class TimezoneSchema(ma.Schema):
     id = fields.Int(required=True)
     country_id = fields.Str(required=True)
     zone = fields.Str(required=True)
+
 
 class CitySchema(ma.Schema):
     id = fields.Integer(required=True)
@@ -196,6 +190,7 @@ class CitySchema(ma.Schema):
     class Meta:
         ordered = True
 
+
 class CovidSchema(ma.Schema):
     id = fields.Integer(required=True)
     country_id = fields.Integer(required=True)
@@ -212,6 +207,7 @@ class CovidSchema(ma.Schema):
 
     class Meta:
         ordered = True
+
 
 class CovidInstanceSchema(ma.Schema):
     id = fields.Integer(required=True)

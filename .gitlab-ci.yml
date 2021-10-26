@@ -15,6 +15,13 @@ npm-run:
 
 image: node:latest
 
+test_python:
+  stage: tests
+  image: python:3.7
+  script:
+    - pip install -r back/requirements.txt
+    - python back/test.py
+
 postman_tests:
   stage: tests
   image:
@@ -60,6 +67,13 @@ deploy_production:
     - git checkout main
   script:
     - /root/.local/bin/eb deploy coviddb-api-prod
+
+frontend_tests:
+  stage: tests
+  script:
+    - cd react
+    - npm install
+    - npm test
 
 gui_tests:
   stage: tests

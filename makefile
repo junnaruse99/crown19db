@@ -6,7 +6,10 @@ SHELL         := bash
 docker:
 	docker run -it --rm -v ${PWD}:/react/app -v /react/app/node_modules -p 3001:3000 -e CHOKIDAR_USEPOLLING=true \
     pooepw/coviddb:dev
- 
+
+format:
+	black ./back/*.py
+
 all:
 
 # files to be checked for existence
