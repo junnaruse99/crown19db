@@ -36,6 +36,12 @@ const Country = ({ country }) => {
                         <p>{country.continent}</p>
                     </div>
                 </div>
+                <div className='row'>
+                    <div className='col-12 d-flex justify-content-around'>
+                        <p>Capital: </p>
+                        <p>{country.city ? country.city.name : 'None'}</p>
+                    </div>
+                </div>
             </div>
         </div>
     )
