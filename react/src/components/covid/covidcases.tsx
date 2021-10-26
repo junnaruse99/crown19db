@@ -77,7 +77,7 @@ const CovidCases = () => {
                         </div>
                     </div>
                     <div className="row">
-                        {"There are " + covidCases.length + " covid dates"}
+                        {"There are " + covidCases.length + " countries"}
                     </div>
                     {/* Pagination css is in index.css */}
                     <div className="row d-flex justify-content-center">
