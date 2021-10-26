@@ -94,11 +94,6 @@ const CountryTimeline = () => {
         getCovid();
         getCountry();
     }, []);
-
-    
-
-    //add connection to city and country
-    // try catch for countries that are not found
     
     const handlePageClick = (data) => {
         if (covid) {
@@ -110,8 +105,10 @@ const CountryTimeline = () => {
     }
 
     return (
+        //initial check to see if data exists
         covid && !covid[0]
             ? <h2>Unfortunately there is no COVID data available for this country :(</h2> :
+
         <div className='container'>
             {msg ? (<h3>{msg}</h3>) : (
                 (covid && currentCovid) ? 
