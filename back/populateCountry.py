@@ -50,7 +50,7 @@ def add_country():
         # with open('cities.json') as json_file:
         #     cities = json.load(json_file)
 
-        cities = pd.read_csv('../data/worldcities.csv')
+        cities = pd.read_csv('./data/worldcities.csv')
 
         r = requests.get(COUNTRY_API_URL)
 
@@ -127,9 +127,6 @@ def add_country():
                 currency = currencies,
                 language = languages,
                 timezone = timezones,
-                covid = None,
-                covidInstances = [],
-                city = None
                 )
 
             # Add the city
