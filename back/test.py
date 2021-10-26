@@ -115,7 +115,7 @@ class EndpointTest(unittest.TestCase):
         
         all_att = self.checkAttributes(covid[0], attributes)
 
-        self.assertEqual(len(covid), 190)
+        self.assertEqual(len(covid), 191)
         self.assertEqual(covid[0]['country']['commonName'], "Afghanistan")
         self.assertEqual(covid[0]['deaths'], 18289880)
         self.assertEqual(all_att, True)
@@ -140,17 +140,17 @@ class EndpointTest(unittest.TestCase):
         all_att = self.checkAttributes(covid, attributes)
 
         self.assertEqual(all_att, True)
-        self.assertEqual(covid['country'], 'Malta')
+        self.assertEqual(covid['country']['commonName'], 'Malta')
 
     def test_get_covidInstance_by_countrId(self):
         covid = json.loads(app.get_covidInstance_by_countryId(10).data)
 
-        attributes = {'id', 'totalCases', 'country', 'country_id', 'totalDeaths', 'date', 'totalRecovered'}
+        attributes = {'id', 'totalCases', 'country', 'country_id', 'totalDeaths', 'date', 'totalRecovered', 'city'}
 
         self.assertEqual(len(covid), 616)
         all_att = self.checkAttributes(covid[0], attributes)
 
-        self.assertEqual(covid[0]['country'], "Laos")
+        self.assertEqual(covid[0]['country']['commonName'], "Laos")
         self.assertEqual(covid[0]['totalCases'], 24916)
         self.assertEqual(all_att, True)
 

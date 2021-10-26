@@ -228,7 +228,7 @@ class CovidInstanceSchema(ma.Schema):
     )
     city = fields.Nested(
         'CitySchema',
-        only = ['name'],
+        only = ['name', 'id'],
         required=False,
         many=False
     )
