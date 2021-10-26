@@ -17,7 +17,7 @@ const City = ({ city }) => {
         <td>{city.latitude}</td>
         <td>{city.longitude}</td>
         <td>{city.population}</td>
-        <td>{city.country}</td>
+        <td>{city.country.commonName}</td>
         </tr>
     )
 }
