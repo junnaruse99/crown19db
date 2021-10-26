@@ -94,11 +94,6 @@ const CountryTimeline = () => {
         getCovid();
         getCountry();
     }, []);
-
-    
-
-    //add connection to city and country
-    // try catch for countries that are not found
     
     const handlePageClick = (data) => {
         if (covid) {
@@ -109,23 +104,27 @@ const CountryTimeline = () => {
         }
     }
 
-    return ( 
+    return (
+        //initial check to see if data exists
+        covid && !covid[0]
+            ? <h2>Unfortunately there is no COVID data available for this country :(</h2> :
+
         <div className='container'>
             {msg ? (<h3>{msg}</h3>) : (
                 (covid && currentCovid) ? 
                 <>
                     <div className="row">
-                        <div className='col-12 col-md-4 mb-2'> 
-                            <h2>{covid[0].country} Covid Timeline</h2>
-                        </div>
-                        <div className='col-12 col-md-4 mb-2'> 
-                            <a href={"/country/" + country_id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{covid[0].country}'s General Info</a>
-                        </div>
-                        {country ? (
+                            <div className='col-12 col-md-4 mb-2'> 
+                                <h2>{covid[0].country} Covid Timeline</h2>
+                            </div>
+                            <div className='col-12 col-md-4 mb-2'> 
+                                <a href={"/country/" + country_id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{covid[0].country}'s General Info</a>
+                            </div>
+                        {country && country.city? (
                             <div className='col-12 col-md-4 mb-2'> 
                                 <a href={"/city/" + country.city.id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{country.city.name}'s General Info</a>
                             </div>
-                        ) : null}
+                        ) : <div className='col-12 col-md-4 mb-2'> <a href={""} className="btn btn-primary btn-lg disabled w-100" role="button" aria-pressed="true">{covid[0].country} has no capital</a> </div>}
                         <table className="table">
                             <thead className="thead-dark">
                                 <tr>
@@ -146,7 +145,7 @@ const CountryTimeline = () => {
                         </table>
                     </div>
                     <div className="row">
-                        {"There are " + covid.length + " covid dates"}
+                        {"There are " + covid.length + " countries"}
                     </div>
                     {/* Pagination css is in index.css */}
                     <div className="row d-flex justify-content-center">

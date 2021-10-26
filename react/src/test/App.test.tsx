@@ -73,10 +73,10 @@ test('Singular Country snapshot test', () => {
         id: 1,
         name: "United States",
         Gdp: "20.94 Trillion Dollars as of 2020",
-        Population: "329.5 million as of 2020",
+        population: "329500000",
         "Population density": "36 (P/Km²)",
         Flag: "https://www.countryflags.io/us/flat/64.png",
-        Area: "3.797 million mi²",
+        area: "3797000",
         Map: "",
         Capital: "Washington DC",
         Latitude: "38.897957",
@@ -101,7 +101,7 @@ test('Singular City snapshot test', () => {
         Name: "Mexico City",
         Latitude: "19.4326",
         Longitude: "-99.1332",
-        Population: "12,294,193",
+        population: "12,294,193",
         Map: "",
         "Time zone": "America/Mexico City",
         "country/province/state": "Mexico",
@@ -116,7 +116,7 @@ test('Singular City snapshot test', () => {
 });
 
 test('Covid test', () => {
-    const dummyInfo={"confirmed":1203429,
+    const dummyInfo={"cases":1203429,
                     "deaths":24066,
                     "country":"Canada",
                     "lastCovidCase":"2021-04-27T00:00:00.000Z",
@@ -152,12 +152,12 @@ test('Card Row for Covid test', () => {
 });
 
 test('CovidDate test', () => {
-    const dummyInfo={"confirmed":51621,
-                "deaths":3559,
+    const dummyInfo={"totalCases":51621,
+                "totalDeaths":3559,
                 "country":"Canada",
                 "date":"2020-04-27T00:00:00.000Z",
                 "population":75750184,
-                "recovered":18268,
+                "totalRecovered":18268,
                 "confirmed_daily":1619,
                 "deaths_daily":185,
                 "recovered_daily":1385}
