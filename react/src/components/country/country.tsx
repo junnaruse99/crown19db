@@ -35,13 +35,7 @@ const Country = ({ country }) => {
                 <div className='row' style={{width: "250px"}}>
                     <div className='col-12 d-flex justify-content-around'>
                         <p style={{fontSize: "14px"}}>Capital: </p>
-                        <p style={{fontSize: "14px"}}>{country.city.name}</p> 
-                    </div>
-                </div>
-                <div className='row'>
-                    <div className='col-12 d-flex justify-content-around'>
-                        <p>Capital: </p>
-                        <p>{country.city ? country.city.name : 'None'}</p>
+                        <p style={{fontSize: "14px"}}>{country.city ? country.city.name : 'None'}</p> 
                     </div>
                 </div>
             </div>
