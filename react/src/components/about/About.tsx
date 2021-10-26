@@ -14,9 +14,10 @@ class GitInfo {
   email: string; // Used to match commits to contributors
   username: string; // Used to match issues to contributors
 
-  constructor(email: string, username: string) {
+  constructor(email: string, username: string, tests) {
     this.email = email;
     this.username = username;
+    this.numUnitTests = tests;
   }
 }
 
@@ -92,8 +93,8 @@ async function getContributors() {
           music, hanging out with friends, working on his own CS projects, \
           and hydrating himself with water.',
     responsibilities: [
-      'Create the about page (this page)',],
-    gitInfo: new GitInfo('lilbroadam@gmail.com', 'adamsamuelson'),
+      'Back-end development'],
+    gitInfo: new GitInfo('lilbroadam@gmail.com', 'adamsamuelson', 0),
   };
 
   var alejandroStats: ContributorInfo = {
@@ -103,9 +104,8 @@ async function getContributors() {
           before graduating and starting a full time position at Expedia.\
           He loves pugs and exercising',
     responsibilities: [
-      'City instances and model',
-      'Splash page'],
-    gitInfo: new GitInfo('alejandro_balderas@utexas.edu', 'alejandrobk'),
+      'Front-end development'],
+    gitInfo: new GitInfo('alejandro_balderas@utexas.edu', 'alejandrobk', 0),
   };
 
   var nicholasStats: ContributorInfo = {
@@ -115,9 +115,9 @@ async function getContributors() {
           ever since. Now, he is very proud to work as a developer for CovidDB, working \
           long hours to ensure that users get all the COVID-19 information that they need',
     responsibilities: [
-      'Hosting (AWS/Namecheap)',
-      'Technical Report'],
-    gitInfo: new GitInfo('nhua5610@gmail.com', 'OddJerbb'),
+      'Front-end development',
+      'Front-end unit testing'],
+    gitInfo: new GitInfo('nhua5610@gmail.com', 'OddJerbb', 10),
   };
 
   var junStats: ContributorInfo = {
@@ -127,9 +127,9 @@ async function getContributors() {
           majoring in Mechatronics Engineering. In his free time he likes watching \
           anime and reading manga.',
     responsibilities: [
-      'Country and covid model',
-      'Country and covid instances'],
-    gitInfo: new GitInfo('jun.naruse@gmail.com', 'jun.naruse'),
+      'Back-end development',
+      'Back-end unit testing'],
+    gitInfo: new GitInfo('jun.naruse@gmail.com', 'jun.naruse', 20),
   };
 
   var markStats: ContributorInfo = {
@@ -138,9 +138,8 @@ async function getContributors() {
     bio: 'Mark is in his last semester as a CS major with a certificate \
           in Japanese. He is really into video games.',
     responsibilities: [
-      'User Stories',
-      'Postman'],
-    gitInfo: new GitInfo('siegbalicula@gmail.com', 'mgrubbs'),
+      'Front-end Unit Testing'],
+    gitInfo: new GitInfo('siegbalicula@gmail.com', 'mgrubbs', 10),
   };
 
   var totalStats: ContributorInfo = {
@@ -148,7 +147,7 @@ async function getContributors() {
     photo: '',
     bio: '',
     responsibilities: [],
-    gitInfo: new GitInfo('total', 'total'),
+    gitInfo: new GitInfo('total', 'total', 40),
   };
 
   var contributors: Array<ContributorInfo> = [
@@ -160,11 +159,8 @@ async function getContributors() {
     totalStats,
   ];
 
-  // Populate gitStats for each contributor
-  const gitlabContributorsPath: string = 'https://gitlab.com/api/v4/projects/29917081/repository/contributors';
-  const gitlabIssuesPath: string = 'https://gitlab.com/api/v4/projects/29917081/issues';
-
   // Get number of commits for each contributor
+  const gitlabContributorsPath: string = 'https://gitlab.com/api/v4/projects/29917081/repository/contributors';
   await fetch(gitlabContributorsPath)
     .then(res => {
       return res.json();
@@ -182,6 +178,7 @@ async function getContributors() {
     });
 
   // Get number of issues opened for each contributor
+  const gitlabIssuesPath: string = 'https://gitlab.com/api/v4/projects/29917081/issues?per_page=100';
   await fetch(gitlabIssuesPath)
     .then(res => {
       return res.json();
@@ -198,8 +195,7 @@ async function getContributors() {
       }
     });
   
-  // TODO calc number of unit tests
-
+  
   return contributors;
 }
 
@@ -294,7 +290,7 @@ export default function About(props) {
           <SourceExhibit 
             name={'COVID-19 Cases Data'}
             description={'Our data about COVID-19 cases is supplied by this \
-              API endpoint. The data was compiled by John Hopkins University.'}
+              source. The data was compiled by John Hopkins University.'}
             link={'https://data.humdata.org/dataset/novel-coronavirus-2019-ncov-cases'}
           />
            <SourceExhibit 

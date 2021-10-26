@@ -12,8 +12,10 @@ import Country from '../components/country/country';
 import AllCountries from '../components/country/countries';
 import City from '../components/city/city';
 import AllCities from '../components/city/cities';
+import Covid from '../components/covid/covid'
 import CovidCases from '../components/covid/covidcases';
 import CardRow from '../components/covid/cardRow';
+import CovidDate from '../components/covid/covidDate';
 import Navbar from '../components/layout/navbar'
 import SimpleMap from '../components/map/SimpleMap'
 import LocaleInfo from '../components/localeInfo/localeInfo'
@@ -113,6 +115,23 @@ test('Singular City snapshot test', () => {
     expect(levelOne).toMatchSnapshot();
 });
 
+test('Covid test', () => {
+    const dummyInfo={"confirmed":1203429,
+                    "deaths":24066,
+                    "country":"Canada",
+                    "lastCovidCase":"2021-04-27T00:00:00.000Z",
+                    "population":75750184,
+                    "recovered":1099133,
+                    "confirmed_daily":7029,
+                    "deaths_daily":41,
+                    "recovered_daily":8101}
+    const levelOne = shallow(
+        <Covid 
+            covid={dummyInfo}
+        />);
+    expect(levelOne).toMatchSnapshot();
+});
+
 test('Covid Cases test', () => {
     const levelOne = shallow(<CovidCases />);
     expect(levelOne).toMatchSnapshot();
@@ -128,6 +147,23 @@ test('Card Row for Covid test', () => {
     const levelOne = shallow(
         <CardRow 
             info={dummyInfo}
+        />);
+    expect(levelOne).toMatchSnapshot();
+});
+
+test('CovidDate test', () => {
+    const dummyInfo={"confirmed":51621,
+                "deaths":3559,
+                "country":"Canada",
+                "date":"2020-04-27T00:00:00.000Z",
+                "population":75750184,
+                "recovered":18268,
+                "confirmed_daily":1619,
+                "deaths_daily":185,
+                "recovered_daily":1385}
+    const levelOne = shallow(
+        <CovidDate 
+            covid={dummyInfo}
         />);
     expect(levelOne).toMatchSnapshot();
 });

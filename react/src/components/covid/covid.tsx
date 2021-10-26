@@ -6,7 +6,7 @@ const Covid = ({ covid }) => {
     const history = useHistory();
 
     const handleRowClick = () => {
-        history.push("/covid/" + covid.id);
+        history.push("/covid/" + covid.country_id);
     }
     
     return(
@@ -16,7 +16,7 @@ const Covid = ({ covid }) => {
         <td>{covid.cases}</td>
         <td>{covid.deaths}</td>
         <td>{covid.recovered}</td>
-        <td>{covid.lastCovidCase}</td>
+        <td>{covid.lastCovidCase.slice(0,10)}</td>
         </tr>
     )
 }
