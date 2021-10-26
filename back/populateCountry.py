@@ -51,7 +51,7 @@ def add_country():
         # with open('cities.json') as json_file:
         #     cities = json.load(json_file)
 
-        cities = pd.read_csv('./data/worldcities.csv')
+        cities = pd.read_csv("./data/worldcities.csv")
 
         r = requests.get(COUNTRY_API_URL)
 
@@ -117,12 +117,12 @@ def add_country():
                 coatOfArms=coat,
                 maps=maps,
                 continent=continent,
-                latitude=data['latlng'][0],
-                longitude=data['latlng'][1],
-                currency = currencies,
-                language = languages,
-                timezone = timezones,
-                )
+                latitude=data["latlng"][0],
+                longitude=data["latlng"][1],
+                currency=currencies,
+                language=languages,
+                timezone=timezones,
+            )
 
             # Add the city
             # Check that the name of the country is in my city data
