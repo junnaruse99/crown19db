@@ -92,7 +92,9 @@ def get_city_by_name(cityName):
 @app.route("/v1/models/city/id=<id>", methods=["GET"])
 def get_city_by_id(id):
     # Remeber that format of country name is lower case and separated by '-' and lowercase (POSTMAN)
-    city = City.query.filter_by(id=id).first_or_404(description='There is no data with {}'.format(id))
+    city = City.query.filter_by(id=id).first_or_404(
+        description="There is no data with {}".format(id)
+    )
     return jsonify(city_schema.dump(city))
 
 
@@ -115,10 +117,14 @@ def get_covid_by_countryId(countryId):
 
 @app.route("/v1/models/covid/id=<id>", methods=["GET"])
 def get_covid_by_id(id):
-    covid = Covid.query.filter_by(id=id).first_or_404(description='There is no data with {}'.format(id))
+    covid = Covid.query.filter_by(id=id).first_or_404(
+        description="There is no data with {}".format(id)
+    )
     return jsonify(covid_schema.dump(covid))
 
-# COVID INSTANCE 
+
+# COVID INSTANCE
+
 
 @app.route("/v1/models/covidInstance/country_id=<countryId>", methods=["GET"])
 def get_covidInstance_by_countryId(countryId):

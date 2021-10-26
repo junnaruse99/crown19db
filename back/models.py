@@ -29,12 +29,18 @@ class Country(db.Model):
     longitude = db.Column(db.Float, nullable=True)
     population = db.Column(db.Integer, nullable=True)
     continent = db.Column(db.String(), nullable=True)
-    currency = db.relationship('Currency', backref='Country') # one to many
-    language = db.relationship('Language', backref='Country') # one to many
-    timezone = db.relationship('TimeZone', backref='Country') # one to many
-    covid = db.relationship('Covid', back_populates='country', uselist=False) # one to one
-    covidInstances = db.relationship('CovidInstance', back_populates='country') # one to many
-    city = db.relationship('City', back_populates='country', uselist=False) # One to one
+    currency = db.relationship("Currency", backref="Country")  # one to many
+    language = db.relationship("Language", backref="Country")  # one to many
+    timezone = db.relationship("TimeZone", backref="Country")  # one to many
+    covid = db.relationship(
+        "Covid", back_populates="country", uselist=False
+    )  # one to one
+    covidInstances = db.relationship(
+        "CovidInstance", back_populates="country"
+    )  # one to many
+    city = db.relationship(
+        "City", back_populates="country", uselist=False
+    )  # One to one
 
     def __repr__(self):
         return "<Country %r>" % self.commonName
@@ -73,9 +79,13 @@ class City(db.Model):
     longitude = db.Column(db.Float, unique=False, nullable=False)
     population = db.Column(db.Integer(), unique=False, nullable=True)
     timeZone = db.Column(db.String(), unique=False, nullable=True)
-    country_id = db.Column(db.Integer, db.ForeignKey('country.id'))
-    country = db.relationship('Country', back_populates='city', uselist=False) # One to one
-    covidInstances = db.relationship('CovidInstance', back_populates='city') # one to many
+    country_id = db.Column(db.Integer, db.ForeignKey("country.id"))
+    country = db.relationship(
+        "Country", back_populates="city", uselist=False
+    )  # One to one
+    covidInstances = db.relationship(
+        "CovidInstance", back_populates="city"
+    )  # one to many
 
     def __repr__(self):
         return "<City %r>" % self.name
@@ -90,7 +100,9 @@ class Covid(db.Model):
     recovered = db.Column(db.BIGINT, unique=False, nullable=False)
     deaths = db.Column(db.BIGINT, unique=False, nullable=False)
     lastCovidCase = db.Column(db.DateTime, unique=False, nullable=False)
-    country = db.relationship('Country', back_populates='covid', uselist=False) # one to one
+    country = db.relationship(
+        "Country", back_populates="covid", uselist=False
+    )  # one to one
 
     def __repr__(self):
         return "<Covid for country %r>" % self.countryId
@@ -105,9 +117,11 @@ class CovidInstance(db.Model):
     totalCases = db.Column(db.Integer, unique=False, nullable=False)
     totalRecovered = db.Column(db.Integer, unique=False, nullable=False)
     totalDeaths = db.Column(db.Integer, unique=False, nullable=False)
-    city_id = db.Column(db.Integer, db.ForeignKey('city.id'))
-    country = db.relationship('Country', back_populates='covidInstances', uselist=False) # one to one
-    city = db.relationship('City', back_populates='covidInstances') # one to many
+    city_id = db.Column(db.Integer, db.ForeignKey("city.id"))
+    country = db.relationship(
+        "Country", back_populates="covidInstances", uselist=False
+    )  # one to one
+    city = db.relationship("City", back_populates="covidInstances")  # one to many
 
     def __repr__(self):
         return "<Covid in %r for country %r>" % (self.date, self.countryId)
@@ -146,12 +160,7 @@ class CountrySchemaReduced(ma.Schema):
     flag = fields.String(required=True)
     area = fields.Integer(required=True)
     population = fields.Integer(required=True)
-    city = fields.Nested(
-        'CitySchema',
-        only=['name'],
-        required=False,
-        many=False
-    )
+    city = fields.Nested("CitySchema", only=["name"], required=False, many=False)
 
 
 class LanguageSchema(ma.Schema):
@@ -181,10 +190,7 @@ class CitySchema(ma.Schema):
     timeZone = fields.String(required=True)
     country_id = fields.Integer(required=True)
     country = fields.Nested(
-        'CountrySchema',
-        only = ['commonName'],
-        required=True,
-        many=False
+        "CountrySchema", only=["commonName"], required=True, many=False
     )
 
     class Meta:
@@ -199,10 +205,7 @@ class CovidSchema(ma.Schema):
     deaths = fields.Integer(required=True)
     lastCovidCase = fields.DateTime(required=True)
     country = fields.Nested(
-        'CountrySchema',
-        only = ['commonName'],
-        required=False,
-        many=False
+        "CountrySchema", only=["commonName"], required=False, many=False
     )
 
     class Meta:
@@ -217,17 +220,10 @@ class CovidInstanceSchema(ma.Schema):
     totalRecovered = fields.Integer(required=True)
     totalDeaths = fields.Integer(required=True)
     country = fields.Nested(
-        'CountrySchema',
-        only = ['commonName'],
-        required=False,
-        many=False
+        "CountrySchema", only=["commonName"], required=False, many=False
     )
-    city = fields.Nested(
-        'CitySchema',
-        only = ['name', 'id'],
-        required=False,
-        many=False
-    )
+    city = fields.Nested("CitySchema", only=["name", "id"], required=False, many=False)
+
     class Meta:
         ordered = True
 
