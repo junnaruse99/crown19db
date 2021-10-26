@@ -8,6 +8,8 @@ import "react-datetime/css/react-datetime.css";
 import { NumberArray } from 'd3';
 import clientAxios from '../../config/axios';
 import Loading from '../layout/Loading';
+import CovidGraph from '../covidGraph/covidGraph';
+import LocaleInfo from '../localeInfo/localeInfo';
 
 const CountryTimeline = () => {
 
@@ -19,12 +21,51 @@ const CountryTimeline = () => {
         totalCases: number;
     }
 
+    interface Country {
+        id: number;
+        area: number;
+        coatOfArms: string;
+        commonName: string;
+        officialName: string;
+        continent: string;
+        flag: string;
+        latitude: string;
+        longitude: string;
+        maps: string;
+        population: number;
+        region: string;
+        subregion: string;
+        timezone: TimeZone[];
+        currency: Currency[];
+        language: Language[];
+        city: City;
+    }   
+
+    interface City {
+        id: number;
+        name: string;
+    }
+
+    interface TimeZone {
+        zone: string;
+    }
+
+    interface Currency {
+        zone: string;
+    }
+
+    interface Language {
+        zone: string;
+    }
+
     let { country_id } = useParams();
 
     const [covid, setCovid] = useState<CovidInstance[]>();
     const [currentCovid, setCurrentCovid] = useState<CovidInstance[]>();
     const [msg, setMsg] = useState('');
 
+    const [country, setCountry] = useState<Country>();
+    const [currentCountry, setCurrentCountry] = useState<Country>();
     // Get covid instance from api
     const getCovid = async () => {
         try {
@@ -38,14 +79,33 @@ const CountryTimeline = () => {
         }
     }
 
+    const getCountry = async () => {
+        try {
+            const response = await clientAxios.get<Country>(`/v1/models/country/id=${country_id}`)
+                .then(response => {
+                    setCountry(response.data)
+                });
+        } catch (error) {
+            setMsg('There was an error');
+        }
+    }
+
     useEffect(() => {
         getCovid();
+        getCountry();
     }, []);
 
+    
+
+    //add connection to city and country
+    // try catch for countries that are not found
     
     const handlePageClick = (data) => {
         if (covid) {
             setCurrentCovid(covid.slice(data.selected*10, data.selected*10+10))
+        }
+        if (country) {
+            setCurrentCountry(country);
         }
     }
 
@@ -55,8 +115,18 @@ const CountryTimeline = () => {
                 (covid && currentCovid) ? 
                 <>
                     <div className="row">
-                        <h2>{covid[0].country} Covid Timeline</h2>
-                        <table className="grid">
+                        <div className='col-12 col-md-4 mb-2'> 
+                            <h2>{covid[0].country} Covid Timeline</h2>
+                        </div>
+                        <div className='col-12 col-md-4 mb-2'> 
+                            <a href={"/country/" + country_id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{covid[0].country}'s General Info</a>
+                        </div>
+                        {country ? (
+                            <div className='col-12 col-md-4 mb-2'> 
+                                <a href={"/city/" + country.city.id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{country.city.name}'s General Info</a>
+                            </div>
+                        ) : null}
+                        <table className="table">
                             <thead className="thead-dark">
                                 <tr>
                                 <th scope="col">Date</th>
@@ -92,6 +162,15 @@ const CountryTimeline = () => {
                             activeClassName={'pagination-active'}
                         />
                     </div>
+                    <div><br />
+                        <CovidGraph location = {covid[0].country}/>
+                    </div>
+                    <div><br />
+                            <LocaleInfo
+                                location={covid[0].country}
+                                showNews={true}
+                                showTests={false}/>
+                        </div>
                 </>: <Loading />
             )}
         </div>
