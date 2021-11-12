@@ -30,19 +30,18 @@ from models import (
     country_schema_reduced,
     db,
 )
+from helper import (
+    filter_by_range,
+    filter_by_name,
+    sort
+)
 from init_db import init_db
 
-def sort_country(query, data):
-    return
-
 countriesQuery = {
-    'sort': sort_country,
-    'name': sort_country,
-    'continent': sort_country,
-    'language': sort_country,
-    'region': sort_country,
-    'subregion': sort_country,
-    'timezone': sort_country
+    'continent': filter_by_name,
+    'language': filter_by_name,
+    'timeZone': filter_by_name,
+    'sort': sort # area, population and name
 }
 
 #### COUNTRY ####
@@ -55,7 +54,7 @@ def countries():
     # This function is in charge of executing all the querys
     for query in queries:
         if query in countriesQuery:
-            countriesQuery[query](country_query, queries[query])
+            countriesQuery[query](Country, country_query, query, queries[query])
 
     try:
         page = 1
@@ -106,18 +105,11 @@ def get_country_by_id(id):
     )
     return jsonify(country_schema.dump(country))
 
-
-def sort_city(query, data):
-    return
-
 citiesQuery = {
-    'sort': sort_city,
-    'name': sort_city,
-    'continent': sort_city,
-    'language': sort_city,
-    'region': sort_city,
-    'subregion': sort_city,
-    'timezone': sort_city
+    'population': filter_by_range,
+    'continent': filter_by_name,
+    'region':  filter_by_name,
+    'sort': sort # Name, Country and population
 }
 
 #### CITY ####
@@ -213,13 +205,10 @@ def get_covidInstance_by_countryId(countryId):
 
 
 covidQuery = {
-    'sort': sort_city,
-    'name': sort_city,
-    'continent': sort_city,
-    'language': sort_city,
-    'region': sort_city,
-    'subregion': sort_city,
-    'timezone': sort_city
+    'totalCase': filter_by_range,
+    'totalRecovered': filter_by_range,
+    'totalDeaths': filter_by_range,
+    'sort': sort # Name, case, recovered, death
 }
 
 #### CITY ####
