@@ -66,8 +66,9 @@ def countries():
         if 'perPage' in queries:
             perPage = int(queries['perPage'][0])
 
+        count = country_query.count()
         country = country_query.paginate(page=page, per_page=perPage)
-        return jsonify(country_schema.dump(country.items, many=True))
+        return jsonify({'data': country_schema.dump(country.items, many=True), 'count':count})
     except Exception:
         return jsonify(error=str(traceback.format_exc())), 404
 
@@ -79,7 +80,6 @@ def get_country_all():
     return jsonify([country_schema.dump(country) for country in countries])
 
 
-# e.g. .../interval=1-10
 @app.route("/v1/models/country/all/reduced", methods=["GET"])
 def get_country_all_reduced():
     # Country.query.'' returns an object so use of the schema to transform it into an object
@@ -107,7 +107,47 @@ def get_country_by_id(id):
     return jsonify(country_schema.dump(country))
 
 
+def sort_city(query, data):
+    return
+
+citiesQuery = {
+    'sort': sort_city,
+    'name': sort_city,
+    'continent': sort_city,
+    'language': sort_city,
+    'region': sort_city,
+    'subregion': sort_city,
+    'timezone': sort_city
+}
+
 #### CITY ####
+@app.route("/v1/models/city", methods=["GET"])
+def cities():
+    queries = request.args.to_dict(flat=False)
+
+    city_query = db.session.query(City)
+
+    # This function is in charge of executing all the querys
+    for query in queries:
+        if query in citiesQuery:
+            citiesQuery[query](city_query, queries[query])
+
+    try:
+        page = 1
+        if 'page' in queries:
+            # Remember that every item in querys is a key to list of strings
+            page = int(queries['page'][0])
+        perPage = 9
+        if 'perPage' in queries:
+            perPage = int(queries['perPage'][0])
+
+        count = city_query.count()
+        city = city_query.paginate(page=page, per_page=perPage)
+        return jsonify({'data':city_schema.dump(city.items, many=True), 'count': count})
+    except Exception:
+        return jsonify(error=str(traceback.format_exc())), 404
+
+
 @app.route("/v1/models/city/all", methods=["GET"])
 def get_city_all():
     # Country.query.'' returns an object so use of the schema to transform it into an object
@@ -170,6 +210,44 @@ def get_covidInstance_by_countryId(countryId):
     covidInstances = CovidInstance.query.filter_by(country_id=countryId).all()
     # jsonify to transform it to json
     return jsonify([covidInstance_schema.dump(covid) for covid in covidInstances])
+
+
+covidQuery = {
+    'sort': sort_city,
+    'name': sort_city,
+    'continent': sort_city,
+    'language': sort_city,
+    'region': sort_city,
+    'subregion': sort_city,
+    'timezone': sort_city
+}
+
+#### CITY ####
+@app.route("/v1/models/covid", methods=["GET"])
+def covid():
+    queries = request.args.to_dict(flat=False)
+
+    covid_query = db.session.query(Covid)
+
+    # This function is in charge of executing all the querys
+    for query in queries:
+        if query in citiesQuery:
+            covidQuery[query](covid_query, queries[query])
+
+    try:
+        page = 1
+        if 'page' in queries:
+            # Remember that every item in querys is a key to list of strings
+            page = int(queries['page'][0])
+        perPage = 9
+        if 'perPage' in queries:
+            perPage = int(queries['perPage'][0])
+
+        count = covid_query.count()
+        covid = covid_query.paginate(page=page, per_page=perPage)
+        return jsonify({'data':covid_schema.dump(covid.items, many=True), 'count': count})
+    except Exception:
+        return jsonify(error=str(traceback.format_exc())), 404
 
 
 #### ELSE #####
