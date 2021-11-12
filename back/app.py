@@ -8,7 +8,7 @@
 # To deploy the API server to prod:
 # - push to GitLab
 
-from flask import Flask, jsonify, json, Response
+from flask import Flask, jsonify, json, Response, request
 from flask_sqlalchemy import SQLAlchemy
 import traceback
 from models import (
@@ -32,7 +32,45 @@ from models import (
 )
 from init_db import init_db
 
+def sort_country(query, data):
+    return
+
+countriesQuery = {
+    'sort': sort_country,
+    'name': sort_country,
+    'continent': sort_country,
+    'language': sort_country,
+    'region': sort_country,
+    'subregion': sort_country,
+    'timezone': sort_country
+}
+
 #### COUNTRY ####
+@app.route("/v1/models/country", methods=["GET"])
+def countries():
+    queries = request.args.to_dict(flat=False)
+
+    country_query = db.session.query(Country)
+
+    # This function is in charge of executing all the querys
+    for query in queries:
+        if query in countriesQuery:
+            countriesQuery[query](country_query, queries[query])
+
+    try:
+        page = 1
+        if 'page' in queries:
+            # Remember that every item in querys is a key to list of strings
+            page = int(queries['page'][0])
+        perPage = 9
+        if 'perPage' in queries:
+            perPage = int(queries['perPage'][0])
+
+        country = country_query.paginate(page=page, per_page=perPage)
+        return jsonify(country_schema.dump(country.items, many=True))
+    except Exception:
+        return jsonify(error=str(traceback.format_exc())), 404
+
 @app.route("/v1/models/country/all", methods=["GET"])
 def get_country_all():
     # Country.query.'' returns an object so use of the schema to transform it into an object
