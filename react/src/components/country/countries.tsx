@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 import Country from './country';
 import ReactPaginate from 'react-paginate';
@@ -30,28 +30,24 @@ const Countries = (props: any) => {
     }
 
     const [msg, setMsg] = useState('');
-    const [countries, setCountries] = useState<Country[]>();
-    const [currentCountries, setCurrentCountries] = useState<Country[]>();
     const [data, setData] = useState<CountryResponse>();
+
+    const history = useHistory();
 
     const { search } = useLocation();
     const { q } = queryString.parse(search);
+    const { page, perPage } = queryString.parse(search);
+
+    var currentPage = Number(page ? page : 1);
+    var currentPerPage = Number(perPage ? perPage : 12);
 
     const getCountries = async () => {
         try {
-            console.log('calling api');
-            // const response = await clientAxios.get<Country[]>('/v1/models/country/all/reduced' )
-            //     .then(response => {
-            //         console.log(response);
-            //         setCountries(response.data)
-            //         setCurrentCountries(response.data.slice(0, 12))
-            //     });
-            const response = await clientAxios.get<CountryResponse>('/v1/models/country')
+            var uri = '/v1/models/country?'
+            uri += `perPage=${currentPerPage}&`
+            uri += `page=${currentPage}`
+            const response = await clientAxios.get<CountryResponse>(uri)
                 .then(response => {
-                    // setCountries(response.data.data)
-                    // setCurrentCountries(response.data.data)
-                    console.log('response received:');
-                    console.log(response.data);
                     setData(response.data);
                 });
         } catch (error) {
@@ -61,21 +57,19 @@ const Countries = (props: any) => {
     }
 
     useEffect(() => {
-        console.log('call getCountries()');
         getCountries();
     }, []);
 
     const handlePageClick = (data) => {
-        // if (countries) {
-        //     setCurrentCountries(countries.slice(data.selected*12, data.selected*12 + 12))
-        // }
+        var uri = `/country?perPage=${currentPerPage}&page=${data.selected + 1}`;
+        history.push(uri);
+        history.go(uri);
     }
 
     return ( 
         <div className='container'>
             {msg ? (<h3> {msg} </h3>) : (
-                // (countries && currentCountries) ?
-                (data) ?
+                data ?
                 <>
                     <SearchBar defaultValue={q}/>
                     <br />
@@ -100,8 +94,8 @@ const Countries = (props: any) => {
                             previousLabel={'<<'}
                             nextLabel={'>>'}
                             breakLabel={'...'}
-                            // pageCount={countries.length/12}
-                            pageCount={data.data.length/12}
+                            pageCount={data.count/data.data.length}
+                            forcePage={currentPage - 1}
                             marginPagesDisplayed={1}
                             pageRangeDisplayed={4}
                             onPageChange={handlePageClick}
