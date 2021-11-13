@@ -41,7 +41,7 @@ countriesQuery = {
     'continent': filter_by_name,
     'lang': filter_by_name,
     'zone': filter_by_name,
-    'sort': sort # area, population and name
+    'sort': sort # area, population and commonName or officialName
 }
 
 #### COUNTRY ####
@@ -112,7 +112,7 @@ citiesQuery = {
     'population': filter_by_range,
     'continent': filter_by_name,
     'region':  filter_by_name,
-    'sort': sort # Name, Country and population
+    'sort': sort # name, country and population
 }
 
 #### CITY ####
@@ -213,7 +213,7 @@ covidQuery = {
     'cases': filter_by_range,
     'recovered': filter_by_range,
     'deaths': filter_by_range,
-    'sort': sort # Name, cases, recovered, deaths
+    'sort': sort # country, cases, recovered, deaths
 }
 
 #### COVID ####
