@@ -18,5 +18,12 @@ def filter_by_range(model, query, field, range):
 def filter_by_name():
     return
 
-def sort():
-    return
+def sort(model, query, _, attr_list):
+    for attr in attr_list:
+        if attr[0] == '-':
+            attr = attr[1:]
+            query = query.order_by(getattr(model, attr).desc())
+        else:
+            query = query.order_by(getattr(model, attr))
+
+    return query

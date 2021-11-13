@@ -54,7 +54,7 @@ def countries():
     # This function is in charge of executing all the querys
     for query in queries:
         if query in countriesQuery:
-            countriesQuery[query](Country, country_query, query, queries[query])
+            country_query = countriesQuery[query](Country, country_query, query, queries[query])
 
     try:
         page = 1
