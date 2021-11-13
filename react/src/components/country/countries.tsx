@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import queryString from 'query-string';
 import Country from './country';
 import ReactPaginate from 'react-paginate';
 import clientAxios from '../../config/axios';
 import Loading from '../layout/Loading';
+import SearchBar from '../search/SearchBar';
 
-const Countries = () => {
+const Countries = (props: any) => {
 
     interface Country {
         id: number;
@@ -19,9 +22,13 @@ const Countries = () => {
     interface City {
         name: string;
     }
+
     const [msg, setMsg] = useState('');
     const [countries, setCountries] = useState<Country[]>();
     const [currentCountries, setCurrentCountries] = useState<Country[]>();
+
+    const { search } = useLocation();
+    const { q } = queryString.parse(search);
 
     const getCountries = async () => {
         try {
@@ -50,14 +57,17 @@ const Countries = () => {
             {msg ? (<h3> {msg} </h3>) : (
                 (countries && currentCountries) ?                 
                 <>
+                    <SearchBar defaultValue={q}/>
+                    <br />
                     <div className="row">
                         <h2>Countries</h2>
                     </div>
                     <div className="row-grid">
                         {currentCountries? currentCountries.map( country => (    
                             <Country 
-                            key={country.id}
-                            country={country} 
+                                country={country} 
+                                key={country.id}
+                                q={q}
                             />
                         )) : <div className="spinner-border">Loading</div>}
                     </div>
