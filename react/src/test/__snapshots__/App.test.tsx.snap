@@ -1,29 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`About section render 1`] = `ShallowWrapper {}`;
+exports[`Render City Components City Model section render 1`] = `ShallowWrapper {}`;
 
-exports[`Card Row for Covid test 1`] = `ShallowWrapper {}`;
+exports[`Render City Components City Model section render 2`] = `ShallowWrapper {}`;
 
-exports[`City Model section render 1`] = `ShallowWrapper {}`;
+exports[`Render City Components Singular City snapshot test 1`] = `ShallowWrapper {}`;
 
-exports[`Country Model section render 1`] = `ShallowWrapper {}`;
+exports[`Render Country components Country Instance snapshot test 1`] = `ShallowWrapper {}`;
 
-exports[`Covid Cases test 1`] = `ShallowWrapper {}`;
+exports[`Render Country components Country Model section render 1`] = `ShallowWrapper {}`;
 
-exports[`Covid test 1`] = `ShallowWrapper {}`;
+exports[`Render Country components Singular Country snapshot test 1`] = `ShallowWrapper {}`;
 
-exports[`CovidDate test 1`] = `ShallowWrapper {}`;
+exports[`Render Covid Components Card Row for Covid test 1`] = `ShallowWrapper {}`;
 
-exports[`Loading test 1`] = `ShallowWrapper {}`;
+exports[`Render Covid Components Covid Cases test 1`] = `ShallowWrapper {}`;
 
-exports[`Locale information test 1`] = `ShallowWrapper {}`;
+exports[`Render Covid Components Covid Timeline snapshot test 1`] = `ShallowWrapper {}`;
 
-exports[`Map component test 1`] = `ShallowWrapper {}`;
+exports[`Render Covid Components Covid test 1`] = `ShallowWrapper {}`;
 
-exports[`Navbar test 1`] = `ShallowWrapper {}`;
+exports[`Render Covid Components CovidDate test 1`] = `ShallowWrapper {}`;
 
-exports[`Singular City snapshot test 1`] = `ShallowWrapper {}`;
+exports[`Render Non-model Components About section render 1`] = `ShallowWrapper {}`;
 
-exports[`Singular Country snapshot test 1`] = `ShallowWrapper {}`;
+exports[`Render Non-model Components Loading test 1`] = `ShallowWrapper {}`;
 
-exports[`Splash section render 1`] = `ShallowWrapper {}`;
+exports[`Render Non-model Components Locale information test 1`] = `ShallowWrapper {}`;
+
+exports[`Render Non-model Components Map component test 1`] = `ShallowWrapper {}`;
+
+exports[`Render Non-model Components Navbar test 1`] = `ShallowWrapper {}`;
+
+exports[`Render Non-model Components Splash section render 1`] = `ShallowWrapper {}`;

@@ -215,7 +215,7 @@ class EndpointTest(unittest.TestCase):
 
         self.assertEqual(len(covid), 191)
         self.assertEqual(covid[0]["country"]["commonName"], "Afghanistan")
-        self.assertEqual(covid[0]["deaths"], 18289880)
+        self.assertEqual(covid[0]["deaths"], 7206)
         self.assertEqual(all_att, True)
 
     def test_get_covid_by_countrId(self):
@@ -237,7 +237,7 @@ class EndpointTest(unittest.TestCase):
         all_att = self.checkAttributes(covid, attributes)
 
         self.assertEqual(all_att, True)
-        self.assertEqual(covid["deaths"], 496971828)
+        self.assertEqual(covid["deaths"], 700932)
 
     def test_get_covid_by_id(self):
         covid = json.loads(app.get_covid_by_id(109).data)
@@ -278,7 +278,7 @@ class EndpointTest(unittest.TestCase):
         all_att = self.checkAttributes(covid[0], attributes)
 
         self.assertEqual(covid[0]["country"]["commonName"], "Laos")
-        self.assertEqual(covid[0]["totalCases"], 24916)
+        self.assertEqual(covid[0]["totalCases"], 606)
         self.assertEqual(all_att, True)
 
     def test_else_router(self):
@@ -292,6 +292,85 @@ class EndpointTest(unittest.TestCase):
         self.assertEqual(response, output)
 
 
+    def test_countries(self):
+        attributes = {
+                "id",
+                "commonName",
+                "officialName",
+                "region",
+                "subregion",
+                "flag",
+                "coatOfArms",
+                "maps",
+                "area",
+                "latitude",
+                "longitude",
+                "population",
+                "continent",
+                "currency",
+                "language",
+                "timezone",
+                "city",
+            }
+
+        queries = [{'continent':['North America'], 'page':['2'], 'lang': ['English'], 'zone':['-0400'], 'sort':['area', 'population', 'commonName'], 'perPage':['2']}]
+        for query in queries:
+            countries = json.loads(app.countries(query).data)
+
+            all_att = self.checkAttributes(countries['data'][0], attributes)
+
+            self.assertEqual(countries['count'], 20)
+            self.assertEqual(len(countries['data']), 2)
+            self.assertEqual(countries['data'][0]["commonName"], "Anguilla")
+            self.assertEqual(countries['data'][1]["id"], 143)
+            self.assertEqual(all_att, True)
+
+    def test_cities(self):
+        attributes = {
+            "id",
+            "country_id",
+            "latitude",
+            "longitude",
+            "name",
+            "population",
+            "timeZone",
+            "country",
+        }
+
+        queries = [{'population':['1-100000'], 'continent':['Europe'], 'page':['2'], 'sort':['-population', 'country', 'name'], 'perPage':['5']}]
+        for query in queries:
+            cities = json.loads(app.cities(query).data)
+
+            all_att = self.checkAttributes(cities['data'][0], attributes)
+
+            self.assertEqual(cities['count'], 10)
+            self.assertEqual(len(cities['data']), 5)
+            self.assertEqual(cities['data'][0]["name"], "Tórshavn")
+            self.assertEqual(cities['data'][1]["id"], 19)
+            self.assertEqual(all_att, True)
+
+    def test_covid(self):
+        attributes = {
+            "id",
+            "cases",
+            "country_id",
+            "deaths",
+            "lastCovidCase",
+            "recovered",
+            "country",
+        }
+
+        queries = [{'deaths':['1-100'], 'cases':['1-3000'], 'recovered':['5-8000'], 'sort':['cases', 'recovered', 'deaths', 'country']}]
+        for query in queries:
+            covid = json.loads(app.covid(query).data)
+
+            all_att = self.checkAttributes(covid['data'][0], attributes)
+
+            self.assertEqual(covid['count'], 2)
+            self.assertEqual(len(covid['data']), 2)
+            self.assertEqual(covid['data'][0]["country_id"], 166)
+            self.assertEqual(covid['data'][1]["id"], 20)
+            self.assertEqual(all_att, True)
 if __name__ == "__main__":
     with app.app.app_context():
         unittest.main()
