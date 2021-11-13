@@ -36,11 +36,23 @@ def filter_by_name(model, query, field, names):
 
 def sort(model, query, _, attr_list):
     stmt = []
+    join_flag = False
     for attr in attr_list:
-        if attr[0] == '-':
+        if attr == 'country' or attr == '-country':
+            join_flag = True
+            if attr[0] == '-':
+                attr = attr[1:]
+                stmt.append(getattr(Country, 'commonName').desc())
+            else:
+                stmt.append(getattr(Country, 'commonName'))
+
+        elif attr[0] == '-':
             attr = attr[1:]
             stmt.append(getattr(model, attr).desc())
         else:
             stmt.append(getattr(model, attr))
 
+    if join_flag:
+        query = query.join(model.country, aliased=True)
+    
     return query.order_by(*stmt)
