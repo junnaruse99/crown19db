@@ -219,13 +219,12 @@ def covid():
 
     covid_query = db.session.query(Covid)
 
-    # This function is in charge of executing all the querys
-    for query in queries:
-        if query in citiesQuery:
-            covid_query = covidQuery[query](Covid, covid_query, query, queries[query])
-
-
     try:
+        # This function is in charge of executing all the querys
+        for query in queries:
+            if query in citiesQuery:
+                covid_query = covidQuery[query](Covid, covid_query, query, queries[query])
+
         page = 1
         if 'page' in queries:
             # Remember that every item in querys is a key to list of strings

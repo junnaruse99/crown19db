@@ -34,7 +34,13 @@ def filter_by_name(model, query, field, names):
         return query.join(model.country, aliased=True).filter(sqlalchemy.or_(*condition))
         # In case this raise an error
 
-def sort():
-    return
+def sort(model, query, _, attr_list):
+    stmt = []
+    for attr in attr_list:
+        if attr[0] == '-':
+            attr = attr[1:]
+            stmt.append(getattr(model, attr).desc())
+        else:
+            stmt.append(getattr(model, attr))
 
-
+    return query.order_by(*stmt)
