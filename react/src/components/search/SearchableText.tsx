@@ -18,6 +18,10 @@ export default function SearchableText(props: any) {
   //   return <>{text}</>;
   // }
 
+  if (props.q == null) {
+    return <>{text}</>;
+  }
+
   const reg = RegExp(props.q, 'gi');
   let arr;
   var a = 0;
