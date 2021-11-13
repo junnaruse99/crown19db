@@ -19,11 +19,12 @@ def filter_by_name():
     return
 
 def sort(model, query, _, attr_list):
+    stmt = []
     for attr in attr_list:
         if attr[0] == '-':
             attr = attr[1:]
-            query = query.order_by(getattr(model, attr).desc())
+            stmt.append(getattr(model, attr).desc())
         else:
-            query = query.order_by(getattr(model, attr))
+            stmt.append(getattr(model, attr))
 
-    return query
+    return query.order_by(*stmt)
