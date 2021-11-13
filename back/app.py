@@ -122,7 +122,7 @@ def cities():
     # This function is in charge of executing all the querys
     for query in queries:
         if query in citiesQuery:
-            citiesQuery[query](city_query, queries[query])
+            city_query = citiesQuery[query](City, city_query, query, queries[query])
 
     try:
         page = 1
@@ -221,7 +221,7 @@ def covid():
     # This function is in charge of executing all the querys
     for query in queries:
         if query in citiesQuery:
-            covidQuery[query](covid_query, queries[query])
+            covid_query = covidQuery[query](Covid, covid_query, query, queries[query])
 
     try:
         page = 1
