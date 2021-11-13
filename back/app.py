@@ -62,7 +62,7 @@ def countries(queries=None):
         if 'page' in queries:
             # Remember that every item in querys is a key to list of strings
             page = int(queries['page'][0])
-        perPage = 9
+        perPage = 12
         if 'perPage' in queries:
             perPage = int(queries['perPage'][0])
 
