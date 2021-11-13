@@ -1,5 +1,9 @@
 import sqlalchemy
-from models import Country
+from models import (
+    Country,
+    TimeZone,
+    Language
+)
 """
 model: model of sql
 query: query of sql
@@ -27,6 +31,13 @@ def filter_by_name(model, query, field, names):
     if hasattr(model, field): # This means that the attribute is part of an object inside the model (i.e. continent for filtering cities)
         condition = [getattr(model, field) == name for name in names]
         return query.filter(sqlalchemy.or_(*condition))
+    elif field == 'zone':
+        names = ['UTC'+name[:3]+':'+name[3:] for name in names]
+        condition = [getattr(TimeZone, 'zone') == name for name in names]
+        return query.join(model.timezone, aliased=True).filter(sqlalchemy.or_(*condition))
+    elif field == 'lang':
+        condition = [getattr(Language, 'name') == name for name in names]
+        return query.join(model.language, aliased=True).filter(sqlalchemy.or_(*condition))
     else:
         # I don't know how to do this in a better way
         assert hasattr(Country, field)

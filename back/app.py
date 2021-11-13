@@ -39,15 +39,16 @@ from init_db import init_db
 
 countriesQuery = {
     'continent': filter_by_name,
-    'language': filter_by_name,
-    'timeZone': filter_by_name,
+    'lang': filter_by_name,
+    'zone': filter_by_name,
     'sort': sort # area, population and name
 }
 
 #### COUNTRY ####
 @app.route("/v1/models/country", methods=["GET"])
-def countries():
-    queries = request.args.to_dict(flat=False)
+def countries(queries=None):
+    if not queries: # This is for testing
+        queries = request.args.to_dict(flat=False)
 
     country_query = db.session.query(Country)
 
@@ -68,10 +69,10 @@ def countries():
         count = country_query.count()
         country = country_query.paginate(page=page, per_page=perPage)
         return jsonify({'data': country_schema.dump(country.items, many=True), 'count':count})
-    except AssertionError as e:
-        return jsonify(error=e), 400
+    except TypeError as e:
+        return jsonify(message='Incorrect query', status=400)
     except Exception:
-        return jsonify(error=str(traceback.format_exc())), 404
+        return jsonify(message=str(traceback.format_exc()), status=404)
 
 @app.route("/v1/models/country/all", methods=["GET"])
 def get_country_all():
@@ -116,8 +117,9 @@ citiesQuery = {
 
 #### CITY ####
 @app.route("/v1/models/city", methods=["GET"])
-def cities():
-    queries = request.args.to_dict(flat=False)
+def cities(queries=None):
+    if not queries: # This is for testing
+        queries = request.args.to_dict(flat=False)
 
     city_query = db.session.query(City)
 
@@ -137,8 +139,10 @@ def cities():
         count = city_query.count()
         city = city_query.paginate(page=page, per_page=perPage)
         return jsonify({'data':city_schema.dump(city.items, many=True), 'count': count})
+    except ValueError:
+        return jsonify(message='Incorrect query', status=400)
     except Exception:
-        return jsonify(error=str(traceback.format_exc())), 404
+        return jsonify(message=str(traceback.format_exc()), status=404)
 
 
 @app.route("/v1/models/city/all", methods=["GET"])
@@ -206,23 +210,24 @@ def get_covidInstance_by_countryId(countryId):
 
 
 covidQuery = {
-    'totalCase': filter_by_range,
-    'totalRecovered': filter_by_range,
-    'totalDeaths': filter_by_range,
-    'sort': sort # Name, case, recovered, death
+    'cases': filter_by_range,
+    'recovered': filter_by_range,
+    'deaths': filter_by_range,
+    'sort': sort # Name, cases, recovered, deaths
 }
 
-#### CITY ####
+#### COVID ####
 @app.route("/v1/models/covid", methods=["GET"])
-def covid():
-    queries = request.args.to_dict(flat=False)
+def covid(queries=None):
+    if not queries: # This is for testing
+        queries = request.args.to_dict(flat=False)
 
     covid_query = db.session.query(Covid)
 
     try:
         # This function is in charge of executing all the querys
         for query in queries:
-            if query in citiesQuery:
+            if query in covidQuery:
                 covid_query = covidQuery[query](Covid, covid_query, query, queries[query])
 
         page = 1
@@ -236,8 +241,10 @@ def covid():
         count = covid_query.count()
         covid = covid_query.paginate(page=page, per_page=perPage)
         return jsonify({'data':covid_schema.dump(covid.items, many=True), 'count': count})
+    except ValueError:
+        return jsonify(message='Incorrect query', status=400)
     except Exception:
-        return jsonify(error=str(traceback.format_exc())), 404
+        return jsonify(message=str(traceback.format_exc()), status=404)
 
 
 #### ELSE #####
