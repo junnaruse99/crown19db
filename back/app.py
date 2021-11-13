@@ -52,11 +52,11 @@ def countries():
     country_query = db.session.query(Country)
 
     # This function is in charge of executing all the querys
-    for query in queries:
-        if query in countriesQuery:
-            countriesQuery[query](Country, country_query, query, queries[query])
-
     try:
+        for query in queries:
+            if query in countriesQuery:
+                country_query = countriesQuery[query](Country, country_query, query, queries[query])
+
         page = 1
         if 'page' in queries:
             # Remember that every item in querys is a key to list of strings
@@ -68,6 +68,8 @@ def countries():
         count = country_query.count()
         country = country_query.paginate(page=page, per_page=perPage)
         return jsonify({'data': country_schema.dump(country.items, many=True), 'count':count})
+    except AssertionError as e:
+        return jsonify(error=e), 400
     except Exception:
         return jsonify(error=str(traceback.format_exc())), 404
 
@@ -119,12 +121,11 @@ def cities():
 
     city_query = db.session.query(City)
 
-    # This function is in charge of executing all the querys
-    for query in queries:
-        if query in citiesQuery:
-            citiesQuery[query](city_query, queries[query])
-
     try:
+        # This function is in charge of executing all the querys
+        for query in queries:
+            if query in citiesQuery:
+                city_query = citiesQuery[query](City, city_query, query, queries[query])
         page = 1
         if 'page' in queries:
             # Remember that every item in querys is a key to list of strings
@@ -221,7 +222,8 @@ def covid():
     # This function is in charge of executing all the querys
     for query in queries:
         if query in citiesQuery:
-            covidQuery[query](covid_query, queries[query])
+            covid_query = covidQuery[query](Covid, covid_query, query, queries[query])
+
 
     try:
         page = 1
