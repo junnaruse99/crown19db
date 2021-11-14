@@ -35,7 +35,9 @@ const Country = ({ country, q }) => {
                     <div className='col-12 d-flex justify-content-around'>
                         <p style={{fontSize: "14px"}}>Continent: </p>
                         <p style={{fontSize: "14px"}}>
-                            <SearchableText q={q}>{country.continent}</SearchableText>
+                            <SearchableText q={q}>
+                                {country.continent}
+                            </SearchableText>
                         </p>
                     </div>
                 </div>

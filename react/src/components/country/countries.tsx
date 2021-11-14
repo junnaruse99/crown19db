@@ -6,7 +6,6 @@ import ReactPaginate from 'react-paginate';
 import clientAxios from '../../config/axios';
 import Loading from '../layout/Loading';
 import SearchBar from '../search/SearchBar';
-import { isConditionalExpression } from 'typescript';
 
 const Countries = (props: any) => {
 
@@ -36,14 +35,14 @@ const Countries = (props: any) => {
 
     const { q, page, perPage } = queryString.parse(props.location.search);
 
-    var currentPage = Number(page ? page : 1);
+    var currentPageNum = Number(page ? page : 1);
     var currentPerPage = Number(perPage ? perPage : 12);
 
     const getCountries = async () => {
         try {
             var params: any = queryString.parse(props.location.search);
             if (q != null) params.q = q;
-            params.page = currentPage;
+            params.page = currentPageNum;
             params.perPage = currentPerPage;
             var uri = '/v1/models/country?' + queryString.stringify(params);
             const response = await clientAxios.get<CountryResponse>(uri)
@@ -98,7 +97,7 @@ const Countries = (props: any) => {
                             nextLabel={'>>'}
                             breakLabel={'...'}
                             pageCount={data.count/data.data.length}
-                            forcePage={currentPage - 1}
+                            forcePage={currentPageNum - 1}
                             marginPagesDisplayed={1}
                             pageRangeDisplayed={4}
                             onPageChange={handlePageClick}
