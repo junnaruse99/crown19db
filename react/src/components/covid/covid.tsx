@@ -15,7 +15,7 @@ const Covid = ({ covid, q }) => {
         <th scope="row">{covid.id}</th>
         <td>
             <SearchableText q={q}>
-                {covid.country.commonName}
+                {covid.country.officialName}
             </SearchableText>
         </td>
         <td>{covid.cases.toLocaleString("en-US")}</td>

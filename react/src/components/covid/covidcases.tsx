@@ -20,6 +20,11 @@ const CovidCases = (props: any) => {
         lastCovidCase: string;
     }
 
+    interface CovidCasesResponse {
+        count: number;
+        data: CovidCases[];
+    }
+
     interface Country {
         commonName: string;
     }
@@ -27,6 +32,7 @@ const CovidCases = (props: any) => {
     const [msg, setMsg] = useState('');
     const [covidCases, setCovidCases] = useState<CovidCases[]>();
     const [currentCovid, setCurrentCovid] = useState<CovidCases[]>();
+    const [data, setData] = useState<CovidCasesResponse>();
 
     const history = useHistory();
 
@@ -37,17 +43,14 @@ const CovidCases = (props: any) => {
 
     const getCovidCases = async () => {
         try {
-            /* TODO(adamsamuelson) uncomment to integrate API pagination */
-            // var params: any = queryString.parse(props.location.search);
-            // if (q != null) params.q = q;
-            // params.page = currentPageNum;
-            // params.perPage = currentPerPage;
-            // var uri = '/v1/models/covid?' + queryString.stringify(params);
-            // const response = await clientAxios.get<CovidCases[]>(uri)
-            const response = await clientAxios.get<CovidCases[]>('/v1/models/covid/all')
+            var params: any = queryString.parse(props.location.search);
+            if (q != null) params.q = q;
+            params.page = currentPageNum;
+            params.perPage = currentPerPage;
+            var uri = '/v1/models/covid?' + queryString.stringify(params);
+            const response = await clientAxios.get<CovidCasesResponse>(uri)
                 .then(response => {
-                    setCovidCases(response.data)
-                    setCurrentCovid(response.data.slice(0, 10))
+                    setData(response.data);
                 });
         } catch (error) {
             setMsg('There was an error');
@@ -59,32 +62,26 @@ const CovidCases = (props: any) => {
     }, []);
 
     const handlePageClick = (data) => {
-        if (covidCases) {
-            setCurrentCovid(covidCases.slice(data.selected*10, data.selected*10+10))
-        }
-
-        /* TODO(adamsamuelson) uncomment to integrate API pagination */
-        // var params: any = queryString.parse(props.location.search);
-        // params.page = data.selected + 1;
-        // params.perPage = currentPerPage;
-        // var uri = '?' + queryString.stringify(params);
-        // console.log('uri = ' + uri);
-        // history.push(uri);
-        // history.go(uri);
+        var params: any = queryString.parse(props.location.search);
+        params.page = data.selected + 1;
+        params.perPage = currentPerPage;
+        var uri = '?' + queryString.stringify(params);
+        console.log('uri = ' + uri);
+        history.push(uri);
+        history.go(uri);
     }
 
     return ( 
         <div className='container'>
             {msg ? (<h3> {msg} </h3>) : (
-                (covidCases && currentCovid) ?                 
+                data ?
                 <>
-                    <SearchBar
-                        defaultValue={q}
-                        type={"country covid data"}
-                    />
-                    <br />
                     <div className="row">
                         <h2>Country Covid Data</h2><br /><br /><br />
+                        <SearchBar
+                            defaultValue={q}
+                            type={"country covid data"}
+                        />
                         <div className="option_container">
                             <div className='select_con card border-0 text-center'>
                                 <label>Filter by # of Cases</label>
@@ -163,7 +160,7 @@ const CovidCases = (props: any) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {currentCovid.map( covid => (    
+                                    {data.data.map( covid => (
                                         <Covid
                                             covid={covid}
                                             key={covid.id}
@@ -175,7 +172,7 @@ const CovidCases = (props: any) => {
                         </div>
                     </div>
                     <div className="row">
-                        {"There are " + covidCases.length + " countries"}
+                        {"There are " + data.count + " countries"}
                     </div>
                     {/* Pagination css is in index.css */}
                     <div className="row d-flex justify-content-center">
@@ -183,7 +180,8 @@ const CovidCases = (props: any) => {
                             previousLabel={'<<'}
                             nextLabel={'>>'}
                             breakLabel={'...'}
-                            pageCount={covidCases.length/10}
+                            pageCount={data.count/data.data.length}
+                            forcePage={currentPageNum - 1}
                             marginPagesDisplayed={1}
                             pageRangeDisplayed={4}
                             onPageChange={handlePageClick}
