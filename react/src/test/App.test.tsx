@@ -115,7 +115,22 @@ describe ("Render Non-model Components", () => {
 
 describe ("Render Country components", () => {
     test('Country Model section render', () => {
-        const levelOne = shallow(<AllCountries />);
+        const s = {
+            str: '',
+            sep: null,
+            eq: null,
+            options: null
+        }
+        const l = {
+            search: s
+        }        
+        const prop = {
+            location: l
+        }
+        const levelOne = shallow(<AllCountries 
+                                props={prop}
+
+                                    />);
         expect(levelOne).toMatchSnapshot();
     });
     

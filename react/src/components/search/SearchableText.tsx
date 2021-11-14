@@ -1,22 +1,11 @@
 
 export default function SearchableText(props: any) {
-  // var highlight = {backgroundColor: '#FFFF00'}
-  // if (props.children.localeCompare(props.q, undefined, {sensitivity: 'base'}) == 0) {
-  //   return <mark style={highlight}>{props.children}</mark>;
-  // } else {
-  //   return <>{props.children}</>;
-  // }
-
   var highlight = {
     backgroundColor: '#FFFF00',
     padding: '0px',
   };
   var output: any = [];
   const text = props.children;
-
-  // if (!RegExp(props.q, 'gi').test(text)) {
-  //   return <>{text}</>;
-  // }
 
   if (props.q == null) {
     return <>{text}</>;

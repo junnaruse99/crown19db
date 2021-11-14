@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 import Country from './country';
 import ReactPaginate from 'react-paginate';
 import clientAxios from '../../config/axios';
 import Loading from '../layout/Loading';
 import SearchBar from '../search/SearchBar';
-import { isConditionalExpression } from 'typescript';
 
 const Countries = (props: any) => {
 
@@ -34,18 +33,18 @@ const Countries = (props: any) => {
 
     const history = useHistory();
 
-    const { search } = useLocation();
-    const { q } = queryString.parse(search);
-    const { page, perPage } = queryString.parse(search);
+    const { q, page, perPage } = queryString.parse(props.location.search);
 
-    var currentPage = Number(page ? page : 1);
+    var currentPageNum = Number(page ? page : 1);
     var currentPerPage = Number(perPage ? perPage : 12);
 
     const getCountries = async () => {
         try {
-            var uri = '/v1/models/country?'
-            uri += `perPage=${currentPerPage}&`
-            uri += `page=${currentPage}`
+            var params: any = queryString.parse(props.location.search);
+            if (q != null) params.q = q;
+            params.page = currentPageNum;
+            params.perPage = currentPerPage;
+            var uri = '/v1/models/country?' + queryString.stringify(params);
             const response = await clientAxios.get<CountryResponse>(uri)
                 .then(response => {
                     setData(response.data);
@@ -62,7 +61,10 @@ const Countries = (props: any) => {
     }, []);
 
     const handlePageClick = (data) => {
-        var uri = `/country?perPage=${currentPerPage}&page=${data.selected + 1}`;
+        var params: any = queryString.parse(props.location.search);
+        params.page = data.selected + 1;
+        params.perPage = currentPerPage;
+        var uri = '?' + queryString.stringify(params);
         history.push(uri);
         history.go(uri);
     }
@@ -96,7 +98,7 @@ const Countries = (props: any) => {
                             nextLabel={'>>'}
                             breakLabel={'...'}
                             pageCount={data.count/data.data.length}
-                            forcePage={currentPage - 1}
+                            forcePage={currentPageNum - 1}
                             marginPagesDisplayed={1}
                             pageRangeDisplayed={4}
                             onPageChange={handlePageClick}
