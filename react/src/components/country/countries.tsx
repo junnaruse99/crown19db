@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import Country from './country';
 import ReactPaginate from 'react-paginate';
@@ -33,6 +33,7 @@ const Countries = (props: any) => {
     const [data, setData] = useState<CountryResponse>();
 
     const history = useHistory();
+    var location = useLocation().toString();
 
     const { q, page, perPage } = queryString.parse(props.location.search);
 
@@ -67,6 +68,10 @@ const Countries = (props: any) => {
         var uri = '?' + queryString.stringify(params);
         history.push(uri);
         history.go(uri);
+    }
+
+    const handleFilterSort = (data) => {
+        alert(data.target.value)
     }
 
     return ( 
@@ -114,14 +119,14 @@ const Countries = (props: any) => {
 
                             <div className='select_con card border-0 text-center'>
                                 <label>Sort by</label>
-                                <select>
+                                <select onChange={handleFilterSort.bind(this)}>
                                     <option value='' selected>---</option>
-                                    <option value=''>Name (A-Z)</option>
-                                    <option value=''>Name (Z-A)</option>
-                                    <option value=''>Population (Asc)</option>
-                                    <option value=''>Population (Desc)</option>
-                                    <option value=''>Land Mass (Asc)</option>
-                                    <option value=''>Land Mass (Desc)</option>
+                                    <option value='name'>Name (A-Z)</option>
+                                    <option value='-name'>Name (Z-A)</option>
+                                    <option value='population'>Population (Asc)</option>
+                                    <option value='-population'>Population (Desc)</option>
+                                    <option value='mass'>Land Mass (Asc)</option>
+                                    <option value='-mass'>Land Mass (Desc)</option>
                                 </select>
                             </div>
                         </div>
