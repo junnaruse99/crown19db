@@ -78,13 +78,12 @@ const CovidCases = (props: any) => {
             {msg ? (<h3> {msg} </h3>) : (
                 (covidCases && currentCovid) ?                 
                 <>
-                    <SearchBar
-                        defaultValue={q}
-                        type={"country covid data"}
-                    />
-                    <br />
                     <div className="row">
                         <h2>Country Covid Data</h2><br /><br /><br />
+                        <SearchBar
+                            defaultValue={q}
+                            type={"country covid data"}
+                        />
                         <div className="option_container">
                             <div className='select_con card border-0 text-center'>
                                 <label>Filter by # of Cases</label>

@@ -74,13 +74,12 @@ const Countries = (props: any) => {
             {msg ? (<h3> {msg} </h3>) : (
                 data ?
                 <>
-                    <SearchBar
-                        defaultValue={q}
-                        type={"countries"}
-                    />
-                    <br />
                     <div className="row">
                         <h2>Countries</h2>
+                        <SearchBar
+                            defaultValue={q}
+                            type={"countries"}
+                        />
                         <div className="option_container">
                             <div className='select_con card border-0 text-center'>
                                 <label>Filter by Continent</label>
