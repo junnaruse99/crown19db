@@ -35,7 +35,7 @@ const Countries = (props: any) => {
     const history = useHistory();
     var location = useLocation().toString();
 
-    const { q, page, perPage } = queryString.parse(props.location.search);
+    const { q, page, perPage, sort } = queryString.parse(props.location.search);
 
     var currentPageNum = Number(page ? page : 1);
     var currentPerPage = Number(perPage ? perPage : 12);
@@ -44,6 +44,7 @@ const Countries = (props: any) => {
         try {
             var params: any = queryString.parse(props.location.search);
             if (q != null) params.q = q;
+            if (sort != null) params.sort = sort;
             params.page = currentPageNum;
             params.perPage = currentPerPage;
             var uri = '/v1/models/country?' + queryString.stringify(params);
@@ -79,8 +80,10 @@ const Countries = (props: any) => {
         if (sortIndex >= 0) {
             uri = uri.substring(0, sortIndex);
         }
-
-        uri += uri.length == 1 ? data.target.value : '&' + data.target.value;
+        
+        if (data.target.value != '') {
+            uri += uri.length == 1 ? 'sort=' + data.target.value : '&sort=' + data.target.value;
+        }
         history.push(uri);
         history.go(uri);
     }
@@ -129,14 +132,14 @@ const Countries = (props: any) => {
 
                             <div className='select_con card border-0 text-center'>
                                 <label>Sort by</label>
-                                <select onChange={handleSort.bind(this)}>
+                                <select onChange={handleSort.bind(this)} defaultValue={sort}>
                                     <option value=''>---</option>
-                                    <option value='sort=officialName'>Name (A-Z)</option>
-                                    <option value='sort=-officialName'>Name (Z-A)</option>
-                                    <option value='sort=population'>Population (Asc)</option>
-                                    <option value='sort=-population'>Population (Desc)</option>
-                                    <option value='sort=area'>Land Mass (Asc)</option>
-                                    <option value='sort=-area'>Land Mass (Desc)</option>
+                                    <option value='officialName'>Name (A-Z)</option>
+                                    <option value='-officialName'>Name (Z-A)</option>
+                                    <option value='population'>Population (Asc)</option>
+                                    <option value='-population'>Population (Desc)</option>
+                                    <option value='area'>Land Mass (Asc)</option>
+                                    <option value='-area'>Land Mass (Desc)</option>
                                 </select>
                             </div>
                         </div>
