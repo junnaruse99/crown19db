@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import queryString from 'query-string';
 import City from './city';
 import ReactPaginate from 'react-paginate';
 import clientAxios from '../../config/axios';
 import Loading from '../layout/Loading';
 import "./cities.css";
+import SearchBar from '../search/SearchBar';
 
-const Cities = () => {
+const Cities = (props: any) => {
 
     interface City {
         country: Country;
@@ -24,6 +26,8 @@ const Cities = () => {
     const [msg, setMsg] = useState('');
     const [cities, setCities] = useState<City[]>();
     const [currentCities, setCurrentCities] = useState<City[]>();
+
+    const { q } = queryString.parse(props.location.search);
 
     const getCities = async () => {
         try {
@@ -54,6 +58,11 @@ const Cities = () => {
                 <>
                     <div className="row">
                         <h2>Cities</h2>
+                        <SearchBar
+                            defaultValue={q}
+                            type={"cities"}
+                        >
+                        </SearchBar>
                         <div className="option_container">
                             <div className='select_con card border-0 text-center'>
                                 <label>Filter by Continent</label>
@@ -114,8 +123,9 @@ const Cities = () => {
                                 <tbody>
                                     {currentCities.map( city => (    
                                         <City 
-                                        key={city.id}
-                                        city={city} 
+                                            city={city}
+                                            key={city.id}
+                                            q={q}
                                         />
                                     ))}
                                 </tbody>
