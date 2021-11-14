@@ -2,19 +2,13 @@
 
 exports[`Render City Components City Model section render 1`] = `ShallowWrapper {}`;
 
-exports[`Render City Components City Model section render 2`] = `ShallowWrapper {}`;
-
 exports[`Render City Components Singular City snapshot test 1`] = `ShallowWrapper {}`;
 
 exports[`Render Country components Country Instance snapshot test 1`] = `ShallowWrapper {}`;
 
-exports[`Render Country components Country Model section render 1`] = `ShallowWrapper {}`;
-
 exports[`Render Country components Singular Country snapshot test 1`] = `ShallowWrapper {}`;
 
 exports[`Render Covid Components Card Row for Covid test 1`] = `ShallowWrapper {}`;
-
-exports[`Render Covid Components Covid Cases test 1`] = `ShallowWrapper {}`;
 
 exports[`Render Covid Components Covid Timeline snapshot test 1`] = `ShallowWrapper {}`;
 
