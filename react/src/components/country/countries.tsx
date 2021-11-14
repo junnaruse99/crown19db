@@ -70,8 +70,19 @@ const Countries = (props: any) => {
         history.go(uri);
     }
 
-    const handleFilterSort = (data) => {
-        alert(data.target.value)
+    const handleSort = (data) => {
+        var params: any = queryString.parse(props.location.search);
+        var uri = '?' + queryString.stringify(params);
+
+        // Replace current sort parameter
+        const sortIndex = uri.indexOf('sort');
+        if (sortIndex >= 0) {
+            uri = uri.substring(0, sortIndex);
+        }
+
+        uri += uri.length == 1 ? data.target.value : '&' + data.target.value;
+        history.push(uri);
+        history.go(uri);
     }
 
     return ( 
@@ -118,14 +129,14 @@ const Countries = (props: any) => {
 
                             <div className='select_con card border-0 text-center'>
                                 <label>Sort by</label>
-                                <select onChange={handleFilterSort.bind(this)}>
-                                    <option value='' selected>---</option>
-                                    <option value='name'>Name (A-Z)</option>
-                                    <option value='-name'>Name (Z-A)</option>
-                                    <option value='population'>Population (Asc)</option>
-                                    <option value='-population'>Population (Desc)</option>
-                                    <option value='mass'>Land Mass (Asc)</option>
-                                    <option value='-mass'>Land Mass (Desc)</option>
+                                <select onChange={handleSort.bind(this)}>
+                                    <option value=''>---</option>
+                                    <option value='sort=officialName'>Name (A-Z)</option>
+                                    <option value='sort=-officialName'>Name (Z-A)</option>
+                                    <option value='sort=population'>Population (Asc)</option>
+                                    <option value='sort=-population'>Population (Desc)</option>
+                                    <option value='sort=area'>Land Mass (Asc)</option>
+                                    <option value='sort=-area'>Land Mass (Desc)</option>
                                 </select>
                             </div>
                         </div>
