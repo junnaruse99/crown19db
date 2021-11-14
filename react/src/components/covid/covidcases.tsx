@@ -3,6 +3,7 @@ import Covid from './covid';
 import ReactPaginate from 'react-paginate';
 import clientAxios from '../../config/axios';
 import Loading from '../layout/Loading';
+import './covidcases.css'
 
 const CovidCases = () => {
 
@@ -52,8 +53,73 @@ const CovidCases = () => {
                 (covidCases && currentCovid) ?                 
                 <>
                     <div className="row">
-                    <h2>Country Covid Data</h2>
-                        <div style={{width: '100%', overflow:'scroll', overflowX: 'auto', overflowY: "auto"}}>
+                        <h2>Country Covid Data</h2><br /><br /><br />
+                        <div className="option_container">
+                            <div className='select_con card border-0 text-center'>
+                                <label>Filter by # of Cases</label>
+                                <select>
+                                    <option value='' selected>---</option>
+                                    <option value=''>&#60; 500K</option>
+                                    <option value=''>500K - 1M</option>
+                                    <option value=''>1M - 5M</option>
+                                    <option value=''>5M - 10M</option>
+                                    <option value=''>10M - 25M</option>
+                                    <option value=''>25M - 50M</option>
+                                    <option value=''>50M - 100M</option>
+                                    <option value=''>100M - 200M</option>
+                                    <option value=''>&#62; 200M</option>
+                                </select>
+                            </div>
+
+                            <div className='select_con card border-0 text-center'>
+                                <label>Filter by # of Deaths</label>
+                                <select>
+                                    <option value='' selected>---</option>
+                                    <option value=''>&#60; 500K</option>
+                                    <option value=''>500K - 1M</option>
+                                    <option value=''>1M - 5M</option>
+                                    <option value=''>5M - 10M</option>
+                                    <option value=''>10M - 25M</option>
+                                    <option value=''>25M - 50M</option>
+                                    <option value=''>50M - 100M</option>
+                                    <option value=''>100M - 200M</option>
+                                    <option value=''>&#62; 200M</option>
+                                </select>
+                            </div>
+
+                            <div className='select_con card border-0 text-center'>
+                                <label>Filter by # of Recovered</label>
+                                <select>
+                                    <option value='' selected>---</option>
+                                    <option value=''>&#60; 500K</option>
+                                    <option value=''>500K - 1M</option>
+                                    <option value=''>1M - 5M</option>
+                                    <option value=''>5M - 10M</option>
+                                    <option value=''>10M - 25M</option>
+                                    <option value=''>25M - 50M</option>
+                                    <option value=''>50M - 100M</option>
+                                    <option value=''>100M - 200M</option>
+                                    <option value=''>&#62; 200M</option>
+                                </select>
+                            </div>
+
+                            <div className='select_con card border-0 text-center'>
+                                <label>Sort by</label>
+                                <select>
+                                    <option value='' selected>---</option>
+                                    <option value=''>Country Name (A-Z)</option>
+                                    <option value=''>Country Name (Z-A)</option>
+                                    <option value=''># of Cases (Asc)</option>
+                                    <option value=''># of Cases (Desc)</option>
+                                    <option value=''># of Deaths (Asc)</option>
+                                    <option value=''># of Deaths (Desc)</option>
+                                    <option value=''># of Recoveries (Asc)</option>
+                                    <option value=''># of Recoveries (Desc)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div style={{width: '100%', overflow:'scroll', overflowX: 'auto', overflowY: "auto"}}><br />
                             <table className="table">
                                 <thead className="thead-dark">
                                     <tr>
