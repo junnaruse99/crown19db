@@ -16,7 +16,7 @@ const City = ({ city }) => {
         <td>{city.name}</td>
         <td>{city.latitude}</td>
         <td>{city.longitude}</td>
-        <td>{city.population.toLocaleString("en-US")}</td>
+        <td>{city.population != null ? city.population.toLocaleString("en-US") : "No data"}</td>
         <td>{city.country.commonName}</td>
         </tr>
     )
