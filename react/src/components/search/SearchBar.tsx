@@ -7,9 +7,7 @@ function onSearchSubmit(event: any) {
 
 export default function SearchBar(props: any) {
   var searchPrompt = "Search ";
-  if (true) { // TODO change per page
-    searchPrompt += "countries";
-  }
+  searchPrompt += props.type;
   searchPrompt += ":";
 
   return (

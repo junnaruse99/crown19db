@@ -23,6 +23,7 @@ import Navbar from '../components/layout/navbar';
 import SimpleMap from '../components/map/SimpleMap';
 import LocaleInfo from '../components/localeInfo/localeInfo';
 import Loading from '../components/layout/Loading';
+import { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } from 'constants';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -115,20 +116,11 @@ describe ("Render Non-model Components", () => {
 
 describe ("Render Country components", () => {
     test('Country Model section render', () => {
-        const s = {
-            str: '',
-            sep: null,
-            eq: null,
-            options: null
-        }
-        const l = {
-            search: s
-        }        
-        const prop = {
-            location: l
+        const props = {
+            location: {search: ''}
         }
         const levelOne = shallow(<AllCountries 
-                                props={prop}
+                                props={props}
 
                                     />);
         expect(levelOne).toMatchSnapshot();
@@ -195,6 +187,7 @@ describe ("Render Covid Components", ()=> {
         const levelOne = shallow(
             <Covid 
                 covid={dummyInfo}
+                q={null}
             />);
         expect(levelOne).toMatchSnapshot();
     });

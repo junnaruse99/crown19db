@@ -5,6 +5,7 @@ import Country from './country';
 import ReactPaginate from 'react-paginate';
 import clientAxios from '../../config/axios';
 import Loading from '../layout/Loading';
+import './countries.css'
 import SearchBar from '../search/SearchBar';
 
 const Countries = (props: any) => {
@@ -74,7 +75,10 @@ const Countries = (props: any) => {
             {msg ? (<h3> {msg} </h3>) : (
                 data ?
                 <>
-                    <SearchBar defaultValue={q}/>
+                    <SearchBar
+                        defaultValue={q}
+                        type={"countries"}
+                    />
                     <br />
                     <div className="row">
                         <h2>Countries</h2>
