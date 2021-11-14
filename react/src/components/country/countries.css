@@ -1,0 +1,24 @@
+.table_container {
+    width: 100%;
+    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.option_container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.select_con {
+    text-align: center;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 5px;
+    min-width: 12rem;
+}
+
+label {
+    display: block;
+}

@@ -59,13 +59,13 @@ const Cities = () => {
                                 <label>Filter by Continent</label>
                                 <select>
                                     <option value='' selected>---</option>
-                                    <option value='Africa'>Africa</option>
-                                    <option value='Antarctica'>Antarctica</option>
-                                    <option value='Asia'>Asia</option>
-                                    <option value='Europe'>Europe</option>
-                                    <option value='North America'>North America</option>
-                                    <option value='Oceania'>Oceania</option>
-                                    <option value='South America'>South America</option>
+                                    <option value=''>Africa</option>
+                                    <option value=''>Antarctica</option>
+                                    <option value=''>Asia</option>
+                                    <option value=''>Europe</option>
+                                    <option value=''>North America</option>
+                                    <option value=''>Oceania</option>
+                                    <option value=''>South America</option>
                                 </select>
                             </div>
 
@@ -73,15 +73,15 @@ const Cities = () => {
                                 <label>Filter by Population</label>
                                 <select>
                                     <option value='' selected>---</option>
-                                    <option value='range1'>&#60; 500K</option>
-                                    <option value='range2'>500K - 1M</option>
-                                    <option value='range3'>1M - 5M</option>
-                                    <option value='range4'>5M - 10M</option>
-                                    <option value='range5'>10M - 25M</option>
-                                    <option value='range6'>25M - 50M</option>
-                                    <option value='range7'>50M - 100M</option>
-                                    <option value='range8'>100M - 200M</option>
-                                    <option value='range9'>&#62; 200M</option>
+                                    <option value=''>&#60; 500K</option>
+                                    <option value=''>500K - 1M</option>
+                                    <option value=''>1M - 5M</option>
+                                    <option value=''>5M - 10M</option>
+                                    <option value=''>10M - 25M</option>
+                                    <option value=''>25M - 50M</option>
+                                    <option value=''>50M - 100M</option>
+                                    <option value=''>100M - 200M</option>
+                                    <option value=''>&#62; 200M</option>
                                 </select>
                             </div>
 
@@ -89,9 +89,12 @@ const Cities = () => {
                                 <label>Sort by</label>
                                 <select>
                                     <option value='' selected>---</option>
-                                    <option value='Name'>Name</option>
-                                    <option value='Population'>Population</option>
-                                    <option value='Land Mass'>Land Mass</option>
+                                    <option value=''>City Name (A-Z)</option>
+                                    <option value=''>City Name (Z-A)</option>
+                                    <option value=''>Country Name (A-Z)</option>
+                                    <option value=''>Country Name (Z-A)</option>
+                                    <option value=''>Population (Asc)</option>
+                                    <option value=''>Population (Desc)</option>
                                 </select>
                             </div>
                         </div>

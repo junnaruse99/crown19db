@@ -3,6 +3,7 @@ import Country from './country';
 import ReactPaginate from 'react-paginate';
 import clientAxios from '../../config/axios';
 import Loading from '../layout/Loading';
+import './countries.css'
 
 const Countries = () => {
 
@@ -52,7 +53,51 @@ const Countries = () => {
                 <>
                     <div className="row">
                         <h2>Countries</h2>
-                    </div>
+                        <div className="option_container">
+                            <div className='select_con card border-0 text-center'>
+                                <label>Filter by Continent</label>
+                                <select>
+                                    <option value='' selected>---</option>
+                                    <option value=''>Africa</option>
+                                    <option value=''>Antarctica</option>
+                                    <option value=''>Asia</option>
+                                    <option value=''>Europe</option>
+                                    <option value=''>North America</option>
+                                    <option value=''>Oceania</option>
+                                    <option value=''>South America</option>
+                                </select>
+                            </div>
+
+                            <div className='select_con card border-0 text-center'>
+                                <label>Filter by Population</label>
+                                <select>
+                                    <option value='' selected>---</option>
+                                    <option value=''>&#60; 500K</option>
+                                    <option value=''>500K - 1M</option>
+                                    <option value=''>1M - 5M</option>
+                                    <option value=''>5M - 10M</option>
+                                    <option value=''>10M - 25M</option>
+                                    <option value=''>25M - 50M</option>
+                                    <option value=''>50M - 100M</option>
+                                    <option value=''>100M - 200M</option>
+                                    <option value=''>&#62; 200M</option>
+                                </select>
+                            </div>
+
+                            <div className='select_con card border-0 text-center'>
+                                <label>Sort by</label>
+                                <select>
+                                    <option value='' selected>---</option>
+                                    <option value=''>Name (A-Z)</option>
+                                    <option value=''>Name (Z-A)</option>
+                                    <option value=''>Population (Asc)</option>
+                                    <option value=''>Population (Desc)</option>
+                                    <option value=''>Land Mass (Asc)</option>
+                                    <option value=''>Land Mass (Desc)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div><br />
                     <div className="row-grid">
                         {currentCountries? currentCountries.map( country => (    
                             <Country 
