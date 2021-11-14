@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 import City from './city';
 import ReactPaginate from 'react-paginate';
@@ -19,22 +20,35 @@ const Cities = (props: any) => {
         longitude: number;
     }
 
+    interface CityResponse {
+        count: number;
+        data: City[];
+    }
+
     interface Country {
         commonName: string;
     }
 
     const [msg, setMsg] = useState('');
-    const [cities, setCities] = useState<City[]>();
-    const [currentCities, setCurrentCities] = useState<City[]>();
+    const [data, setData] = useState<CityResponse>();
 
-    const { q } = queryString.parse(props.location.search);
+    const history = useHistory();
+
+    const { q, page, perPage } = queryString.parse(props.location.search);
+
+    var currentPageNum = Number(page ? page : 1);
+    var currentPerPage = Number(perPage ? perPage : 12);
 
     const getCities = async () => {
         try {
-            let response = await clientAxios.get<City[]>('/v1/models/city/all' )
+            var params: any = queryString.parse(props.location.search);
+            if (q != null) params.q = q;
+            params.page = currentPageNum;
+            params.perPage = currentPerPage;
+            var uri = '/v1/models/city?' + queryString.stringify(params);
+            const response = await clientAxios.get<CityResponse>(uri)
                 .then(response => {
-                    setCities(response.data);
-                    setCurrentCities(response.data.slice(0, 10));
+                    setData(response.data);
                 });
         } catch (error) {
             setMsg('There was an error with finding cities');
@@ -46,15 +60,19 @@ const Cities = (props: any) => {
     }, []);
 
     const handlePageClick = (data) => {
-        if (cities) {
-            setCurrentCities(cities.slice(data.selected*10, data.selected*10+10))
-        }
+        var params: any = queryString.parse(props.location.search);
+        params.page = data.selected + 1;
+        params.perPage = currentPerPage;
+        var uri = '?' + queryString.stringify(params);
+        console.log('uri = ' + uri);
+        history.push(uri);
+        history.go(uri);
     }
     
     return ( 
         <div className='container'>
             {msg ? (<h3> {msg} </h3>) : (
-                (cities && currentCities) ?                 
+                data ?
                 <>
                     <div className="row">
                         <h2>Cities</h2>
@@ -121,7 +139,7 @@ const Cities = (props: any) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {currentCities.map( city => (    
+                                    {data.data.map( city => (
                                         <City 
                                             city={city}
                                             key={city.id}
@@ -133,7 +151,7 @@ const Cities = (props: any) => {
                         </div>
                     </div>
                     <div className="row">
-                        {"There are " + cities.length + " cities"}
+                        {"There are " + data.count + " cities"}
                     </div>
                     {/* Pagination css is in index.css */}
                     <div className="row d-flex justify-content-center">
@@ -141,7 +159,8 @@ const Cities = (props: any) => {
                             previousLabel={'<<'}
                             nextLabel={'>>'}
                             breakLabel={'...'}
-                            pageCount={cities.length/10}
+                            pageCount={data.count/data.data.length}
+                            forcePage={currentPageNum - 1}
                             marginPagesDisplayed={1}
                             pageRangeDisplayed={4}
                             onPageChange={handlePageClick}
