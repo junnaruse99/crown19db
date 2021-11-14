@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import queryString from 'query-string';
 import Covid from './covid';
 import ReactPaginate from 'react-paginate';
 import clientAxios from '../../config/axios';
 import Loading from '../layout/Loading';
+import SearchBar from '../search/SearchBar';
 
-const CovidCases = () => {
+const CovidCases = (props: any) => {
 
     interface CovidCases {
         country: Country;
@@ -23,6 +25,8 @@ const CovidCases = () => {
     const [msg, setMsg] = useState('');
     const [covidCases, setCovidCases] = useState<CovidCases[]>();
     const [currentCovid, setCurrentCovid] = useState<CovidCases[]>();
+
+    const { q } = queryString.parse(props.location.search);
 
     const getCovidCases = async () => {
         try {
@@ -51,6 +55,11 @@ const CovidCases = () => {
             {msg ? (<h3> {msg} </h3>) : (
                 (covidCases && currentCovid) ?                 
                 <>
+                    <SearchBar
+                        defaultValue={q}
+                        type={"country covid data"}
+                    />
+                    <br />
                     <div className="row">
                     <h2>Country Covid Data</h2>
                         <div style={{width: '100%', overflow:'scroll', overflowX: 'auto', overflowY: "auto"}}>
@@ -67,9 +76,10 @@ const CovidCases = () => {
                                 </thead>
                                 <tbody>
                                     {currentCovid.map( covid => (    
-                                        <Covid 
-                                        key={covid.id}
-                                        covid={covid} 
+                                        <Covid
+                                            covid={covid}
+                                            key={covid.id}
+                                            q={q}
                                         />
                                     ))}
                                 </tbody>

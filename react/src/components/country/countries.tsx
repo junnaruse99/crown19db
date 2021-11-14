@@ -73,7 +73,10 @@ const Countries = (props: any) => {
             {msg ? (<h3> {msg} </h3>) : (
                 data ?
                 <>
-                    <SearchBar defaultValue={q}/>
+                    <SearchBar
+                        defaultValue={q}
+                        type={"countries"}
+                    />
                     <br />
                     <div className="row">
                         <h2>Countries</h2>
