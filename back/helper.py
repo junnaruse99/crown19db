@@ -43,7 +43,7 @@ def filter_by_name(model, query, field, names):
         condition = [getattr(Language, 'name') == name for name in names]
         return query.join(model.language, aliased=True).filter(sqlalchemy.or_(*condition))
     elif field == 'country':
-        condition = [getattr(Country, 'commonName') == name for name in names]
+        condition = [getattr(Country, 'officialName') == name for name in names]
         return query.join(model.country, aliased=True).filter(sqlalchemy.or_(*condition))
     else:
         # I don't know how to do this in a better way
@@ -60,9 +60,9 @@ def sort(model, query, _, attr_list):
             join_flag = True
             if attr[0] == '-':
                 attr = attr[1:]
-                stmt.append(getattr(Country, 'commonName').desc())
+                stmt.append(getattr(Country, 'officialName').desc())
             else:
-                stmt.append(getattr(Country, 'commonName'))
+                stmt.append(getattr(Country, 'officialName'))
 
         elif attr[0] == '-':
             attr = attr[1:]
@@ -90,11 +90,11 @@ searchable = {
 
     'City' : {
         'name': None,
-        'country': [Country, 'commonName']
+        'country': [Country, 'officialName']
     },
 
     'Covid' : {
-        'country': [Country, 'commonName']
+        'country': [Country, 'officialName']
     }
 }
 

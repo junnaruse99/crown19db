@@ -24,7 +24,7 @@ const City = ({ city, q }) => {
         <td>{city.population != null ? city.population.toLocaleString("en-US") : "No data"}</td>
         <td>
             <SearchableText q={q}>
-                {city.country.commonName}
+                {city.country.officialName}
             </SearchableText>
         </td>
         </tr>

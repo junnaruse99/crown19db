@@ -194,7 +194,7 @@ class CitySchema(ma.Schema):
     timeZone = fields.String(required=True)
     country_id = fields.Integer(required=True)
     country = fields.Nested(
-        "CountrySchema", only=["commonName"], required=True, many=False
+        "CountrySchema", only=["officialName"], required=True, many=False
     )
 
     class Meta:
@@ -209,7 +209,7 @@ class CovidSchema(ma.Schema):
     deaths = fields.Integer(required=True)
     lastCovidCase = fields.DateTime(required=True)
     country = fields.Nested(
-        "CountrySchema", only=["commonName"], required=False, many=False
+        "CountrySchema", only=["officialName"], required=False, many=False
     )
 
     class Meta:
@@ -224,7 +224,7 @@ class CovidInstanceSchema(ma.Schema):
     totalRecovered = fields.Integer(required=True)
     totalDeaths = fields.Integer(required=True)
     country = fields.Nested(
-        "CountrySchema", only=["commonName"], required=False, many=False
+        "CountrySchema", only=["officialName"], required=False, many=False
     )
     city = fields.Nested("CitySchema", only=["name", "id"], required=False, many=False)
 
