@@ -3,6 +3,7 @@ import City from './city';
 import ReactPaginate from 'react-paginate';
 import clientAxios from '../../config/axios';
 import Loading from '../layout/Loading';
+import "./cities.css";
 
 const Cities = () => {
 
@@ -53,7 +54,49 @@ const Cities = () => {
                 <>
                     <div className="row">
                         <h2>Cities</h2>
-                        <div style={{width: '100%', overflow:'scroll', overflowX: 'auto', overflowY: "auto"}}>
+                        <div className="option_container">
+                            <div className='select_con card border-0 text-center'>
+                                <label>Filter by Continent</label>
+                                <select>
+                                    <option value='' selected>---</option>
+                                    <option value='Africa'>Africa</option>
+                                    <option value='Antarctica'>Antarctica</option>
+                                    <option value='Asia'>Asia</option>
+                                    <option value='Europe'>Europe</option>
+                                    <option value='North America'>North America</option>
+                                    <option value='Oceania'>Oceania</option>
+                                    <option value='South America'>South America</option>
+                                </select>
+                            </div>
+
+                            <div className='select_con card border-0 text-center'>
+                                <label>Filter by Population</label>
+                                <select>
+                                    <option value='' selected>---</option>
+                                    <option value='range1'>&#60; 500K</option>
+                                    <option value='range2'>500K - 1M</option>
+                                    <option value='range3'>1M - 5M</option>
+                                    <option value='range4'>5M - 10M</option>
+                                    <option value='range5'>10M - 25M</option>
+                                    <option value='range6'>25M - 50M</option>
+                                    <option value='range7'>50M - 100M</option>
+                                    <option value='range8'>100M - 200M</option>
+                                    <option value='range9'>&#62; 200M</option>
+                                </select>
+                            </div>
+
+                            <div className='select_con card border-0 text-center'>
+                                <label>Sort by</label>
+                                <select>
+                                    <option value='' selected>---</option>
+                                    <option value='Name'>Name</option>
+                                    <option value='Population'>Population</option>
+                                    <option value='Land Mass'>Land Mass</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div className="table_container"><br />
                             <table className="table">
                                 <thead className="thead-dark">
                                     <tr>
