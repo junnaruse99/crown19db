@@ -52,7 +52,19 @@ const Countries = (props: any) => {
             const response = await clientAxios.get<CountryResponse>(uri)
                 .then(response => {
                     setData(response.data);
-                });
+                })
+                .catch(
+                    error => {
+                        if (error.response.status == 400) {
+                            setMsg(error.response.data);
+                            setData(undefined);
+                        } else {
+                            setMsg('404 Not Found');
+                            console.log(error.response.data);
+                            setData(undefined);
+                        }
+                    }
+                );
         } catch (error) {
             setMsg('There was an error');
             console.log(error);
@@ -79,6 +91,7 @@ const Countries = (props: any) => {
 
         var params: any = queryString.parse(props.location.search);
         var uri = '?' + queryString.stringify(params);
+        uri = uri.replace(/page=\d\d*/, 'page=1');
 
         // Remove current parameter
         const index = uri.indexOf(name);
@@ -115,7 +128,7 @@ const Countries = (props: any) => {
                         <div className="option_container">
                             <div className='select_con card border-0 text-center'>
                                 <label>Filter by Continent</label>
-                                <select id='continent' onChange={handleSortFilter.bind(this)} defaultValue={continent}>
+                                <select id='continent' onChange={handleSortFilter.bind(this)} defaultValue={continent + ''}>
                                     <option value='' selected>---</option>
                                     <option value='Africa'>Africa</option>
                                     <option value='Antarctica'>Antarctica</option>
@@ -129,7 +142,7 @@ const Countries = (props: any) => {
 
                             <div className='select_con card border-0 text-center'>
                                 <label>Filter by Population</label>
-                                <select id='population' onChange={handleSortFilter.bind(this)} defaultValue={population}>
+                                <select id='population' onChange={handleSortFilter.bind(this)} defaultValue={population + ''}>
                                     <option value='' selected>---</option>
                                     <option value='0-500000'>&#60; 500K</option>
                                     <option value='500000-1000000'>500K - 1M</option>
@@ -145,7 +158,7 @@ const Countries = (props: any) => {
 
                             <div className='select_con card border-0 text-center'>
                                 <label>Sort by</label>
-                                <select id='sort' onChange={handleSortFilter.bind(this)} defaultValue={sort}>
+                                <select id='sort' onChange={handleSortFilter.bind(this)} defaultValue={sort + ''}>
                                     <option value=''>---</option>
                                     <option value='officialName'>Name (A-Z)</option>
                                     <option value='-officialName'>Name (Z-A)</option>
@@ -175,7 +188,7 @@ const Countries = (props: any) => {
                             previousLabel={'<<'}
                             nextLabel={'>>'}
                             breakLabel={'...'}
-                            pageCount={data.count/data.data.length}
+                            pageCount={data.count/12}
                             forcePage={currentPageNum - 1}
                             marginPagesDisplayed={1}
                             pageRangeDisplayed={4}

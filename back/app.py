@@ -79,7 +79,7 @@ def countries(queries=None):
         count = country_query.count()
         country = country_query.paginate(page=page, per_page=perPage)
         return jsonify({'data': country_schema.dump(country.items, many=True), 'count':count})
-    except TypeError:
+    except (AttributeError, ValueError):
         return Response('Incorrect query', status=400)
     except NotFound:
         return Response('Incorrect pagination numbers', status=400)
@@ -152,7 +152,7 @@ def cities(queries=None):
         count = city_query.count()
         city = city_query.paginate(page=page, per_page=perPage)
         return jsonify({'data':city_schema.dump(city.items, many=True), 'count': count})
-    except TypeError:
+    except (AttributeError, ValueError):
         return Response('Incorrect query', status=400)
     except NotFound:
         return Response('Incorrect pagination numbers', status=400)
@@ -257,7 +257,7 @@ def covid(queries=None):
         count = covid_query.count()
         covid = covid_query.paginate(page=page, per_page=perPage)
         return jsonify({'data':covid_schema.dump(covid.items, many=True), 'count': count})
-    except TypeError:
+    except (AttributeError, ValueError):
         return Response('Incorrect query', status=400)
     except NotFound:
         return Response('Incorrect pagination numbers', status=400)
@@ -305,7 +305,7 @@ def all(queries=None):
 
         return jsonify(result)
     
-    except TypeError:
+    except (AttributeError, ValueError):
         return Response('Incorrect query', status=400)
     except NotFound:
         return Response('Incorrect pagination numbers', status=400)

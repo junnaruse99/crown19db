@@ -8,10 +8,13 @@ import * as Enzyme from 'enzyme'
 
 import App from '../App';
 import About from '../components/about/About';
+import CountriesModel from '../components/country/countries'
 import Country from '../components/country/country';
 import CountryInstance from '../components/country/countryInstance';
+import CitiesModel from '../components/city/cities';
 import City from '../components/city/city';
 import CityInstance from '../components/city/cityInstance';
+import CovidCases from '../components/covid/covidcases'
 import Covid from '../components/covid/covid'
 import CardRow from '../components/covid/cardRow';
 import CovidDate from '../components/covid/covidDate';
@@ -20,6 +23,7 @@ import Navbar from '../components/layout/navbar';
 import SimpleMap from '../components/map/SimpleMap';
 import LocaleInfo from '../components/localeInfo/localeInfo';
 import Loading from '../components/layout/Loading';
+import GlobalSearch from '../components/search/GlobalSearch'
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -28,7 +32,8 @@ jest.mock("react-router-dom", () => ({
     useLocation: () => ({
         pathname: () => ({
             pathname: "/"
-        }) 
+        }),
+        search: ""
     }), 
     useParams: () => ({
 
@@ -108,9 +113,27 @@ describe ("Render Non-model Components", () => {
             <Loading />);
         expect(levelOne).toMatchSnapshot();
     });
+
+    test('Global Search test', () => {
+        const location = {
+            search: "q=e"
+        }
+        const levelOne = shallow(<GlobalSearch 
+                                location={location}/>);
+        expect(levelOne).toMatchSnapshot();
+    });
 });
 
 describe ("Render Country components", () => {
+    test('All countries snapshot test', () => {
+        const location = {
+            search: "q=e"
+        }
+        const levelOne = shallow(<CountriesModel 
+                                location={location}/>);
+        expect(levelOne).toMatchSnapshot();
+    });
+
     test('Singular Country snapshot test', () => {
         const dummyInfo = {
             id: 1,
@@ -134,6 +157,15 @@ describe ("Render Country components", () => {
 });
 
 describe ("Render City Components", () => {
+    test('All cities snapshot test', () => {
+        const location = {
+            search: "q=e"
+        }
+        const levelOne = shallow(<CitiesModel 
+                                location={location}/>);
+        expect(levelOne).toMatchSnapshot();
+    });
+
     test('Singular City snapshot test', () => {
         const dummyInfo = {
             id: 2,
@@ -156,6 +188,15 @@ describe ("Render City Components", () => {
 });
 
 describe ("Render Covid Components", ()=> {
+    test('All covidcases snapshot test', () => {
+        const location = {
+            search: "q=e"
+        }
+        const levelOne = shallow(<CovidCases 
+                                location={location}/>);
+        expect(levelOne).toMatchSnapshot();
+    });
+
     test('Covid test', () => {
         const dummyInfo={"cases":1203429,
                         "deaths":24066,

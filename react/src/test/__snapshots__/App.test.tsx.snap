@@ -1,12 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Render City Components All cities snapshot test 1`] = `ShallowWrapper {}`;
+
 exports[`Render City Components City Model section render 1`] = `ShallowWrapper {}`;
 
 exports[`Render City Components Singular City snapshot test 1`] = `ShallowWrapper {}`;
 
+exports[`Render Country components All countries snapshot test 1`] = `ShallowWrapper {}`;
+
 exports[`Render Country components Country Instance snapshot test 1`] = `ShallowWrapper {}`;
 
 exports[`Render Country components Singular Country snapshot test 1`] = `ShallowWrapper {}`;
+
+exports[`Render Covid Components All covidcases snapshot test 1`] = `ShallowWrapper {}`;
 
 exports[`Render Covid Components Card Row for Covid test 1`] = `ShallowWrapper {}`;
 
@@ -17,6 +23,8 @@ exports[`Render Covid Components Covid test 1`] = `ShallowWrapper {}`;
 exports[`Render Covid Components CovidDate test 1`] = `ShallowWrapper {}`;
 
 exports[`Render Non-model Components About section render 1`] = `ShallowWrapper {}`;
+
+exports[`Render Non-model Components Global Search test 1`] = `ShallowWrapper {}`;
 
 exports[`Render Non-model Components Loading test 1`] = `ShallowWrapper {}`;
 

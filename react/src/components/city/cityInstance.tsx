@@ -23,7 +23,7 @@ const CityInstance = () => {
     }
 
     interface Country {
-        commonName: string;
+        officialName: string;
     }
 
     // Find city
@@ -37,7 +37,19 @@ const CityInstance = () => {
                 .then(response => {
                     console.log(response.data);
                     setCity(response.data);
-                });
+                })
+                .catch(
+                    error => {
+                        if (error.response.status == 400) {
+                            setMsg(error.response.data);
+                            setCity(undefined);
+                        } else {
+                            setMsg('404 Not Found');
+                            console.log(error.response.data);
+                            setCity(undefined);
+                        }
+                    }
+                );
         } catch (error) {
             setMsg('There was an error');
         }
@@ -75,11 +87,11 @@ const CityInstance = () => {
                                                 </tr>
                                                 <tr>
                                                 <th scope="row">Country</th>
-                                                <td><Link to={"/country/"+ city.country_id}>{city.country.commonName}</Link></td>
+                                                <td><Link to={"/country/"+ city.country_id}>{city.country.officialName}</Link></td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <a href={"/covid/" + city.country_id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{city.country.commonName}'s Covid Data</a>
+                                        <a href={"/covid/" + city.country_id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{city.country.officialName}'s Covid Data</a>
                                     </p>
                                 </div>
                             </div><br /><br />
