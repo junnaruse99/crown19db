@@ -155,7 +155,7 @@ class EndpointTest(unittest.TestCase):
 
         all_att = self.checkAttributes(covid[0], 'Covid')
 
-        self.assertEqual(len(covid), 191)
+        self.assertEqual(len(covid), 190)
         self.assertEqual(covid[0]["country"]["officialName"], "Islamic Republic of Afghanistan")
         self.assertEqual(covid[0]["deaths"], 7206)
 
