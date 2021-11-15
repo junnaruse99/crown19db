@@ -53,7 +53,19 @@ const Countries = (props: any) => {
             const response = await clientAxios.get<CountryResponse>(uri)
                 .then(response => {
                     setData(response.data);
-                });
+                })
+                .catch(
+                    error => {
+                        if (error.response.status == 400) {
+                            setMsg(error.response.data);
+                            setData(undefined);
+                        } else {
+                            setMsg('404 Not Found');
+                            console.log(error.response.data);
+                            setData(undefined);
+                        }
+                    }
+                );
         } catch (error) {
             setMsg('There was an error');
             console.log(error);

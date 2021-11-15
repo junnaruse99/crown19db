@@ -56,7 +56,19 @@ const CountryInstance = () => {
             const response = await clientAxios.get<Country>(`/v1/models/country/id=${id}`)
                 .then(response => {
                     setCountry(response.data)
-                });
+                })
+                .catch(
+                    error => {
+                        if (error.response.status == 400) {
+                            setMsg(error.response.data);
+                            setCountry(undefined);
+                        } else {
+                            setMsg('404 Not Found');
+                            console.log(error.response.data);
+                            setCountry(undefined);
+                        }
+                    }
+                );
         } catch (error) {
             setMsg('There was an error');
         }

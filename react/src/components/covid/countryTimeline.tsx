@@ -45,7 +45,19 @@ const CountryTimeline = () => {
                 .then(response => {
                     setCovid(response.data)
                     setCurrentCovid(response.data.slice(0, 10))
-                });
+                })
+                .catch(
+                    error => {
+                        if (error.response.status == 400) {
+                            setMsg(error.response.data);
+                            setCurrentCovid(undefined);
+                        } else {
+                            setMsg('404 Not Found');
+                            console.log(error.response.data);
+                            setCurrentCovid(undefined);
+                        }
+                    }
+                );
         } catch (error) {
             setMsg('There was an error');
         }

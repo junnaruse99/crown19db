@@ -37,7 +37,19 @@ const CityInstance = () => {
                 .then(response => {
                     console.log(response.data);
                     setCity(response.data);
-                });
+                })
+                .catch(
+                    error => {
+                        if (error.response.status == 400) {
+                            setMsg(error.response.data);
+                            setCity(undefined);
+                        } else {
+                            setMsg('404 Not Found');
+                            console.log(error.response.data);
+                            setCity(undefined);
+                        }
+                    }
+                );
         } catch (error) {
             setMsg('There was an error');
         }
