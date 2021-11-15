@@ -83,6 +83,7 @@ const CovidCases = (props: any) => {
 
         var params: any = queryString.parse(props.location.search);
         var uri = '?' + queryString.stringify(params);
+        uri = uri.replace(/page=\d\d*/, 'page=1');
 
         // Remove current parameter
         const index = uri.indexOf(name);
@@ -208,7 +209,7 @@ const CovidCases = (props: any) => {
                             previousLabel={'<<'}
                             nextLabel={'>>'}
                             breakLabel={'...'}
-                            pageCount={data.count/data.data.length}
+                            pageCount={data.count/12}
                             forcePage={currentPageNum - 1}
                             marginPagesDisplayed={1}
                             pageRangeDisplayed={4}
