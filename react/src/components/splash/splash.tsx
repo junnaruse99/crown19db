@@ -5,6 +5,7 @@ import covid from './splashAssets/covid.jpg'
 import cities from './splashAssets/cities.jpg'
 import Card from 'react-bootstrap/Card';
 import LocaleInfo from '../localeInfo/localeInfo';
+import SearchBar from '../search/SearchBar';
 import './splash.css';
 
 const Splash = () => {
@@ -25,6 +26,10 @@ const Splash = () => {
             <h1>Welcome to CovidDB</h1>
             <h5> An extensive database tracking Covid-19 information on a day-to-day basis in the scope of countries and cities.</h5>
             <p></p>
+            <SearchBar
+                redirect={"/search"}
+                type={"Search for the information you are after today"}
+            />
             <p>Select the information you are after today.</p>
             <div className="container">
                 <div className='row'>
