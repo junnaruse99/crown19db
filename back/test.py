@@ -130,7 +130,7 @@ class EndpointTest(unittest.TestCase):
         all_att = self.checkAttributes(cities[0], 'City')
 
         self.assertEqual(len(cities), 226)
-        self.assertEqual(cities[0]["country"]["commonName"], "Malaysia")
+        self.assertEqual(cities[0]["country"]["officialName"], "Malaysia")
         self.assertEqual(cities[0]["population"], 8285000)
 
     def test_get_city_by_name(self):
@@ -148,7 +148,7 @@ class EndpointTest(unittest.TestCase):
         )  # Make sure that it does not returns a list
         all_att = self.checkAttributes(city, 'City')
 
-        self.assertEqual(city["country"]["commonName"], "Guatemala")
+        self.assertEqual(city["country"]["officialName"], "Republic of Guatemala")
 
     def test_get_covid_all(self):
         covid = json.loads(app.get_covid_all().data)
@@ -156,7 +156,7 @@ class EndpointTest(unittest.TestCase):
         all_att = self.checkAttributes(covid[0], 'Covid')
 
         self.assertEqual(len(covid), 191)
-        self.assertEqual(covid[0]["country"]["commonName"], "Afghanistan")
+        self.assertEqual(covid[0]["country"]["officialName"], "Islamic Republic of Afghanistan")
         self.assertEqual(covid[0]["deaths"], 7206)
 
     def test_get_covid_by_countrId(self):
@@ -177,7 +177,7 @@ class EndpointTest(unittest.TestCase):
         )  # Make sure that it does not returns a list
         all_att = self.checkAttributes(covid, 'Covid')
 
-        self.assertEqual(covid["country"]["commonName"], "Malta")
+        self.assertEqual(covid["country"]["officialName"], "Republic of Malta")
 
     def test_get_covidInstance_by_countrId(self):
         covid = json.loads(app.get_covidInstance_by_countryId(10).data)
@@ -185,7 +185,7 @@ class EndpointTest(unittest.TestCase):
         self.assertEqual(len(covid), 616)
         all_att = self.checkAttributes(covid[0], 'CovidInstance')
 
-        self.assertEqual(covid[0]["country"]["commonName"], "Laos")
+        self.assertEqual(covid[0]["country"]["officialName"], "Lao People's Democratic Republic")
         self.assertEqual(covid[0]["totalCases"], 606)
 
     def test_else_router(self):
