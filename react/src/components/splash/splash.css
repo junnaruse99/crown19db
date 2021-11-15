@@ -3,4 +3,7 @@
     height: 13vw;
     object-fit: cover;
   }
-  
+
+  .card-link {
+    color: black;
+  }
