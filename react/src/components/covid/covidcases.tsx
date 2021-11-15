@@ -36,7 +36,7 @@ const CovidCases = (props: any) => {
 
     const history = useHistory();
 
-    const { q, page, perPage } = queryString.parse(props.location.search);
+    const { q, page, perPage, sort } = queryString.parse(props.location.search);
 
     var currentPageNum = Number(page ? page : 1);
     var currentPerPage = Number(perPage ? perPage : 12);
@@ -45,6 +45,7 @@ const CovidCases = (props: any) => {
         try {
             var params: any = queryString.parse(props.location.search);
             if (q != null) params.q = q;
+            if (sort != null) params.sort = sort;
             params.page = currentPageNum;
             params.perPage = currentPerPage;
             var uri = '/v1/models/covid?' + queryString.stringify(params);
@@ -68,6 +69,23 @@ const CovidCases = (props: any) => {
         params.perPage = currentPerPage;
         var uri = '?' + queryString.stringify(params);
         console.log('uri = ' + uri);
+        history.push(uri);
+        history.go(uri);
+    }
+
+    const handleSort = (data) => {
+        var params: any = queryString.parse(props.location.search);
+        var uri = '?' + queryString.stringify(params);
+
+        // Replace current sort parameter
+        const sortIndex = uri.indexOf('sort');
+        if (sortIndex >= 0) {
+            uri = uri.substring(0, sortIndex);
+        }
+        
+        if (data.target.value != '') {
+            uri += uri.length == 1 ? 'sort=' + data.target.value : '&sort=' + data.target.value;
+        }
         history.push(uri);
         history.go(uri);
     }
@@ -134,16 +152,16 @@ const CovidCases = (props: any) => {
 
                             <div className='select_con card border-0 text-center'>
                                 <label>Sort by</label>
-                                <select>
+                                <select onChange={handleSort.bind(this)} defaultValue={sort}>
                                     <option value='' selected>---</option>
-                                    <option value=''>Country Name (A-Z)</option>
-                                    <option value=''>Country Name (Z-A)</option>
-                                    <option value=''># of Cases (Asc)</option>
-                                    <option value=''># of Cases (Desc)</option>
-                                    <option value=''># of Deaths (Asc)</option>
-                                    <option value=''># of Deaths (Desc)</option>
-                                    <option value=''># of Recoveries (Asc)</option>
-                                    <option value=''># of Recoveries (Desc)</option>
+                                    <option value='country'>Country Name (A-Z)</option>
+                                    <option value='-country'>Country Name (Z-A)</option>
+                                    <option value='cases'># of Cases (Asc)</option>
+                                    <option value='-cases'># of Cases (Desc)</option>
+                                    <option value='deaths'># of Deaths (Asc)</option>
+                                    <option value='-deaths'># of Deaths (Desc)</option>
+                                    <option value='recovered'># of Recoveries (Asc)</option>
+                                    <option value='-recovered'># of Recoveries (Desc)</option>
                                 </select>
                             </div>
                         </div>
