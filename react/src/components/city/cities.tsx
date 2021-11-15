@@ -56,8 +56,9 @@ const Cities = (props: any) => {
     }
 
     useEffect(() => {
+        setData(undefined);
         getCities();
-    }, []);
+    }, [props]);
 
     const handlePageClick = (data) => {
         var params: any = queryString.parse(props.location.search);

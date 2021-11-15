@@ -57,8 +57,9 @@ const Countries = (props: any) => {
     }
 
     useEffect(() => {
+        setData(undefined);
         getCountries();
-    }, []);
+    }, [props]);
 
     const handlePageClick = (data) => {
         var params: any = queryString.parse(props.location.search);
