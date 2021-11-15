@@ -10,8 +10,12 @@ app.config["CORS_HEADERS"] = "Content-Type"
 db = init_db(app)
 ma = Marshmallow(app)
 
-##### Models #####
 
+########################################################################################
+# If you make any changes to this model, please make sure that it doesn't affect any of the functions describe below
+########################################################################################
+
+##### Models #####
 
 class Country(db.Model):
     __tablename__ = "country"
@@ -70,6 +74,7 @@ class TimeZone(db.Model):
     zone = db.Column(db.String(), unique=False, nullable=False)
 
 
+
 class City(db.Model):
     __tablename__ = "city"
 
@@ -89,7 +94,6 @@ class City(db.Model):
 
     def __repr__(self):
         return "<City %r>" % self.name
-
 
 class Covid(db.Model):
     __tablename__ = "covid"
@@ -190,7 +194,7 @@ class CitySchema(ma.Schema):
     timeZone = fields.String(required=True)
     country_id = fields.Integer(required=True)
     country = fields.Nested(
-        "CountrySchema", only=["commonName"], required=True, many=False
+        "CountrySchema", only=["officialName"], required=True, many=False
     )
 
     class Meta:
@@ -205,7 +209,7 @@ class CovidSchema(ma.Schema):
     deaths = fields.Integer(required=True)
     lastCovidCase = fields.DateTime(required=True)
     country = fields.Nested(
-        "CountrySchema", only=["commonName"], required=False, many=False
+        "CountrySchema", only=["officialName"], required=False, many=False
     )
 
     class Meta:
@@ -220,7 +224,7 @@ class CovidInstanceSchema(ma.Schema):
     totalRecovered = fields.Integer(required=True)
     totalDeaths = fields.Integer(required=True)
     country = fields.Nested(
-        "CountrySchema", only=["commonName"], required=False, many=False
+        "CountrySchema", only=["officialName"], required=False, many=False
     )
     city = fields.Nested("CitySchema", only=["name", "id"], required=False, many=False)
 
@@ -237,6 +241,37 @@ timezone_schema = TimezoneSchema()
 city_schema = CitySchema()
 covid_schema = CovidSchema()
 covidInstance_schema = CovidInstanceSchema()
+
+
+##### Creating my relations dictionary #####
+# This is used for the querys
+countryRelations = {
+    'currency': Currency,
+    'language': Language,
+    'timezone': TimeZone,
+    'covid': Covid,
+    'covidInstances': CovidInstance,
+    'city': City
+
+}
+
+cityRelations = {
+    'country': Country,
+    'covidInstances': CovidInstance,
+}
+
+
+covidRelations = {
+    'country': Country,
+    'covidInstances': CovidInstance,
+}
+
+relations = {
+    'Country': countryRelations,
+    'City': cityRelations,
+    'Covid': covidRelations
+}
+
 
 # Create all the databases
 db.create_all()

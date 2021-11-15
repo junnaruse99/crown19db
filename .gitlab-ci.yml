@@ -51,7 +51,7 @@ deploy_develop:
     - git checkout dev
   script:
     - cd back
-    - /root/.local/bin/eb deploy coviddb-api-prod # TODO change to coviddb-api-dev
+    - /root/.local/bin/eb deploy coviddb-api-prod
 
 deploy_production:
   image: python:3.6-stretch
@@ -61,11 +61,11 @@ deploy_production:
   stage: deploy
   before_script:
     - pip install awsebcli --upgrade --user
-    - cd back
     - chmod +x ./.eb-config.sh
     - ./.eb-config.sh
     - git checkout main
   script:
+    - cd back
     - /root/.local/bin/eb deploy coviddb-api-prod
 
 frontend_tests:
