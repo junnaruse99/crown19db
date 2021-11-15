@@ -47,6 +47,7 @@ countriesQuery = {
     'continent': filter_by_name,
     'lang': filter_by_name,
     'zone': filter_by_name,
+    'population': filter_by_range,
     'q': search,
     'sort': sort # area, population and commonName or officialName
 }

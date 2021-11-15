@@ -36,7 +36,7 @@ const CovidCases = (props: any) => {
 
     const history = useHistory();
 
-    const { q, page, perPage } = queryString.parse(props.location.search);
+    const { q, page, perPage, sort, cases, deaths, recovered } = queryString.parse(props.location.search);
 
     var currentPageNum = Number(page ? page : 1);
     var currentPerPage = Number(perPage ? perPage : 12);
@@ -45,6 +45,10 @@ const CovidCases = (props: any) => {
         try {
             var params: any = queryString.parse(props.location.search);
             if (q != null) params.q = q;
+            if (sort != null) params.sort = sort;
+            if (cases != null) params.cases = cases;
+            if (deaths != null) params.deaths = deaths;
+            if (recovered != null) params.recovered = recovered;
             params.page = currentPageNum;
             params.perPage = currentPerPage;
             var uri = '/v1/models/covid?' + queryString.stringify(params);
@@ -72,6 +76,34 @@ const CovidCases = (props: any) => {
         history.go(uri);
     }
 
+    const handleSortFilter = (data) => {
+        const name = data.target.id;
+        const value = data.target.value;
+
+        var params: any = queryString.parse(props.location.search);
+        var uri = '?' + queryString.stringify(params);
+
+        // Remove current parameter
+        const index = uri.indexOf(name);
+        const tmp1 = uri.substring(0, index);
+        const tmp2 = uri.substring(index);
+        if (index >= 0) {
+            var andIndex = tmp2.indexOf('&');
+            if (andIndex != -1) {
+                andIndex += tmp1.length;
+                uri = uri.substring(0, index) + uri.substring(andIndex);
+            } else {
+                uri = uri.substring(0, index);
+            }
+        }
+        
+        if (value != '') {
+            uri += uri.length == 1 ? name + '=' + value : '&' + name + '=' + value;
+        }
+        history.push(uri);
+        history.go(uri);
+    }
+
     return ( 
         <div className='container'>
             {msg ? (<h3> {msg} </h3>) : (
@@ -86,64 +118,58 @@ const CovidCases = (props: any) => {
                         <div className="option_container">
                             <div className='select_con card border-0 text-center'>
                                 <label>Filter by # of Cases</label>
-                                <select>
+                                <select id='cases' onChange={handleSortFilter.bind(this)} defaultValue={cases}>
                                     <option value='' selected>---</option>
-                                    <option value=''>&#60; 500K</option>
-                                    <option value=''>500K - 1M</option>
-                                    <option value=''>1M - 5M</option>
-                                    <option value=''>5M - 10M</option>
-                                    <option value=''>10M - 25M</option>
-                                    <option value=''>25M - 50M</option>
-                                    <option value=''>50M - 100M</option>
-                                    <option value=''>100M - 200M</option>
-                                    <option value=''>&#62; 200M</option>
+                                    <option value='0-500000'>&#60; 500K</option>
+                                    <option value='500000-1000000'>500K - 1M</option>
+                                    <option value='1000000-5000000'>1M - 5M</option>
+                                    <option value='5000000-10000000'>5M - 10M</option>
+                                    <option value='10000000-25000000'>10M - 25M</option>
+                                    <option value='25000000-99999999'>&#62; 25M</option>
                                 </select>
                             </div>
 
                             <div className='select_con card border-0 text-center'>
                                 <label>Filter by # of Deaths</label>
-                                <select>
+                                <select id='deaths' onChange={handleSortFilter.bind(this)} defaultValue={deaths}>
                                     <option value='' selected>---</option>
-                                    <option value=''>&#60; 500K</option>
-                                    <option value=''>500K - 1M</option>
-                                    <option value=''>1M - 5M</option>
-                                    <option value=''>5M - 10M</option>
-                                    <option value=''>10M - 25M</option>
-                                    <option value=''>25M - 50M</option>
-                                    <option value=''>50M - 100M</option>
-                                    <option value=''>100M - 200M</option>
-                                    <option value=''>&#62; 200M</option>
+                                    <option value='0-100'>&#60; 100</option>
+                                    <option value='100-500'>100 - 500</option>
+                                    <option value='500-1000'>500 - 1000</option>
+                                    <option value='1000-5000'>1000 - 5000</option>
+                                    <option value='5000-10000'>5000 - 10K</option>
+                                    <option value='10000-50000'>10K - 50K</option>
+                                    <option value='50000-100000'>50K - 100K</option>
+                                    <option value='100000-500000'>100K - 500K</option>
+                                    <option value='500000-999999'>&#62; 500K</option>
                                 </select>
                             </div>
 
                             <div className='select_con card border-0 text-center'>
                                 <label>Filter by # of Recovered</label>
-                                <select>
+                                <select id='recovered' onChange={handleSortFilter.bind(this)} defaultValue={recovered}>
                                     <option value='' selected>---</option>
-                                    <option value=''>&#60; 500K</option>
-                                    <option value=''>500K - 1M</option>
-                                    <option value=''>1M - 5M</option>
-                                    <option value=''>5M - 10M</option>
-                                    <option value=''>10M - 25M</option>
-                                    <option value=''>25M - 50M</option>
-                                    <option value=''>50M - 100M</option>
-                                    <option value=''>100M - 200M</option>
-                                    <option value=''>&#62; 200M</option>
+                                    <option value='0-500000'>&#60; 500K</option>
+                                    <option value='500000-1000000'>500K - 1M</option>
+                                    <option value='1000000-5000000'>1M - 5M</option>
+                                    <option value='5000000-10000000'>5M - 10M</option>
+                                    <option value='10000000-25000000'>10M - 25M</option>
+                                    <option value='25000000-99999999'>&#62; 25M</option>
                                 </select>
                             </div>
 
                             <div className='select_con card border-0 text-center'>
                                 <label>Sort by</label>
-                                <select>
+                                <select id='sort' onChange={handleSortFilter.bind(this)} defaultValue={sort}>
                                     <option value='' selected>---</option>
-                                    <option value=''>Country Name (A-Z)</option>
-                                    <option value=''>Country Name (Z-A)</option>
-                                    <option value=''># of Cases (Asc)</option>
-                                    <option value=''># of Cases (Desc)</option>
-                                    <option value=''># of Deaths (Asc)</option>
-                                    <option value=''># of Deaths (Desc)</option>
-                                    <option value=''># of Recoveries (Asc)</option>
-                                    <option value=''># of Recoveries (Desc)</option>
+                                    <option value='country'>Country Name (A-Z)</option>
+                                    <option value='-country'>Country Name (Z-A)</option>
+                                    <option value='cases'># of Cases (Asc)</option>
+                                    <option value='-cases'># of Cases (Desc)</option>
+                                    <option value='deaths'># of Deaths (Asc)</option>
+                                    <option value='-deaths'># of Deaths (Desc)</option>
+                                    <option value='recovered'># of Recoveries (Asc)</option>
+                                    <option value='-recovered'># of Recoveries (Desc)</option>
                                 </select>
                             </div>
                         </div>
