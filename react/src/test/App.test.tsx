@@ -23,7 +23,6 @@ import Navbar from '../components/layout/navbar';
 import SimpleMap from '../components/map/SimpleMap';
 import LocaleInfo from '../components/localeInfo/localeInfo';
 import Loading from '../components/layout/Loading';
-import { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } from 'constants';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -115,19 +114,6 @@ describe ("Render Non-model Components", () => {
 });
 
 describe ("Render Country components", () => {
-    // test('Country Model section render', () => {
-    //     const props = {
-    //         location: {
-    //             pathname:'/country',
-    //             search: 'page=1&perPage=12'}
-    //     }
-    //     const levelOne = shallow(<AllCountries 
-    //                             props={props}
-
-    //                                 />);
-    //     expect(levelOne).toMatchSnapshot();
-    // });
-    
     test('Singular Country snapshot test', () => {
         const dummyInfo = {
             id: 1,
@@ -151,11 +137,6 @@ describe ("Render Country components", () => {
 });
 
 describe ("Render City Components", () => {
-    // test('City Model section render', () => {
-    //     const levelOne = shallow(<AllCities />);
-    //     expect(levelOne).toMatchSnapshot();
-    // });
-    
     test('Singular City snapshot test', () => {
         const dummyInfo = {
             id: 2,
@@ -194,11 +175,6 @@ describe ("Render Covid Components", ()=> {
             />);
         expect(levelOne).toMatchSnapshot();
     });
-    
-    // test('Covid Cases test', () => {
-    //     const levelOne = shallow(<CovidCases />);
-    //     expect(levelOne).toMatchSnapshot();
-    // });
     
     test('Card Row for Covid test', () => {
         const dummyInfo={name:"foo",
