@@ -8,7 +8,7 @@
 # To deploy the API server to prod:
 # - push to GitLab
 
-from flask import Flask, jsonify, json, Response
+from flask import Flask, jsonify, json, Response, request
 from flask_sqlalchemy import SQLAlchemy
 import traceback
 from models import (
@@ -30,9 +30,59 @@ from models import (
     country_schema_reduced,
     db,
 )
+from helper import (
+    filter_by_range,
+    filter_by_name,
+    sort,
+    search
+)
 from init_db import init_db
 
+DEFAULT_PAGE = 1
+DEFAULT_PERPAGE = 12
+
+# Order of this dictionary sets the priority and effects performance
+# Note that pagination is always going to be done last
+countriesQuery = {
+    'continent': filter_by_name,
+    'lang': filter_by_name,
+    'zone': filter_by_name,
+    'population': filter_by_range,
+    'q': search,
+    'sort': sort # area, population and commonName or officialName
+}
+# The following code only works if sorting is done at the end
+
 #### COUNTRY ####
+@app.route("/v1/models/country", methods=["GET"])
+def countries(queries=None):
+    if not queries: # This is for testing
+        queries = request.args.to_dict(flat=False)
+
+    country_query = db.session.query(Country)
+
+    # This function is in charge of executing all the querys
+    try:
+        for query in countriesQuery:
+            if query in queries:
+                country_query = countriesQuery[query](Country, country_query, query, queries[query])
+
+        page = DEFAULT_PAGE
+        if 'page' in queries:
+            # Remember that every item in querys is a key to list of strings
+            page = int(queries['page'][0])
+        perPage = DEFAULT_PERPAGE
+        if 'perPage' in queries:
+            perPage = int(queries['perPage'][0])
+
+        count = country_query.count()
+        country = country_query.paginate(page=page, per_page=perPage)
+        return jsonify({'data': country_schema.dump(country.items, many=True), 'count':count})
+    except TypeError as e:
+        return jsonify(message='Incorrect query', status=400)
+    except Exception:
+        return jsonify(message=str(traceback.format_exc()), status=404)
+
 @app.route("/v1/models/country/all", methods=["GET"])
 def get_country_all():
     # Country.query.'' returns an object so use of the schema to transform it into an object
@@ -41,7 +91,6 @@ def get_country_all():
     return jsonify([country_schema.dump(country) for country in countries])
 
 
-# e.g. .../interval=1-10
 @app.route("/v1/models/country/all/reduced", methods=["GET"])
 def get_country_all_reduced():
     # Country.query.'' returns an object so use of the schema to transform it into an object
@@ -68,8 +117,44 @@ def get_country_by_id(id):
     )
     return jsonify(country_schema.dump(country))
 
+citiesQuery = {
+    'population': filter_by_range,
+    'continent': filter_by_name,
+    'region':  filter_by_name,
+    'q': search,
+    'sort': sort # name, country and population
+}
 
 #### CITY ####
+@app.route("/v1/models/city", methods=["GET"])
+def cities(queries=None):
+    if not queries: # This is for testing
+        queries = request.args.to_dict(flat=False)
+
+    city_query = db.session.query(City)
+
+    try:
+        # This function is in charge of executing all the querys
+        for query in citiesQuery:
+            if query in queries:
+                city_query = citiesQuery[query](City, city_query, query, queries[query])
+        page = DEFAULT_PAGE
+        if 'page' in queries:
+            # Remember that every item in querys is a key to list of strings
+            page = int(queries['page'][0])
+        perPage = DEFAULT_PERPAGE
+        if 'perPage' in queries:
+            perPage = int(queries['perPage'][0])
+
+        count = city_query.count()
+        city = city_query.paginate(page=page, per_page=perPage)
+        return jsonify({'data':city_schema.dump(city.items, many=True), 'count': count})
+    except ValueError:
+        return jsonify(message='Incorrect query', status=400)
+    except Exception:
+        return jsonify(message=str(traceback.format_exc()), status=404)
+
+
 @app.route("/v1/models/city/all", methods=["GET"])
 def get_city_all():
     # Country.query.'' returns an object so use of the schema to transform it into an object
@@ -132,6 +217,91 @@ def get_covidInstance_by_countryId(countryId):
     covidInstances = CovidInstance.query.filter_by(country_id=countryId).all()
     # jsonify to transform it to json
     return jsonify([covidInstance_schema.dump(covid) for covid in covidInstances])
+
+
+covidQuery = {
+    'cases': filter_by_range,
+    'recovered': filter_by_range,
+    'deaths': filter_by_range,
+    'q': search,
+    'sort': sort # country, cases, recovered, deaths
+}
+
+#### COVID ####
+@app.route("/v1/models/covid", methods=["GET"])
+def covid(queries=None):
+    if not queries: # This is for testing
+        queries = request.args.to_dict(flat=False)
+
+    covid_query = db.session.query(Covid)
+
+    try:
+        # This function is in charge of executing all the querys
+        for query in covidQuery:
+            if query in queries:
+                covid_query = covidQuery[query](Covid, covid_query, query, queries[query])
+
+        page = DEFAULT_PAGE
+        if 'page' in queries:
+            # Remember that every item in querys is a key to list of strings
+            page = int(queries['page'][0])
+        perPage = DEFAULT_PERPAGE
+        if 'perPage' in queries:
+            perPage = int(queries['perPage'][0])
+
+        count = covid_query.count()
+        covid = covid_query.paginate(page=page, per_page=perPage)
+        return jsonify({'data':covid_schema.dump(covid.items, many=True), 'count': count})
+    except ValueError:
+        return jsonify(message='Incorrect query', status=400)
+    except Exception:
+        return jsonify(message=str(traceback.format_exc()), status=404)
+
+
+allQuery = {
+    'q': search,
+}
+
+modelsQuery = {
+    Country: country_schema,
+    City: city_schema,
+    Covid: covid_schema
+}
+
+##### SEARCH ALL #########
+@app.route("/v1/models/all", methods=["GET"])
+def all(queries=None):
+    if not queries: # This is for testing
+        queries = request.args.to_dict(flat=False)
+
+    result = {}
+
+    try:
+        for model in modelsQuery:
+            all_query = db.session.query(model)
+            # This function is in charge of executing all the querys
+            for query in allQuery:
+                if query in queries:
+                    all_query = allQuery[query](model, all_query, query, queries[query])
+
+            page = DEFAULT_PAGE
+            if 'page' in queries:
+                # Remember that every item in querys is a key to list of strings
+                page = int(queries['page'][0])
+            perPage = DEFAULT_PERPAGE
+            if 'perPage' in queries:
+                perPage = int(queries['perPage'][0])
+
+            count = all_query.count()
+            all = all_query.paginate(page=page, per_page=perPage)
+            result[model.__name__] = {'data':modelsQuery[model].dump(all.items, many=True), 'count': count}
+
+        return jsonify(result)
+    
+    except ValueError:
+        return jsonify(message='Incorrect query', status=400)
+    except Exception:
+        return jsonify(message=str(traceback.format_exc()), status=404)
 
 
 #### ELSE #####
