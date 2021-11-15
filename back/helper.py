@@ -32,7 +32,6 @@ def filter_by_name(model, query, field, names):
     assert type(names[0]) is str
     
     if hasattr(model, field): # This means that the attribute is part of an object inside the model (i.e. continent for filtering cities)
-        print('Yo')
         condition = [getattr(model, field) == name for name in names]
         return query.filter(sqlalchemy.or_(*condition))
     elif field == 'zone':

@@ -58,8 +58,9 @@ const CovidCases = (props: any) => {
     }
 
     useEffect(() => {
+        setData(undefined);
         getCovidCases();
-    }, []);
+    }, [props]);
 
     const handlePageClick = (data) => {
         var params: any = queryString.parse(props.location.search);
