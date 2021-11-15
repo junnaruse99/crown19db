@@ -37,6 +37,7 @@ from helper import (
     search
 )
 from init_db import init_db
+from werkzeug.exceptions import NotFound
 
 DEFAULT_PAGE = 1
 DEFAULT_PERPAGE = 12
@@ -78,10 +79,12 @@ def countries(queries=None):
         count = country_query.count()
         country = country_query.paginate(page=page, per_page=perPage)
         return jsonify({'data': country_schema.dump(country.items, many=True), 'count':count})
-    except TypeError as e:
-        return jsonify(message='Incorrect query', status=400)
+    except (AttributeError, ValueError):
+        return Response('Incorrect query', status=400)
+    except NotFound:
+        return Response('Incorrect pagination numbers', status=400)
     except Exception:
-        return jsonify(message=str(traceback.format_exc()), status=404)
+        return Response(str(traceback.format_exc()), status=404)
 
 @app.route("/v1/models/country/all", methods=["GET"])
 def get_country_all():
@@ -149,10 +152,12 @@ def cities(queries=None):
         count = city_query.count()
         city = city_query.paginate(page=page, per_page=perPage)
         return jsonify({'data':city_schema.dump(city.items, many=True), 'count': count})
-    except ValueError:
-        return jsonify(message='Incorrect query', status=400)
+    except (AttributeError, ValueError):
+        return Response('Incorrect query', status=400)
+    except NotFound:
+        return Response('Incorrect pagination numbers', status=400)
     except Exception:
-        return jsonify(message=str(traceback.format_exc()), status=404)
+        return Response(str(traceback.format_exc()), status=404)
 
 
 @app.route("/v1/models/city/all", methods=["GET"])
@@ -252,10 +257,12 @@ def covid(queries=None):
         count = covid_query.count()
         covid = covid_query.paginate(page=page, per_page=perPage)
         return jsonify({'data':covid_schema.dump(covid.items, many=True), 'count': count})
-    except ValueError:
-        return jsonify(message='Incorrect query', status=400)
+    except (AttributeError, ValueError):
+        return Response('Incorrect query', status=400)
+    except NotFound:
+        return Response('Incorrect pagination numbers', status=400)
     except Exception:
-        return jsonify(message=str(traceback.format_exc()), status=404)
+        return Response(str(traceback.format_exc()), status=404)
 
 
 allQuery = {
@@ -298,10 +305,12 @@ def all(queries=None):
 
         return jsonify(result)
     
-    except ValueError:
-        return jsonify(message='Incorrect query', status=400)
+    except (AttributeError, ValueError):
+        return Response('Incorrect query', status=400)
+    except NotFound:
+        return Response('Incorrect pagination numbers', status=400)
     except Exception:
-        return jsonify(message=str(traceback.format_exc()), status=404)
+        return Response(str(traceback.format_exc()), status=404)
 
 
 #### ELSE #####

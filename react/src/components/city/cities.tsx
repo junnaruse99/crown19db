@@ -52,8 +52,21 @@ const Cities = (props: any) => {
             const response = await clientAxios.get<CityResponse>(uri)
                 .then(response => {
                     setData(response.data);
-                });
+                })
+                .catch(
+                    error => {
+                        if (error.response.status == 400) {
+                            setMsg(error.response.data);
+                            setData(undefined);
+                        } else {
+                            setMsg('404 Not Found');
+                            console.log(error.response.data);
+                            setData(undefined);
+                        }
+                    }
+                );
         } catch (error) {
+            console.log(error);
             setMsg('There was an error with finding cities');
         }
     }

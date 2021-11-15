@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import clientAxios from '../../config/axios';
 import SearchableText from '../search/SearchableText';
 
 const City = ({ city, q }) => {

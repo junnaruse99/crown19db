@@ -30,6 +30,7 @@ const CountryTimeline = () => {
     }
 
     interface Country {
+        officialName: string;
         commonName: string;
     }
 
@@ -45,7 +46,19 @@ const CountryTimeline = () => {
                 .then(response => {
                     setCovid(response.data)
                     setCurrentCovid(response.data.slice(0, 10))
-                });
+                })
+                .catch(
+                    error => {
+                        if (error.response.status == 400) {
+                            setMsg(error.response.data);
+                            setCurrentCovid(undefined);
+                        } else {
+                            setMsg('404 Not Found');
+                            console.log(error.response.data);
+                            setCurrentCovid(undefined);
+                        }
+                    }
+                );
         } catch (error) {
             setMsg('There was an error');
         }
@@ -75,16 +88,16 @@ const CountryTimeline = () => {
                 <>
                     <div className="row">
                             <div className='col-12 col-md-4 mb-2'> 
-                                <h2>{covid[0].country.commonName} Covid Timeline</h2>
+                                <h2>{covid[0].country.officialName} Covid Timeline</h2>
                             </div>
                             <div className='col-12 col-md-4 mb-2'> 
-                                <a href={"/country/" + country_id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{covid[0].country.commonName}'s General Info</a>
+                                <a href={"/country/" + country_id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{covid[0].country.officialName}'s General Info</a>
                             </div>
                         {covid[0].country && covid[0].city? (
                             <div className='col-12 col-md-4 mb-2'> 
                                 <a href={"/city/" + covid[0].city.id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{covid[0].city.name}'s General Info</a>
                             </div>
-                        ) : <div className='col-12 col-md-4 mb-2'> <a href={""} className="btn btn-primary btn-lg disabled w-100" role="button" aria-pressed="true">{covid[0].country.commonName} has no capital</a> </div>}
+                        ) : <div className='col-12 col-md-4 mb-2'> <a href={""} className="btn btn-primary btn-lg disabled w-100" role="button" aria-pressed="true">{covid[0].country.officialName} has no capital</a> </div>}
                         <table className="table">
                             <thead className="thead-dark">
                                 <tr>
@@ -126,7 +139,7 @@ const CountryTimeline = () => {
                     </div>
                     <div><br />
                             <LocaleInfo
-                                location={covid[0].country.commonName}
+                                location={covid[0].country.officialName}
                                 showNews={true}
                                 showTests={false}/>
                         </div>

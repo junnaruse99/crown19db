@@ -193,9 +193,8 @@ class CitySchema(ma.Schema):
     population = fields.Integer(required=True)
     timeZone = fields.String(required=True)
     country_id = fields.Integer(required=True)
-    country = fields.Nested(
-        "CountrySchema", only=["officialName"], required=True, many=False
-    )
+    country = fields.Nested("CountrySchema", only=["officialName", "commonName"], required=False, many=False)
+
 
     class Meta:
         ordered = True
@@ -208,9 +207,7 @@ class CovidSchema(ma.Schema):
     recovered = fields.Integer(required=True)
     deaths = fields.Integer(required=True)
     lastCovidCase = fields.DateTime(required=True)
-    country = fields.Nested(
-        "CountrySchema", only=["officialName"], required=False, many=False
-    )
+    country = fields.Nested("CountrySchema", only=["officialName", "commonName"], required=False, many=False)
 
     class Meta:
         ordered = True
@@ -223,9 +220,7 @@ class CovidInstanceSchema(ma.Schema):
     totalCases = fields.Integer(required=True)
     totalRecovered = fields.Integer(required=True)
     totalDeaths = fields.Integer(required=True)
-    country = fields.Nested(
-        "CountrySchema", only=["officialName"], required=False, many=False
-    )
+    country = fields.Nested("CountrySchema", only=["officialName", "commonName"], required=False, many=False)
     city = fields.Nested("CitySchema", only=["name", "id"], required=False, many=False)
 
     class Meta:
@@ -241,36 +236,6 @@ timezone_schema = TimezoneSchema()
 city_schema = CitySchema()
 covid_schema = CovidSchema()
 covidInstance_schema = CovidInstanceSchema()
-
-
-##### Creating my relations dictionary #####
-# This is used for the querys
-countryRelations = {
-    'currency': Currency,
-    'language': Language,
-    'timezone': TimeZone,
-    'covid': Covid,
-    'covidInstances': CovidInstance,
-    'city': City
-
-}
-
-cityRelations = {
-    'country': Country,
-    'covidInstances': CovidInstance,
-}
-
-
-covidRelations = {
-    'country': Country,
-    'covidInstances': CovidInstance,
-}
-
-relations = {
-    'Country': countryRelations,
-    'City': cityRelations,
-    'Covid': covidRelations
-}
 
 
 # Create all the databases
