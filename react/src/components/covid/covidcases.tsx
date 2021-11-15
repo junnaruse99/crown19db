@@ -120,7 +120,7 @@ const CovidCases = (props: any) => {
                         <div className="option_container">
                             <div className='select_con card border-0 text-center'>
                                 <label>Filter by # of Cases</label>
-                                <select id='cases' onChange={handleSortFilter.bind(this)} defaultValue={cases}>
+                                <select id='cases' onChange={handleSortFilter.bind(this)} defaultValue={cases + ''}>
                                     <option value='' selected>---</option>
                                     <option value='0-500000'>&#60; 500K</option>
                                     <option value='500000-1000000'>500K - 1M</option>
@@ -133,7 +133,7 @@ const CovidCases = (props: any) => {
 
                             <div className='select_con card border-0 text-center'>
                                 <label>Filter by # of Deaths</label>
-                                <select id='deaths' onChange={handleSortFilter.bind(this)} defaultValue={deaths}>
+                                <select id='deaths' onChange={handleSortFilter.bind(this)} defaultValue={deaths + ''}>
                                     <option value='' selected>---</option>
                                     <option value='0-100'>&#60; 100</option>
                                     <option value='100-500'>100 - 500</option>
@@ -149,7 +149,7 @@ const CovidCases = (props: any) => {
 
                             <div className='select_con card border-0 text-center'>
                                 <label>Filter by # of Recovered</label>
-                                <select id='recovered' onChange={handleSortFilter.bind(this)} defaultValue={recovered}>
+                                <select id='recovered' onChange={handleSortFilter.bind(this)} defaultValue={recovered + ''}>
                                     <option value='' selected>---</option>
                                     <option value='0-500000'>&#60; 500K</option>
                                     <option value='500000-1000000'>500K - 1M</option>
@@ -162,7 +162,7 @@ const CovidCases = (props: any) => {
 
                             <div className='select_con card border-0 text-center'>
                                 <label>Sort by</label>
-                                <select id='sort' onChange={handleSortFilter.bind(this)} defaultValue={sort}>
+                                <select id='sort' onChange={handleSortFilter.bind(this)} defaultValue={sort + ''}>
                                     <option value='' selected>---</option>
                                     <option value='country'>Country Name (A-Z)</option>
                                     <option value='-country'>Country Name (Z-A)</option>

@@ -130,7 +130,7 @@ const Cities = (props: any) => {
                         <div className="option_container">
                             <div className='select_con card border-0 text-center'>
                                 <label>Filter by Continent</label>
-                                <select id='continent' onChange={handleSortFilter.bind(this)} defaultValue={continent}>
+                                <select id='continent' onChange={handleSortFilter.bind(this)} defaultValue={continent + ''}>
                                     <option value='' selected>---</option>
                                     <option value='Africa'>Africa</option>
                                     <option value='Antarctica'>Antarctica</option>
@@ -144,7 +144,7 @@ const Cities = (props: any) => {
 
                             <div className='select_con card border-0 text-center'>
                                 <label>Filter by Population</label>
-                                <select id='population' onChange={handleSortFilter.bind(this)} defaultValue={population}>
+                                <select id='population' onChange={handleSortFilter.bind(this)} defaultValue={population + ''}>
                                     <option value='' selected>---</option>
                                     <option value='0-500000'>&#60; 500K</option>
                                     <option value='500000-1000000'>500K - 1M</option>
@@ -157,7 +157,7 @@ const Cities = (props: any) => {
 
                             <div className='select_con card border-0 text-center'>
                                 <label>Sort by</label>
-                                <select id='sort' onChange={handleSortFilter.bind(this)} defaultValue={sort}>
+                                <select id='sort' onChange={handleSortFilter.bind(this)} defaultValue={sort + ''}>
                                     <option value='' selected>---</option>
                                     <option value='name'>City Name (A-Z)</option>
                                     <option value='-name'>City Name (Z-A)</option>
