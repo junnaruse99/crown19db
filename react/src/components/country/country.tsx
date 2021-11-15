@@ -13,7 +13,7 @@ const Country = ({ country, q }) => {
 
     // TODO : fix the css, is super ugly
     return(
-        <div className='card modelrow' onClick={handleCardClick} style={{alignItems: "center", width: "250px", height: "auto"}}>
+        <div className='card modelrow' onClick={handleCardClick} style={{alignItems: "center", width: "250px", height: "auto", padding: "10px"}}>
             <img className='card-img-top img-card-grid' style={{width: "125px", height: "75px"}} src={country.flag} alt='Country flag'/>
             <h5 className='card-title text-center mt-6' style={{fontSize: "17px"}}>
                 <SearchableText q={q}>
