@@ -9,13 +9,10 @@ import * as Enzyme from 'enzyme'
 import App from '../App';
 import About from '../components/about/About';
 import Country from '../components/country/country';
-import AllCountries from '../components/country/countries';
 import CountryInstance from '../components/country/countryInstance';
 import City from '../components/city/city';
-import AllCities from '../components/city/cities';
 import CityInstance from '../components/city/cityInstance';
 import Covid from '../components/covid/covid'
-import CovidCases from '../components/covid/covidcases';
 import CardRow from '../components/covid/cardRow';
 import CovidDate from '../components/covid/covidDate';
 import CovidTimeline from '../components/covid/countryTimeline';
@@ -30,8 +27,8 @@ jest.mock("react-router-dom", () => ({
     ...jest.requireActual("react-router-dom"),
     useLocation: () => ({
         pathname: () => ({
-            pathname: "/country"
-        })
+            pathname: "/"
+        }) 
     }), 
     useParams: () => ({
 
