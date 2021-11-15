@@ -67,7 +67,7 @@ class EndpointTest(unittest.TestCase):
     }
 
     def checkAttributes(self, att_obj, att):
-        attributes = self.__class__.model_attributes[att]
+        attributes = self.__class__.model_attributes[att].copy()
         all_att = True
 
         # Check that both are same size
@@ -94,6 +94,7 @@ class EndpointTest(unittest.TestCase):
         self.assertEqual(len(countries), 250)
         self.assertEqual(countries[0]["officialName"], "Malaysia")
         self.assertEqual(countries[0]["population"], 32365998)
+        self.assertEqual(all_att, True)
 
     def test_get_country_all_reduced(self):
         countries = json.loads(app.get_country_all_reduced().data)
@@ -101,6 +102,7 @@ class EndpointTest(unittest.TestCase):
         all_att = self.checkAttributes(countries[0], 'CountryReduced')
 
         self.assertEqual(len(countries), 250)
+        self.assertEqual(all_att, True)
 
     def test_get_country_by_name(self):
         country = json.loads(app.get_country_by_name("united-states").data)
@@ -112,7 +114,7 @@ class EndpointTest(unittest.TestCase):
         all_att = self.checkAttributes(country, 'Country')
 
         self.assertEqual(country["commonName"], "United States")
-
+        self.assertEqual(all_att, True)
 
     def test_get_country_by_id(self):
         country = json.loads(app.get_country_by_id(109).data)
@@ -123,6 +125,8 @@ class EndpointTest(unittest.TestCase):
         all_att = self.checkAttributes(country, 'Country')
 
         self.assertEqual(country["officialName"], "United States of America")
+        self.assertEqual(all_att, True)
+
 
     def test_get_city_all(self):
         cities = json.loads(app.get_city_all().data)
@@ -132,6 +136,8 @@ class EndpointTest(unittest.TestCase):
         self.assertEqual(len(cities), 226)
         self.assertEqual(cities[0]["country"]["officialName"], "Malaysia")
         self.assertEqual(cities[0]["population"], 8285000)
+        self.assertEqual(all_att, True)
+
 
     def test_get_city_by_name(self):
         city = json.loads(app.get_city_by_name("lima").data)
@@ -139,6 +145,8 @@ class EndpointTest(unittest.TestCase):
         all_att = self.checkAttributes(city, 'City')
 
         self.assertEqual(city["country_id"], 102)
+        self.assertEqual(all_att, True)
+
 
     def test_get_city_by_id(self):
         city = json.loads(app.get_city_by_id(92).data)
@@ -147,8 +155,11 @@ class EndpointTest(unittest.TestCase):
             type(city) == list, False
         )  # Make sure that it does not returns a list
         all_att = self.checkAttributes(city, 'City')
+        
 
         self.assertEqual(city["country"]["officialName"], "Republic of Guatemala")
+        self.assertEqual(all_att, True)
+
 
     def test_get_covid_all(self):
         covid = json.loads(app.get_covid_all().data)
@@ -158,6 +169,8 @@ class EndpointTest(unittest.TestCase):
         self.assertEqual(len(covid), 190)
         self.assertEqual(covid[0]["country"]["officialName"], "Islamic Republic of Afghanistan")
         self.assertEqual(covid[0]["deaths"], 7206)
+        self.assertEqual(all_att, True)
+
 
     def test_get_covid_by_countrId(self):
         covid = json.loads(app.get_covid_by_countryId(109).data)
@@ -168,6 +181,8 @@ class EndpointTest(unittest.TestCase):
         all_att = self.checkAttributes(covid, 'Covid')
 
         self.assertEqual(covid["deaths"], 700932)
+        self.assertEqual(all_att, True)
+
 
     def test_get_covid_by_id(self):
         covid = json.loads(app.get_covid_by_id(109).data)
@@ -178,6 +193,8 @@ class EndpointTest(unittest.TestCase):
         all_att = self.checkAttributes(covid, 'Covid')
 
         self.assertEqual(covid["country"]["officialName"], "Republic of Malta")
+        self.assertEqual(all_att, True)
+
 
     def test_get_covidInstance_by_countrId(self):
         covid = json.loads(app.get_covidInstance_by_countryId(10).data)
@@ -187,6 +204,8 @@ class EndpointTest(unittest.TestCase):
 
         self.assertEqual(covid[0]["country"]["officialName"], "Lao People's Democratic Republic")
         self.assertEqual(covid[0]["totalCases"], 606)
+        self.assertEqual(all_att, True)
+
 
     def test_else_router(self):
         response = app.index()
@@ -210,6 +229,8 @@ class EndpointTest(unittest.TestCase):
             self.assertEqual(countries['count'], 3)
             self.assertEqual(len(countries['data']), 1)
             self.assertEqual(countries['data'][0]["commonName"], "Curaçao")
+            self.assertEqual(all_att, True)
+
 
     def test_cities(self):
 
@@ -223,6 +244,8 @@ class EndpointTest(unittest.TestCase):
             self.assertEqual(len(cities['data']), 5)
             self.assertEqual(cities['data'][0]["name"], "Tórshavn")
             self.assertEqual(cities['data'][1]["id"], 19)
+            self.assertEqual(all_att, True)
+
 
     def test_covid(self):
 
@@ -236,6 +259,8 @@ class EndpointTest(unittest.TestCase):
             self.assertEqual(len(covid['data']), 2)
             self.assertEqual(covid['data'][0]["country_id"], 166)
             self.assertEqual(covid['data'][1]["id"], 20)
+            self.assertEqual(all_att, True)
+
 
     def test_all(self):
 
@@ -252,6 +277,8 @@ class EndpointTest(unittest.TestCase):
                 all_att = self.checkAttributes(allModels[model]['data'][0], model)
 
                 self.assertEqual(allModels[model]['count'], counts[model])
+                self.assertEqual(all_att, True)
+
 
 
 if __name__ == "__main__":
