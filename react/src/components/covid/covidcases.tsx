@@ -27,6 +27,7 @@ const CovidCases = (props: any) => {
 
     interface Country {
         commonName: string;
+        officialName: string;
     }
 
     const [msg, setMsg] = useState('');
