@@ -12,7 +12,6 @@ const Covid = ({ covid, q }) => {
     
     return(
         <tr onClick={handleRowClick} className='modelrow'>
-        <th scope="row">{covid.id}</th>
         <td>
             <SearchableText q={q}>
                 {covid.country.officialName}

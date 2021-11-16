@@ -187,7 +187,6 @@ const CovidCases = (props: any) => {
                             <table className="table">
                                 <thead className="thead-dark">
                                     <tr>
-                                    <th scope="col">#</th>
                                     <th scope="col">Country</th>
                                     <th scope="col">Number of cases</th>
                                     <th scope="col">Number of deaths</th>
