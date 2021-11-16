@@ -31,16 +31,16 @@ ___
 | Mark Grubbs | 20 | 30 |
 ___
 ## Phase 3
-### Project Leader: 
-### Git SHA:
+### Project Leader: Jun Naruse
+### Git SHA: TODO
 
 | Person | Est. Time | Actual Time |
 | ------ | :---------: | :-----------: |
-| Adam Samuelson |  |  |
-| Alejandro Balderas |  |  |
-| Nicholas Huang |  |  |
-| Jun Naruse |  |  |
-| Mark Grubbs |  |  |
+| Adam Samuelson | 10 | 20 |
+| Alejandro Balderas | 15 | 20 |
+| Nicholas Huang | 12 | 22 |
+| Jun Naruse | 10 | 18 |
+| Mark Grubbs | 10 | 18 |
 ___
 ## Phase 4
 ### Project Leader: 
