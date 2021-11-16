@@ -16,3 +16,4 @@ if __name__ == "__main__":
     os.system("python ./gui_tests/navbar_tests.py " + PATH)
     os.system("python ./gui_tests/splash_tests.py " + PATH)
     os.system("python ./gui_tests/country_model_tests.py " + PATH)
+    os.system("python ./gui_tests/city_model_tests.py " + PATH)
