@@ -124,6 +124,7 @@ const Cities = (props: any) => {
                         <h2>Cities</h2>
                         <SearchBar
                             defaultValue={q}
+                            location={props.location}
                             type={"cities"}
                         >
                         </SearchBar>

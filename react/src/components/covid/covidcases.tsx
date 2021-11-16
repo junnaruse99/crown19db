@@ -115,6 +115,7 @@ const CovidCases = (props: any) => {
                         <h2>Country Covid Data</h2><br /><br /><br />
                         <SearchBar
                             defaultValue={q}
+                            location={props.location}
                             type={"country covid data"}
                         />
                         <div className="option_container">

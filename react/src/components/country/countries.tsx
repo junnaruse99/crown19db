@@ -124,6 +124,7 @@ const Countries = (props: any) => {
                         <h2>Countries</h2>
                         <SearchBar
                             defaultValue={q}
+                            location={props.location}
                             type={"countries"}
                         />
                         <div className="option_container">
