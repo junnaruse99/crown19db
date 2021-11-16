@@ -32,7 +32,7 @@ ___
 ___
 ## Phase 3
 ### Project Leader: Jun Naruse
-### Git SHA: TODO
+### Git SHA: d570750c38895336a8f12a566355968c7c5c927f
 
 | Person | Est. Time | Actual Time |
 | ------ | :---------: | :-----------: |
