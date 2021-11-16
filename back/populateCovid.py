@@ -87,7 +87,9 @@ def generateCovidData():
 
                     # Get casesDay and total
                     if pd.notnull(confirmed.loc[idx, date]) and i != len(dates) - 1:
-                        confirmedDay = int(confirmed.loc[idx, date] - confirmed.loc[idx, dates[i + 1]])
+                        confirmedDay = int(
+                            confirmed.loc[idx, date] - confirmed.loc[idx, dates[i + 1]]
+                        )
                         if confirmed.loc[idx, date] > maxCases:
                             maxCases = confirmed.loc[idx, date]
                         if confirmedDay < 0:
@@ -99,7 +101,9 @@ def generateCovidData():
 
                     # Get deathsDay
                     if pd.notnull(deaths.loc[idx, date]) and i != len(dates) - 1:
-                        deathsDay = int(deaths.loc[idx, date] - deaths.loc[idx, dates[i + 1]])
+                        deathsDay = int(
+                            deaths.loc[idx, date] - deaths.loc[idx, dates[i + 1]]
+                        )
                         if deaths.loc[idx, date] > maxDeaths:
                             maxDeaths = deaths.loc[idx, date]
                         if deathsDay < 0:
@@ -111,7 +115,9 @@ def generateCovidData():
 
                     # Get RecoveredDay
                     if pd.notnull(recovered.loc[idx, date]) and i != len(dates) - 1:
-                        recoveredDay = int(recovered.loc[idx, date] - recovered.loc[idx, dates[i + 1]])
+                        recoveredDay = int(
+                            recovered.loc[idx, date] - recovered.loc[idx, dates[i + 1]]
+                        )
                         if recovered.loc[idx, date] > maxRecovered:
                             maxRecovered = recovered.loc[idx, date]
                         if recoveredDay < 0:
@@ -135,7 +141,10 @@ def generateCovidData():
                     )
 
                     # If I find that there were more than 0 covid cases and that the flag was not raised, then I found the last day
-                    if (confirmed.loc[idx, date] != 0 or confirmed.loc[idx, date] != None) and flagLastDate == False:
+                    if (
+                        confirmed.loc[idx, date] != 0
+                        or confirmed.loc[idx, date] != None
+                    ) and flagLastDate == False:
                         lastDate = date
                         flagLastDate = True
 

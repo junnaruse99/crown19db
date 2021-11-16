@@ -17,6 +17,7 @@ ma = Marshmallow(app)
 
 ##### Models #####
 
+
 class Country(db.Model):
     __tablename__ = "country"
 
@@ -74,7 +75,6 @@ class TimeZone(db.Model):
     zone = db.Column(db.String(), unique=False, nullable=False)
 
 
-
 class City(db.Model):
     __tablename__ = "city"
 
@@ -94,6 +94,7 @@ class City(db.Model):
 
     def __repr__(self):
         return "<City %r>" % self.name
+
 
 class Covid(db.Model):
     __tablename__ = "covid"
@@ -193,8 +194,9 @@ class CitySchema(ma.Schema):
     population = fields.Integer(required=True)
     timeZone = fields.String(required=True)
     country_id = fields.Integer(required=True)
-    country = fields.Nested("CountrySchema", only=["officialName", "commonName"], required=False, many=False)
-
+    country = fields.Nested(
+        "CountrySchema", only=["officialName", "commonName"], required=False, many=False
+    )
 
     class Meta:
         ordered = True
@@ -207,7 +209,9 @@ class CovidSchema(ma.Schema):
     recovered = fields.Integer(required=True)
     deaths = fields.Integer(required=True)
     lastCovidCase = fields.DateTime(required=True)
-    country = fields.Nested("CountrySchema", only=["officialName", "commonName"], required=False, many=False)
+    country = fields.Nested(
+        "CountrySchema", only=["officialName", "commonName"], required=False, many=False
+    )
 
     class Meta:
         ordered = True
@@ -220,7 +224,9 @@ class CovidInstanceSchema(ma.Schema):
     totalCases = fields.Integer(required=True)
     totalRecovered = fields.Integer(required=True)
     totalDeaths = fields.Integer(required=True)
-    country = fields.Nested("CountrySchema", only=["officialName", "commonName"], required=False, many=False)
+    country = fields.Nested(
+        "CountrySchema", only=["officialName", "commonName"], required=False, many=False
+    )
     city = fields.Nested("CitySchema", only=["name", "id"], required=False, many=False)
 
     class Meta:
