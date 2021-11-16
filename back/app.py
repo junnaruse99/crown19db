@@ -306,8 +306,10 @@ def all(queries=None):
         return jsonify(result)
     
     except (AttributeError, ValueError):
+        print(str(traceback.format_exc()))
         return Response('Incorrect query', status=400)
     except NotFound:
+        print(str(traceback.format_exc()))
         return Response('Incorrect pagination numbers', status=400)
     except Exception:
         return Response(str(traceback.format_exc()), status=404)
