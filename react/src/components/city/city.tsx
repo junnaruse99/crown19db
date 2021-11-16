@@ -23,9 +23,21 @@ const City = ({ city, q }) => {
                 {city.country.officialName}
             </SearchableText>
         </td>
-        <td>{city.population != null ? city.population.toLocaleString("en-US") : "No data"}</td>
-        <td>{city.latitude}</td>
-        <td>{city.longitude}</td>
+        <td>
+            <SearchableText q={q}>
+                {city.population != null ? city.population.toLocaleString("en-US") : "No data"}
+            </SearchableText>
+        </td>
+        <td>
+            <SearchableText q={q}>
+                {city.latitude}
+            </SearchableText>
+        </td>
+        <td>
+            <SearchableText q={q}>
+                {city.longitude}
+            </SearchableText>
+        </td>
         </tr>
     )
 }

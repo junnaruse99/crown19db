@@ -42,7 +42,13 @@ const Cities = (props: any) => {
     const getCities = async () => {
         try {
             var params: any = queryString.parse(props.location.search);
-            if (q != null) params.q = q;
+            if (q != null) {
+                if (/\d/.test(q + '')) { // if number has a comma, don't send comma to the API
+                    params.q = (q + '').replaceAll(',', '');
+                } else {
+                    params.q = q;
+                }
+            }
             if (sort != null) params.sort = sort;
             if (continent != null) params.continent = continent;
             if (population != null) params.population = population;

@@ -18,10 +18,26 @@ const Covid = ({ covid, q }) => {
                 {covid.country.officialName}
             </SearchableText>
         </td>
-        <td>{covid.cases.toLocaleString("en-US")}</td>
-        <td>{covid.deaths.toLocaleString("en-US")}</td>
-        <td>{covid.recovered.toLocaleString("en-US")}</td>
-        <td>{covid.lastCovidCase.slice(0,10)}</td>
+        <td>
+            <SearchableText q={q}>
+                {covid.cases.toLocaleString("en-US")}
+            </SearchableText>
+        </td>
+        <td>
+            <SearchableText q={q}>
+                {covid.deaths.toLocaleString("en-US")}
+            </SearchableText>
+        </td>
+        <td>
+            <SearchableText q={q}>
+                {covid.recovered.toLocaleString("en-US")}
+            </SearchableText>
+        </td>
+        <td>
+            <SearchableText q={q}>
+                {covid.lastCovidCase.slice(0,10)}
+            </SearchableText>
+        </td>
         </tr>
     )
 }

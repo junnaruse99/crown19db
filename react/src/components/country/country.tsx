@@ -24,11 +24,19 @@ const Country = ({ country, q }) => {
                 <div className='row' style={{width: "270px"}}>
                     <div className='col-6 d-flex justify-content-around'>
                         <FontAwesomeIcon icon={faChild}/>
-                        <span className='font-weight-bold' style={{fontSize: "14px"}}>{country.population.toLocaleString("en-US")}</span>
+                        <span className='font-weight-bold' style={{fontSize: "14px"}}>
+                            <SearchableText q={q}>
+                                {country.population.toLocaleString("en-US")}
+                            </SearchableText>
+                        </span>
                     </div>
                     <div className='col-6 d-flex justify-content-around'>
                         <FontAwesomeIcon icon={faMountain}/>
-                        <span className='font-weight-bold' style={{fontSize: "14px"}}>{country.area.toLocaleString("en-US")} km<sup>2</sup></span>
+                        <span className='font-weight-bold' style={{fontSize: "14px"}}>
+                            <SearchableText q={q}>
+                                {country.area.toLocaleString("en-US")} km²
+                            </SearchableText>
+                        </span>
                     </div>
                 </div><br />
                 <div className='row' style={{width: "250px"}}>

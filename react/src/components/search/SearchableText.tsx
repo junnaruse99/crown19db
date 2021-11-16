@@ -5,7 +5,7 @@ export default function SearchableText(props: any) {
     padding: '0px',
   };
   var output: any = [];
-  const text = props.children;
+  const text = props.children + '';
 
   if (props.q == null) {
     return <>{text}</>;
