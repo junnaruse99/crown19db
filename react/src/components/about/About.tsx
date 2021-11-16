@@ -117,7 +117,7 @@ async function getContributors() {
     responsibilities: [
       'Front-end development',
       'Front-end unit testing'],
-    gitInfo: new GitInfo('nhua5610@gmail.com', 'OddJerbb', 10),
+    gitInfo: new GitInfo('nhua5610@gmail.com', 'OddJerbb', 23),
   };
 
   var junStats: ContributorInfo = {
@@ -129,7 +129,7 @@ async function getContributors() {
     responsibilities: [
       'Back-end development',
       'Back-end unit testing'],
-    gitInfo: new GitInfo('jun.naruse@gmail.com', 'jun.naruse', 20),
+    gitInfo: new GitInfo('jun.naruse@gmail.com', 'jun.naruse', 32),
   };
 
   var markStats: ContributorInfo = {
@@ -139,7 +139,7 @@ async function getContributors() {
           in Japanese. He is really into video games.',
     responsibilities: [
       'Front-end Unit Testing'],
-    gitInfo: new GitInfo('siegbalicula@gmail.com', 'mgrubbs', 10),
+    gitInfo: new GitInfo('siegbalicula@gmail.com', 'mgrubbs', 18),
   };
 
   var totalStats: ContributorInfo = {
@@ -147,7 +147,7 @@ async function getContributors() {
     photo: '',
     bio: '',
     responsibilities: [],
-    gitInfo: new GitInfo('total', 'total', 40),
+    gitInfo: new GitInfo('total', 'total', 73),
   };
 
   var contributors: Array<ContributorInfo> = [
