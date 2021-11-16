@@ -127,7 +127,7 @@ describe ("Render Non-model Components", () => {
 describe ("Render Country components", () => {
     test('All countries snapshot test', () => {
         const location = {
-            search: "q=e"
+            search: "q=e&sort=officialName&continent=Africa"
         }
         const levelOne = shallow(<CountriesModel 
                                 location={location}/>);
@@ -159,7 +159,7 @@ describe ("Render Country components", () => {
 describe ("Render City Components", () => {
     test('All cities snapshot test', () => {
         const location = {
-            search: "q=e"
+            search: "q=e&continent=Oceania&sort=country"
         }
         const levelOne = shallow(<CitiesModel 
                                 location={location}/>);
@@ -190,7 +190,7 @@ describe ("Render City Components", () => {
 describe ("Render Covid Components", ()=> {
     test('All covidcases snapshot test', () => {
         const location = {
-            search: "q=e"
+            search: "q=e&cases=500000-1000000&sort=-country"
         }
         const levelOne = shallow(<CovidCases 
                                 location={location}/>);
