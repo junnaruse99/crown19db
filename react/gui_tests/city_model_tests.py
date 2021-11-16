@@ -10,7 +10,7 @@ from selenium.webdriver.support.ui import Select
 
 # TODO automatically set subdomain based on what 
 # branch the test is running in
-url = "https://dev.crown19db.me/city"
+url = "https://www.crown19db.me/city"
 path = sys.argv[1]
 
 class SplashTest(unittest.TestCase):
