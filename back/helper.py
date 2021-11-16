@@ -1,5 +1,8 @@
 import sqlalchemy
+import traceback
+from sqlalchemy.sql.expression import cast
 from sqlalchemy.exc import InvalidRequestError
+from psycopg2.errors import UndefinedFunction
 from models import (
     Country,
     TimeZone,
@@ -72,15 +75,23 @@ def sort(model, query, _, attr_list):
     if join_flag:
         query = query.join(model.country, aliased=True)
     
+    # Filter out useless data
+    if model is City and (attr_list[0] == 'population' or attr_list[0] == '-population'):
+        query = query.filter(getattr(model, 'population') != None)
+    
     return query.order_by(*stmt)
 
 searchable = {
     'Country' : {
-        'commonName': None, 
-        'officialName': None,
-        'region': None,
-        'subregion': None,
-        'continent': None,
+        'commonName': 'string', 
+        'officialName': 'string',
+        'region': 'string',
+        'subregion': 'string',
+        'continent': 'string',
+        'area': 'int',
+        'latitude': 'int',
+        'longitude': 'int', 
+        'population': 'int',
         'language': [Language, 'name'],
         'timezone': [TimeZone, 'zone'],
         'currency': [Currency, 'name'],
@@ -88,11 +99,18 @@ searchable = {
     },
 
     'City' : {
-        'name': None,
+        'name': 'string',
+        'latitude': 'int',
+        'longitude': 'int',
+        'population': 'int',
         'country': [Country, 'officialName']
     },
 
     'Covid' : {
+        'cases': 'int',
+        'recovered': 'int',
+        'deaths': 'int',
+        'lastCovidCase': 'int',
         'country': [Country, 'officialName']
     }
 }
@@ -104,9 +122,10 @@ def search(model, query, field, words):
     for word in search:
         condition = False
         for att in searchable[model.__name__]:
-            if searchable[model.__name__][att]:
-                relation= searchable[model.__name__][att]
-                # Check the type of relation
+            if type(searchable[model.__name__][att]) == list:
+                relation = searchable[model.__name__][att]
+
+            # Check the type of relation
                 try:
                     condition = sqlalchemy.or_(condition, getattr(model, att).any(getattr(*relation).ilike("%{}%".format(word))))
                 except InvalidRequestError:
@@ -114,6 +133,13 @@ def search(model, query, field, words):
                 except:
                     raise ValueError("I don't know what happened")
             else:
-                condition = sqlalchemy.or_(condition, getattr(model, att).ilike("%{}%".format(word)))
+                try:
+                    relation = searchable[model.__name__][att]
+                    if (relation == 'string'):
+                        condition = sqlalchemy.or_(condition, getattr(model, att).ilike("%{}%".format(word)))
+                    else:
+                        condition = sqlalchemy.or_(condition, cast(getattr(model, att), sqlalchemy.String).ilike("%{}%".format(word)))
+                except:
+                    raise ValueError("Upps, it appear something went wrong")
 
     return query.filter(condition)

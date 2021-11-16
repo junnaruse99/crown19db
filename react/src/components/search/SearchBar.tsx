@@ -1,21 +1,24 @@
 import { useHistory } from 'react-router-dom';
+import queryString from 'query-string';
 import './SearchBar.css';
 
 export default function SearchBar(props: any) {
   const history = useHistory();
 
   const onSearchSubmit = (event) => {
+    event.preventDefault();
     var q: string = event.target.q.value;
     if (q == "") {
       event.preventDefault();
       return;
     }
 
-    if (props.redirect != null) {
-      var uri = `${props.redirect}?q=${q}`;
-      history.push(uri);
-      history.go(uri);
-    }
+    var params: any = queryString.parse(props.location.search);
+    params.q = q;
+    var uri = props.redirect != null ? props.redirect + '' : '';
+    uri += '?' + queryString.stringify(params);
+    history.push(uri);
+    history.go(uri);
   }
 
   return (

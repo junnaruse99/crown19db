@@ -8,7 +8,7 @@ import LocaleInfo from '../localeInfo/localeInfo';
 import SearchBar from '../search/SearchBar';
 import './splash.css';
 
-const Splash = () => {
+const Splash = (props: any) => {
 
     const onMouseOver = event => {
         const el = event.target;
@@ -27,8 +27,9 @@ const Splash = () => {
             <h5> An extensive database tracking Covid-19 information on a day-to-day basis in the scope of countries and cities.</h5>
             <p></p>
             <SearchBar
+                location={props.location}
                 redirect={"/search"}
-                type={"Search for the information you are after today"}
+                type={"for the information you are after today"}
             />
             <p>Select the information you are after today.</p>
             <div className="container">

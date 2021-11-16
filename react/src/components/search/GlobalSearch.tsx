@@ -101,6 +101,7 @@ export default function GlobalSearch(props: any) {
                         <h2>CovidDB</h2>
                         <SearchBar
                             defaultValue={q}
+                            location={props.location}
                             type={"CovidDB"}
                         />
                     </div><br />

@@ -18,14 +18,14 @@ const City = ({ city, q }) => {
                 {city.name}
             </SearchableText>
         </td>
-        <td>{city.latitude}</td>
-        <td>{city.longitude}</td>
-        <td>{city.population != null ? city.population.toLocaleString("en-US") : "No data"}</td>
         <td>
             <SearchableText q={q}>
                 {city.country.officialName}
             </SearchableText>
         </td>
+        <td>{city.population != null ? city.population.toLocaleString("en-US") : "No data"}</td>
+        <td>{city.latitude}</td>
+        <td>{city.longitude}</td>
         </tr>
     )
 }
