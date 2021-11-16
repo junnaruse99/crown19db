@@ -11,7 +11,17 @@ export default function SearchableText(props: any) {
     return <>{text}</>;
   }
 
-  const reg = RegExp(props.q, 'gi');
+  var t = props.q.split(" ");
+  var s = ''
+  for (var i = 0; i < t.length; i++) {
+    if (i != t.length - 1) {
+      s += t[i] + '|';
+    } else {
+      s += t[i];
+    }
+  }
+
+  const reg = RegExp(s, 'gi');
   let arr;
   var a = 0;
   while ((arr = reg.exec(text)) !== null) {
