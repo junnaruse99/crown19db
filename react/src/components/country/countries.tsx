@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 import Country from './country';
 import ReactPaginate from 'react-paginate';
@@ -33,7 +33,6 @@ const Countries = (props: any) => {
     const [data, setData] = useState<CountryResponse>();
 
     const history = useHistory();
-    var location = useLocation().toString();
 
     const { q, page, perPage, sort, continent, population } = queryString.parse(props.location.search);
 
