@@ -176,10 +176,10 @@ const Cities = (props: any) => {
                                     <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>
+                                    <th scope="col">Country</th>
+                                    <th scope="col">Population</th>
                                     <th scope="col">Latitude</th>
                                     <th scope="col">Longitude</th>
-                                    <th scope="col">Population</th>
-                                    <th scope="col">Country</th>
                                     </tr>
                                 </thead>
                                 <tbody>
