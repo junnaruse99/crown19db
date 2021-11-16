@@ -12,8 +12,7 @@ const City = ({ city, q }) => {
 
     return(
         <tr onClick={handleRowClick} className='modelrow'>
-        <th scope="row">{city.id}</th>
-        <td>
+         <td>
             <SearchableText q={q}>
                 {city.name}
             </SearchableText>
