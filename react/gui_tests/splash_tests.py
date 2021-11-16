@@ -9,7 +9,7 @@ from selenium.webdriver.chrome.options import Options
 
 # TODO automatically set subdomain based on what 
 # branch the test is running in
-url = "https://www.crown19db.me/"
+url = "https://dev.crown19db.me/"
 path = sys.argv[1]
 
 class SplashTest(unittest.TestCase):
@@ -47,6 +47,15 @@ class SplashTest(unittest.TestCase):
         header = WebDriverWait(self.driver, timeout=10).until(lambda d: d.find_element(By.TAG_NAME, "h2"))
         self.assertEqual(header.text, "Country Covid Data")
         self.assertEqual(self.driver.current_url, url + "covid")
+
+    def test_search_bar(self):
+        search_bar = self.driver.find_element(By.NAME, "q")
+        search_bar.send_keys("chad" + Keys.ENTER)
+        headers = WebDriverWait(self.driver, timeout=10).until(lambda d: d.find_elements(By.CLASS_NAME, "card-title"))
+        self.assertEqual(headers[0].text, "Republic of Chad")
+        self.assertEqual(headers[1].text, "N'Djamena")
+        self.assertEqual(headers[2].text, "Republic of Chad")
+        self.assertEqual(self.driver.current_url, url + "search?q=chad")
 
 if __name__ == "__main__":
     PATH = sys.argv[1]
