@@ -75,7 +75,8 @@ def sort(model, query, _, attr_list):
     if join_flag:
         query = query.join(model.country, aliased=True)
     
-    if model is City:
+    # Filter out useless data
+    if model is City and (attr_list[0] == 'population' or attr_list[0] == '-population'):
         query = query.filter(getattr(model, 'population') != None)
     
     return query.order_by(*stmt)
