@@ -1,17 +1,19 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import countries from './splashAssets/countries.jpg'
-import covid from './splashAssets/covid.jpg'
-import cities from './splashAssets/cities.jpg'
 import Card from 'react-bootstrap/Card';
-import LocaleInfo from '../localeInfo/localeInfo';
-import SearchBar from '../search/SearchBar';
+import GroupedBarChart from './groupedBarChart';
+// import {GroupedBarChart} from "@d3/grouped-bar-chart"
 
 const ourVisualizations = (props: any) => {
     return ( 
-        <div className= "container">
+        <div style={{justifyContent:'center', alignItems:'center'}} className="container">
             <h1>Covid DB Visualizations</h1>
-            <h5> Here </h5>
+            <div style={{display: "flex", justifyContent:'center', alignItems:'center'}} className="container">
+                <h3> Cases vs. Deaths </h3>
+            </div>
+            <div>
+                <GroupedBarChart props/>
+            </div>
         </div>
     )
 }

@@ -46,6 +46,7 @@ const WaterGdpScatterPlot = (props: any) => {
                     }
                 );
             // uri = '___' + queryString.stringify(params);
+            // uri = 'https://api.around-the-world.me/geography?per_page=200';
             uri = 'https://api.around-the-world.me/foodandtourism?per_page=200';
             await clientAxios.get(uri)
                 .then((response: any) => {
