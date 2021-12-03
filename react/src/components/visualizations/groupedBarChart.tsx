@@ -40,7 +40,7 @@ const GroupedBarChart = ({props}) => {
 
     const getCovidCases = async () => {
         try {
-            var uri = '/v1/models/covid?sort=-cases&perPage=50'
+            var uri = 'https://api.crown19db.me/v1/models/covid?sort=-cases&perPage=50'
             const response = await clientAxios.get<CovidCasesResponse>(uri)
                 .then(response => {
                     console.log(response.data.data)

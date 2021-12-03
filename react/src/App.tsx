@@ -13,7 +13,7 @@ import CovidInstance from './components/covid/covidInstance';
 import CountryTimeline from './components/covid/countryTimeline';
 import GlobalSearch from './components/search/GlobalSearch';
 import ourVisualizations from './components/visualizations/ourVisualizations';
-import theirVisualizations from './components/visualizations/theirVisualizations';
+import TheirVisualizations from './components/visualizations/theirVisualizations';
 require('dotenv').config();
 
 function Index() {
@@ -44,7 +44,7 @@ export default function App() {
         <Route exact path="/covid/:country_id" children={<CountryTimeline />} />
         <Route exact path="/search" component={GlobalSearch} />
         <Route exact path="/ourVis" component={ourVisualizations} />
-        <Route exact path="/ATWVis" component={theirVisualizations} />
+        <Route exact path="/ATWVis" component={TheirVisualizations} />
       </div>
       </Switch>
     </Router>
