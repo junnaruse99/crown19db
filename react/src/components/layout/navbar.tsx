@@ -42,7 +42,7 @@ const Navbar = () => {
                             <Link onClick={handleClick} to='/ourVis' className="nav-link">Visualizations</Link>
                         </li>
                         <li className="nav-item">
-                            <Link onClick={handleClick} to='/ATWVis' className="nav-link">ATW</Link>
+                            <Link onClick={handleClick} to='/ATWVis' className="nav-link">Provider Visualizations</Link>
                         </li>
                     </ul>
                 </div>
