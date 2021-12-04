@@ -1,6 +1,24 @@
 import { useState, useEffect } from 'react';
 import Loading from "../layout/Loading";
-import { BarChart, Bar, Brush, Legend, ReferenceLine, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import {
+    BarChart,
+    Bar,
+    Brush,
+    Legend,
+    ReferenceLine,
+    ScatterChart,
+    Scatter,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    LabelList,
+    ResponsiveContainer,
+    Radar,
+    RadarChart,
+    PolarGrid,
+    PolarAngleAxis,
+    PolarRadiusAxis, } from 'recharts';
 import clientAxios from '../../config/axios';
 import FunnelIncomeChart from './funnelChart';
 
@@ -12,6 +30,8 @@ export default function TheirVisualizations(props: any) {
             { < WaterGdpScatterPlot /> }
             <h5> Amount of Countries per Income Level </h5>
             { < FunnelIncomeChart /> }
+            <h5> Number of countries exporting different products: </h5>
+            { <ExportRadarChart /> }
         </div>
     );
 }
@@ -94,94 +114,73 @@ const WaterGdpScatterPlot = (props: any) => {
     );
 }
 
-// const FunnelIncomeChart = (props: any) => {
-//     const [data, setData] = useState([]);
-//     const [loading, setLoading] = useState(true);
+const ExportRadarChart = (props: any) => {
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-//     useEffect(() => {
-//         const fetch = async () => {
-//             var data: any;
-//             var unparsedData: any;
-//             var uri: any;
-//             data = [];
-//             uri = 'https://api.around-the-world.me/foodandtourism?per_page=200';
-//             await clientAxios.get(uri)
-//                 .then((response: any) => {
-//                     unparsedData = response.data;
-//                 })
-//                 .catch(
-//                     error => {
-//                         if (error.response.status == 400) {
-//                             // setMsg(error.response.data);
-//                             // setData(undefined);
-//                         } else {
-//                             // setMsg('404 Not Found');
-//                             console.log(error.response.data);
-//                             // setData(undefined);
-//                         }
-//                     }
-//                 );
-//             var highIncome = 0;
-//             var upperMiddleIncome = 0;
-//             var lowerMiddleIncome = 0;
-//             var lowIncome = 0;
-            
-//             for (var i in unparsedData.result) {
-//                 var tourismData = unparsedData.result[i];
-//                 var incomeLevel = tourismData.country_income_level;
-//                 if (incomeLevel == "High income") {
-//                     ++highIncome;
-//                 } else if (incomeLevel == "Upper middle income") {
-//                     ++upperMiddleIncome;
-//                 } else if (incomeLevel == "Lower middle income") {
-//                     ++lowerMiddleIncome;
-//                 } else {
-//                     ++lowIncome;
-//                 }
-//             }
-//             data.push({
-//                     "value": highIncome,    
-//                     "name": "High Income",
-//                     "fill": "#fffb08"
-//                 });
-//             data.push({
-//                     "value": upperMiddleIncome,    
-//                     "name": "Upper Middle Income",
-//                     "fill": "#edb137"
-//                 });
-//             data.push({
-//                     "value": lowerMiddleIncome,    
-//                     "name": "Lower Middle Income",
-//                     "fill": "#ed8137"
-//                 });
-//             data.push({                
-//                     "value": lowIncome,
-//                     "name": "Low Income",
-//                     "fill": "#bf4f51"
-//                 });
-            
+    useEffect(() => {
+        const fetch = async () => {
+            var uri = 'https://api.around-the-world.me/foodandtourism?per_page=200';
+            await clientAxios.get(uri)
+                .then((response: any) => {
+                    var exportData: any = {};
+                    for (var i in response.data.result) {
+                        var countryExportData  = response.data.result[i];
+                        var agriExport = countryExportData.country_agricultural_exports;
 
-//             console.log(data);
+                        if (agriExport.indexOf(',') == -1) {
+                            if (!(agriExport in exportData)) {
+                                exportData[agriExport] = 1;
+                            } else {
+                                exportData[agriExport]++;
+                            }
+                        }
+                    }
 
-//             setData(data);
-//             setLoading(false);
-//         }
-//         fetch();
-//     }, []);
-//     const chart = 
-//                 <FunnelChart width={1000} height={700} onClick = >
-//                     <Tooltip />
-//                         <Funnel
-//                             dataKey="value"
-//                             data={data}
-//                             isAnimationActive
-//                         >
-//                         <LabelList position="right" fill="#000000" stroke="none" dataKey="name" />
-//                     </Funnel>
-//                 </FunnelChart>
-//     return(
-//         <>
-//             { loading ? <Loading /> : chart }
-//         </>
-//     );
-// }
+                    var data: any = [];
+                    for (var i in exportData) {
+                        var numExports = exportData[i];
+                        if (numExports > 1) {
+                            data.push({
+                                name: i,
+                                numExports: numExports
+                            });
+                        }
+                    }
+
+                    setData(data);
+                    setLoading(false);
+                })
+                .catch(
+                    error => {
+                        if (error.response.status == 400) {
+                            // setMsg(error.response.data);
+                            // setData(undefined);
+                        } else {
+                            // setMsg('404 Not Found');
+                            console.log(error.response.data);
+                            // setData(undefined);
+                        }
+                    }
+                );
+        }
+        fetch();
+    }, []);
+
+    const exportRadarChart = 
+        <ResponsiveContainer width="100%" height={500}>
+            <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
+                <PolarGrid />
+                <PolarAngleAxis dataKey="name" />
+                <PolarRadiusAxis />
+                <Radar name="Number of countries" dataKey="numExports" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+                <Tooltip cursor={{ strokeDasharray: '3 3' }}/>
+            </RadarChart>
+        </ResponsiveContainer>;
+
+    return (
+        <>
+            { loading ? <Loading /> : exportRadarChart }
+        </>
+    );
+}
