@@ -23,11 +23,16 @@ import clientAxios from '../../config/axios';
 
 export default function TheirVisualizations(props: any) {
     return ( 
-        <div className= "container">
+        <div style={{justifyContent:'center', alignItems:'center'}} className= "container">
             <h1>Around The World Visualizations</h1>
-            <h5> Percent of tourism in total GDP </h5>
-            { <WaterGdpScatterPlot /> }
-            <h5> Number of countries exporting different products: </h5>
+            <div style={{display: "flex", justifyContent:'center', alignItems:'center'}} className="container">
+                <h3> Percent of tourism in total GDP </h3>
+            </div>
+            {<WaterGdpScatterPlot /> }
+            <div className= "mt-5"></div>
+            <div style={{display: "flex", justifyContent:'center', alignItems:'center'}} className="container">
+                <h3> Number of countries exporting different products: </h3>
+            </div>
             { <ExportRadarChart /> }
         </div>
     );
