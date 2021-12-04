@@ -43,26 +43,12 @@ const GroupedBarChart = ({props}) => {
             var uri = 'https://api.crown19db.me/v1/models/covid?sort=-cases&perPage=50'
             const response = await clientAxios.get<CovidCasesResponse>(uri)
                 .then(response => {
-                    console.log(response.data.data)
                     setData(response.data.data);
                 });
         } catch (error) {
             setMsg('There was an error');
         }
     }
-    // const getCovidCases = async () => {
-    //     try {
-    //         var uri = '/v1/models/covid/all'
-    //         const response = await clientAxios.get<CovidCases[]>(uri)
-    //             .then(response => {
-    //                 console.log(response.data)
-    //                 setData(response.data);
-    //             });
-    //     } catch (error) {
-    //         setMsg('There was an error');
-    //     }
-
-    // }
 
     useEffect(() => {
         setData(undefined);
