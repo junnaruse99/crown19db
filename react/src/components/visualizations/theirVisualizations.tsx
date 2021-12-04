@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react';
 import Loading from "../layout/Loading";
-import { BarChart, Bar, Brush, Legend, ReferenceLine, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, LabelList, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, Brush, Legend, ReferenceLine, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import clientAxios from '../../config/axios';
+import FunnelIncomeChart from './funnelChart';
 
 export default function TheirVisualizations(props: any) {
     return ( 
         <div className= "container">
             <h1>Around The World Visualizations</h1>
             <h5> Percent of tourism in total GDP </h5>
-            { <WaterGdpScatterPlot /> }
+            { < WaterGdpScatterPlot /> }
+            <h5> Amount of Countries per Income Level </h5>
+            { < FunnelIncomeChart /> }
         </div>
     );
 }
@@ -90,3 +93,95 @@ const WaterGdpScatterPlot = (props: any) => {
         </>
     );
 }
+
+// const FunnelIncomeChart = (props: any) => {
+//     const [data, setData] = useState([]);
+//     const [loading, setLoading] = useState(true);
+
+//     useEffect(() => {
+//         const fetch = async () => {
+//             var data: any;
+//             var unparsedData: any;
+//             var uri: any;
+//             data = [];
+//             uri = 'https://api.around-the-world.me/foodandtourism?per_page=200';
+//             await clientAxios.get(uri)
+//                 .then((response: any) => {
+//                     unparsedData = response.data;
+//                 })
+//                 .catch(
+//                     error => {
+//                         if (error.response.status == 400) {
+//                             // setMsg(error.response.data);
+//                             // setData(undefined);
+//                         } else {
+//                             // setMsg('404 Not Found');
+//                             console.log(error.response.data);
+//                             // setData(undefined);
+//                         }
+//                     }
+//                 );
+//             var highIncome = 0;
+//             var upperMiddleIncome = 0;
+//             var lowerMiddleIncome = 0;
+//             var lowIncome = 0;
+            
+//             for (var i in unparsedData.result) {
+//                 var tourismData = unparsedData.result[i];
+//                 var incomeLevel = tourismData.country_income_level;
+//                 if (incomeLevel == "High income") {
+//                     ++highIncome;
+//                 } else if (incomeLevel == "Upper middle income") {
+//                     ++upperMiddleIncome;
+//                 } else if (incomeLevel == "Lower middle income") {
+//                     ++lowerMiddleIncome;
+//                 } else {
+//                     ++lowIncome;
+//                 }
+//             }
+//             data.push({
+//                     "value": highIncome,    
+//                     "name": "High Income",
+//                     "fill": "#fffb08"
+//                 });
+//             data.push({
+//                     "value": upperMiddleIncome,    
+//                     "name": "Upper Middle Income",
+//                     "fill": "#edb137"
+//                 });
+//             data.push({
+//                     "value": lowerMiddleIncome,    
+//                     "name": "Lower Middle Income",
+//                     "fill": "#ed8137"
+//                 });
+//             data.push({                
+//                     "value": lowIncome,
+//                     "name": "Low Income",
+//                     "fill": "#bf4f51"
+//                 });
+            
+
+//             console.log(data);
+
+//             setData(data);
+//             setLoading(false);
+//         }
+//         fetch();
+//     }, []);
+//     const chart = 
+//                 <FunnelChart width={1000} height={700} onClick = >
+//                     <Tooltip />
+//                         <Funnel
+//                             dataKey="value"
+//                             data={data}
+//                             isAnimationActive
+//                         >
+//                         <LabelList position="right" fill="#000000" stroke="none" dataKey="name" />
+//                     </Funnel>
+//                 </FunnelChart>
+//     return(
+//         <>
+//             { loading ? <Loading /> : chart }
+//         </>
+//     );
+// }

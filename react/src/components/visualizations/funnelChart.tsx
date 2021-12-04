@@ -4,7 +4,7 @@ import Loading from "../layout/Loading";
 import {FunnelChart, Funnel, Tooltip, LabelList} from 'recharts';
 import clientAxios from '../../config/axios';
 
-const funnelChart = (props: any) => {
+const FunnelIncomeChart = (props: any) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -78,14 +78,21 @@ const funnelChart = (props: any) => {
         }
         fetch();
     }, []);
-    <FunnelChart width={730} height={250}>
-        <Tooltip />
-            <Funnel
-                dataKey="value"
-                data={data}
-                isAnimationActive
-                >
-            <LabelList position="right" fill="#000" stroke="none" dataKey="name" />
-        </Funnel>
-    </FunnelChart>
+    const chart = <FunnelChart width={800} height={500}>
+                    <Tooltip />
+                        <Funnel
+                            dataKey="value"
+                            data={data}
+                            isAnimationActive
+                            >
+                        <LabelList position="right" fill="#000" stroke="none" dataKey="name" />
+                    </Funnel>
+                </FunnelChart>
+    return (
+        <>
+            { loading ? <Loading /> : chart }
+        </>
+    );
 }
+
+export default FunnelIncomeChart;

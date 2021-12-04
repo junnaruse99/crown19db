@@ -1,6 +1,7 @@
 import {BubbleChart} from "@weknow/react-bubble-chart-d3"
 import { useState, useEffect } from 'react';
 import clientAxios from '../../config/axios';
+import Loading from "../layout/Loading";
 
 const D3Visualization = (props: any) => {
     interface CovidCases {
