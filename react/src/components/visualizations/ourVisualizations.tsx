@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import GroupedBarChart from './groupedBarChart';
 import DatesLineChart from './datesLineChart';
+import PiesChart from './pieChart';
 // import {GroupedBarChart} from "@d3/grouped-bar-chart"
 
 const ourVisualizations = (props: any) => {
@@ -18,6 +19,11 @@ const ourVisualizations = (props: any) => {
                 <h3> Top 5 Countries Total Cases Timeline </h3>
             </div>
             <DatesLineChart props/>
+            <div className= "mt-5"></div>
+            <div style={{display: "flex", justifyContent:'center', alignItems:'center'}} className="container">
+                <h3> Top 100 Countries Deaths Pie Chart </h3>
+            </div>
+            <PiesChart props/>
         </div>
     )
 }

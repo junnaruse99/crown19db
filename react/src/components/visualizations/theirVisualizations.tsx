@@ -34,6 +34,7 @@ export default function TheirVisualizations(props: any) {
                 <h3> Number of countries exporting different products: </h3>
             </div>
             { <ExportRadarChart /> }
+            <div className= "mt-5"></div>
             <div style={{display: "flex", justifyContent:'center', alignItems:'center'}} className="container">
                 <h3>  Amount of Countries per Income Level </h3>
             </div>

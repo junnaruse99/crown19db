@@ -41,7 +41,7 @@ const DatesLineChart = ({props}) => {
 
     const getCovid = async (country_id: number) => {
         try {
-            const response = await clientAxios.get<CovidInstance[]>(`/v1/models/covidInstance/country_id=${country_id}`)
+            const response = await clientAxios.get<CovidInstance[]>(`https://api.crown19db.me/v1/models/covidInstance/country_id=${country_id}`)
                 .then(response => {
                     output = response.data;
                 })
@@ -86,7 +86,6 @@ const DatesLineChart = ({props}) => {
                             Russia: allData[4][i].totalCases}
             tempData.unshift(instance)
         }
-        console.log(tempData)
         setAllData(tempData)
     }
 

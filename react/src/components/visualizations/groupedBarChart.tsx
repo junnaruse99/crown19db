@@ -49,7 +49,7 @@ const GroupedBarChart = ({props}) => {
             setMsg('There was an error');
         }
     }
-    
+
     useEffect(() => {
         setData(undefined);
         getCovidCases();
