@@ -20,13 +20,16 @@ import {
     PolarAngleAxis,
     PolarRadiusAxis, } from 'recharts';
 import clientAxios from '../../config/axios';
+import FunnelIncomeChart from './funnelChart';
 
 export default function TheirVisualizations(props: any) {
     return ( 
         <div className= "container">
             <h1>Around The World Visualizations</h1>
             <h5> Percent of tourism in total GDP </h5>
-            { <WaterGdpScatterPlot /> }
+            { < WaterGdpScatterPlot /> }
+            <h5> Amount of Countries per Income Level </h5>
+            { < FunnelIncomeChart /> }
             <h5> Number of countries exporting different products: </h5>
             { <ExportRadarChart /> }
         </div>
