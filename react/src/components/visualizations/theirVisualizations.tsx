@@ -1,6 +1,24 @@
 import { useState, useEffect } from 'react';
 import Loading from "../layout/Loading";
-import { BarChart, Bar, Brush, Legend, ReferenceLine, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, LabelList, ResponsiveContainer } from 'recharts';
+import {
+    BarChart,
+    Bar,
+    Brush,
+    Legend,
+    ReferenceLine,
+    ScatterChart,
+    Scatter,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    LabelList,
+    ResponsiveContainer,
+    Radar,
+    RadarChart,
+    PolarGrid,
+    PolarAngleAxis,
+    PolarRadiusAxis, } from 'recharts';
 import clientAxios from '../../config/axios';
 
 export default function TheirVisualizations(props: any) {
@@ -9,6 +27,8 @@ export default function TheirVisualizations(props: any) {
             <h1>Around The World Visualizations</h1>
             <h5> Percent of tourism in total GDP </h5>
             { <WaterGdpScatterPlot /> }
+            <h5> Number of countries exporting different products: </h5>
+            { <ExportRadarChart /> }
         </div>
     );
 }
@@ -87,6 +107,77 @@ const WaterGdpScatterPlot = (props: any) => {
     return(
         <>
             { loading ? <Loading /> : tourismGdpPercentage }
+        </>
+    );
+}
+
+const ExportRadarChart = (props: any) => {
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetch = async () => {
+            var uri = 'https://api.around-the-world.me/foodandtourism?per_page=200';
+            await clientAxios.get(uri)
+                .then((response: any) => {
+                    var exportData: any = {};
+                    for (var i in response.data.result) {
+                        var countryExportData  = response.data.result[i];
+                        var agriExport = countryExportData.country_agricultural_exports;
+
+                        if (agriExport.indexOf(',') == -1) {
+                            if (!(agriExport in exportData)) {
+                                exportData[agriExport] = 1;
+                            } else {
+                                exportData[agriExport]++;
+                            }
+                        }
+                    }
+
+                    var data: any = [];
+                    for (var i in exportData) {
+                        var numExports = exportData[i];
+                        if (numExports > 1) {
+                            data.push({
+                                name: i,
+                                numExports: numExports
+                            });
+                        }
+                    }
+
+                    setData(data);
+                    setLoading(false);
+                })
+                .catch(
+                    error => {
+                        if (error.response.status == 400) {
+                            // setMsg(error.response.data);
+                            // setData(undefined);
+                        } else {
+                            // setMsg('404 Not Found');
+                            console.log(error.response.data);
+                            // setData(undefined);
+                        }
+                    }
+                );
+        }
+        fetch();
+    }, []);
+
+    const exportRadarChart = 
+        <ResponsiveContainer width="100%" height={500}>
+            <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
+                <PolarGrid />
+                <PolarAngleAxis dataKey="name" />
+                <PolarRadiusAxis />
+                <Radar name="Number of countries" dataKey="numExports" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+                <Tooltip cursor={{ strokeDasharray: '3 3' }}/>
+            </RadarChart>
+        </ResponsiveContainer>;
+
+    return (
+        <>
+            { loading ? <Loading /> : exportRadarChart }
         </>
     );
 }
