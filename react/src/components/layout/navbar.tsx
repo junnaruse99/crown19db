@@ -38,6 +38,12 @@ const Navbar = () => {
                         <li className="nav-item">
                             <Link onClick={handleClick} to='/covid' className="nav-link">Covid</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link onClick={handleClick} to='/ourVis' className="nav-link">Visualizations</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link onClick={handleClick} to='/ATWVis' className="nav-link">Provider Visualizations</Link>
+                        </li>
                     </ul>
                 </div>
             </div>
