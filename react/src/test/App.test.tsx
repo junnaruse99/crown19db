@@ -40,34 +40,6 @@ jest.mock("react-router-dom", () => ({
     })
 }));
 
-// References: 
-// https://testing-library.com/docs/queries/about/
-// https://jestjs.io/docs/snapshot-testing
-// https://enzymejs.github.io/enzyme/docs/api/shallow.html
-// https://reactjs.org/docs/shallow-renderer.html
-// https://gitlab.com/forbesye/fitsbits/-/tree/master/front-end/src/__tests__
-
-// // https://enzymejs.github.io/enzyme/docs/api/shallow.html for shallow
-// // https://reactjs.org/docs/shallow-renderer.html for ShallowRenderer
-// // Probably prefer enzyme over ShallowRenderer
-// test('render component template', () => {
-//     // use ShallowRenderer to render a particular component
-//     const renderer = new ShallowRenderer();
-//     renderer.render(<About />);
-//     const output = renderer.getRenderOutput();
-
-//     // Or use shallow from enzyme for a particular component
-//     const wrapper = shallow(<About />);
-    
-// });
-
-// // https://jestjs.io/docs/snapshot-testing
-// // on the first run of npm test, __snapshots__ is created
-// // and future runs of npm test will check against it
-// test('snapshot template', () => {
-    
-//     //expect().toMatchSnapshot();
-// });
 describe ("Render Non-model Components", () => {
     test('Splash section render', () => {
         const levelOne = shallow(<App />);

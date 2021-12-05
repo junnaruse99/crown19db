@@ -43,16 +43,16 @@ ___
 | Mark Grubbs | 10 | 18 |
 ___
 ## Phase 4
-### Project Leader: 
-### Git SHA:
+### Project Leader: Alejandro Balderas
+### Git SHA: 
 
 | Person | Est. Time | Actual Time |
 | ------ | :---------: | :-----------: |
-| Adam Samuelson |  |  |
-| Alejandro Balderas |  |  |
-| Nicholas Huang |  |  |
-| Jun Naruse |  |  |
-| Mark Grubbs |  |  |
+| Adam Samuelson | 5 | 15 |
+| Alejandro Balderas | 5 | 15 |
+| Nicholas Huang | 6 | 13 |
+| Jun Naruse | 6 | 8 |
+| Mark Grubbs | 5 | 12 |
 ___
 ### Comments:
 - The CSS in About.css was referenced from this website https://coder-coder.com/display-divs-side-by-side/
