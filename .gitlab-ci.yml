@@ -10,7 +10,7 @@ npm-run:
   - ls
   - cd react
   - ls
-  - npm install
+  - npm install --legacy-peer-deps
   - CI=false npm run-script build
 
 image: node:latest
@@ -72,7 +72,7 @@ frontend_tests:
   stage: tests
   script:
     - cd react
-    - npm install
+    - npm install --legacy-peer-deps
     - npm test
 
 gui_tests:
@@ -95,6 +95,6 @@ gui_tests:
       stable main" > /etc/apt/sources.list.d/google.list
     - apt-get update -q -y
     - apt-get install -y google-chrome-stable
-    - npm install
+    - npm install --legacy-peer-deps
 
     - python3 gui_tests.py
