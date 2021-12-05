@@ -44,7 +44,7 @@ ___
 ___
 ## Phase 4
 ### Project Leader: Alejandro Balderas
-### Git SHA: 
+### Git SHA: 29cac596ea1d36f2bf1cc869a70db304d04feb77
 
 | Person | Est. Time | Actual Time |
 | ------ | :---------: | :-----------: |
