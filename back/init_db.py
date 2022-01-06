@@ -7,6 +7,6 @@ def init_db(app):
     load_dotenv()
     app.config[
         "SQLALCHEMY_DATABASE_URI"
-    ] = "postgresql+psycopg2://coviddb:crown19db!@crown19db.ck9wwhipyc5v.us-west-2.rds.amazonaws.com:5432/dev"
+    ] = os.getenv('DB_URI')
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     return SQLAlchemy(app)
