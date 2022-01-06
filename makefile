@@ -10,6 +10,17 @@ docker:
 format:
 	black ./back/*.py
 
+# deploy front
+deploy-front:
+	cd react; \
+    npm run deploy
+
+# deploy back
+deploy-back:
+	git checkout main
+	git pull origin main
+	git subtree push --prefix back heroku main
+	git checkout dev
 all:
 
 # files to be checked for existence
