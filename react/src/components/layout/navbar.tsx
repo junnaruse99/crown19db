@@ -24,25 +24,25 @@ const Navbar = () => {
                 <div className={collapseClass + " navbar-collapse"}>
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item active">
-                            <Link onClick={handleClick} to='/' className="nav-link">Home</Link>
+                            <Link onClick={handleClick} to='/crown19db/' className="nav-link">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link onClick={handleClick} to='/about' className="nav-link">About us</Link>
+                            <Link onClick={handleClick} to='/crown19db/about' className="nav-link">About us</Link>
                         </li>
                         <li className="nav-item">
-                            <Link onClick={handleClick} to='/country' className="nav-link">Country</Link>
+                            <Link onClick={handleClick} to='/crown19db/country' className="nav-link">Country</Link>
                         </li>
                         <li className="nav-item">
-                            <Link onClick={handleClick} to='/city' className="nav-link">City</Link>
+                            <Link onClick={handleClick} to='/crown19db/city' className="nav-link">City</Link>
                         </li>
                         <li className="nav-item">
-                            <Link onClick={handleClick} to='/covid' className="nav-link">Covid</Link>
+                            <Link onClick={handleClick} to='/crown19db/covid' className="nav-link">Covid</Link>
                         </li>
                         {/* <li className="nav-item">
-                            <Link onClick={handleClick} to='/ourVis' className="nav-link">Visualizations</Link>
+                            <Link onClick={handleClick} to='/crown19db/ourVis' className="nav-link">Visualizations</Link>
                         </li>
                         <li className="nav-item">
-                            <Link onClick={handleClick} to='/ATWVis' className="nav-link">Provider Visualizations</Link>
+                            <Link onClick={handleClick} to='/crown19db/ATWVis' className="nav-link">Provider Visualizations</Link>
                         </li> */}
                     </ul>
                 </div>

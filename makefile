@@ -15,7 +15,7 @@ deploy-front:
 	cd react; \
     npm run deploy
 
-# deploy back
+# deploy back # Need to have the latest version in main (main is a protected branch)
 deploy-back:
 	git checkout main
 	git pull origin main
