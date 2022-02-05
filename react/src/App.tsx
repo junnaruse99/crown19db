@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, HashRouter, Link } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import About from "./components/about/About"
 import Splash from './components/splash/splash';
 import Countries from './components/country/countries';
@@ -30,22 +30,22 @@ export default function App() {
   // https://blog.logrocket.com/using-typescript-with-react-tutorial-examples/
 
   return (
-    <Router>
+    <Router basename='/'>
       <Switch>
-      <div>
-        <Navbar />
-        <Route exact path="/crown19db/" component={Splash} />
-        <Route exact path="/crown19db/about" component={About} />
-        <Route exact path="/crown19db/country" component={Countries} />
-        <Route exact path="/crown19db/city" component={City} />
-        <Route exact path="/crown19db/covid" component={CovidCases} />
-        <Route exact path="/crown19db/country/:id" children={<CountryInstance />} />
-        <Route exact path="/crown19db/city/:id" children={<CityInstance />} />
-        <Route exact path="/crown19db/covid/:country_id" children={<CountryTimeline />} />
-        <Route exact path="/crown19db/search" component={GlobalSearch} />
-        <Route exact path="/crown19db/ourVis" component={ourVisualizations} />
-        <Route exact path="/crown19db/ATWVis" component={TheirVisualizations} />
-      </div>
+        <div>
+          <Navbar />
+            <Route exact path="/" component={Splash} />
+            <Route exact path="/about" component={About} />
+            <Route exact path="/country" component={Countries} />
+            <Route exact path="/city" component={City} />
+            <Route exact path="/covid" component={CovidCases} />
+            <Route exact path="/country/:id" children={<CountryInstance />} />
+            <Route exact path="/city/:id" children={<CityInstance />} />
+            <Route exact path="/covid/:country_id" children={<CountryTimeline />} />
+            <Route exact path="/search" component={GlobalSearch} />
+            <Route exact path="/ourVis" component={ourVisualizations} />
+            <Route exact path="/ATWVis" component={TheirVisualizations} />
+        </div>
       </Switch>
     </Router>
   );

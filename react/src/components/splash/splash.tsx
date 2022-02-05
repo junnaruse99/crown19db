@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import countries from './splashAssets/countries.jpg'
 import covid from './splashAssets/covid.jpg'
 import cities from './splashAssets/cities.jpg'
@@ -28,7 +29,7 @@ const Splash = (props: any) => {
             <p></p>
             <SearchBar
                 location={props.location}
-                redirect={"/crown19db/search"}
+                redirect={"/search"}
                 type={"for the information you are after today"}
             />
             <p>Select the information you are after today.</p>
@@ -36,7 +37,7 @@ const Splash = (props: any) => {
                 <div className='row'>
                     <div className='col-12 col-md-4 mb-2'> 
                         <Card className='w-100 h-100'>
-                        <a className="card-block stretched-link card-link" href="/crown19db/country" onMouseEnter={event => onMouseOver(event)} onMouseOut={event => onMouseOut(event)}>
+                        <Link className="card-block stretched-link card-link" to="/country" onMouseEnter={event => onMouseOver(event)} onMouseOut={event => onMouseOut(event)}>
                             <Card.Img className="splash-card-image" variant="top" src={countries} />
                             <Card.Body>
                                 <Card.Title>Countries</Card.Title>
@@ -44,12 +45,12 @@ const Splash = (props: any) => {
                                     Find the most relevant information on all Countries.
                                 </Card.Text>
                             </Card.Body>
-                        </a>
+                        </Link>
                         </Card>
                     </div>
                     <div className='col-12 col-md-4 mb-2'> 
                         <Card className='mb-2 w-100 h-100'>
-                            <a className="card-block stretched-link card-link" href="/crown19db/city" onMouseEnter={event => onMouseOver(event)} onMouseOut={event => onMouseOut(event)}>
+                            <Link className="card-block stretched-link card-link" to="/city" onMouseEnter={event => onMouseOver(event)} onMouseOut={event => onMouseOut(event)}>
                             <Card.Img className="splash-card-image" variant="top" src={cities} />
                             <Card.Body>
                                 <Card.Title>Cities</Card.Title>
@@ -57,12 +58,12 @@ const Splash = (props: any) => {
                                     Find the most relevant information on any City around the world.
                                 </Card.Text>
                             </Card.Body>
-                            </a>
+                            </Link>
                         </Card>
                     </div>
                     <div className='col-12 col-md-4 mb-2'> 
                         <Card className='mb-2 w-100 h-100'>
-                            <a className="card-block stretched-link card-link" href="/crown19db/covid" onMouseEnter={event => onMouseOver(event)} onMouseOut={event => onMouseOut(event)}>
+                            <Link className="card-block stretched-link card-link" to="/covid" onMouseEnter={event => onMouseOver(event)} onMouseOut={event => onMouseOut(event)}>
                             <Card.Img className="splash-card-image" variant="top" src={covid} />
                             <Card.Body>
                                 <Card.Title>Covid</Card.Title>
@@ -70,7 +71,7 @@ const Splash = (props: any) => {
                                     Look at a timeline of Covid cases and other statistics.
                                 </Card.Text>
                             </Card.Body>
-                            </a>
+                            </Link>
                         </Card>
                     </div>
                 </div>
