@@ -120,7 +120,7 @@ const CountryInstance = () => {
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <a href={"/covid/" + country.id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{country.commonName}'s Covid Data</a>
+                                        <a href={"./covid/" + country.id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{country.commonName}'s Covid Data</a>
                                     </p>
                                 </div>
                             </div><br /><br />
