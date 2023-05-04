@@ -13,6 +13,7 @@ def init_db(app):
 
     return SQLAlchemy(app)
 
+    # Configuration with PostgerSQL
     # app.config[
     #     "SQLALCHEMY_DATABASE_URI"
     # ] = os.getenv('DB_URI')
