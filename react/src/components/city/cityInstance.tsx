@@ -91,7 +91,7 @@ const CityInstance = () => {
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <a href={"/covid/" + city.country_id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{city.country.officialName}'s Covid Data</a>
+                                        <a href={"./covid/" + city.country_id} className="btn btn-primary btn-lg active w-100" role="button" aria-pressed="true">{city.country.officialName}'s Covid Data</a>
                                     </p>
                                 </div>
                             </div><br /><br />
