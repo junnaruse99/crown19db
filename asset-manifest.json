@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/crown19db/static/css/main.dbfb16aa.chunk.css",
-    "main.js": "/crown19db/static/js/main.5125aaa6.chunk.js",
-    "main.js.map": "/crown19db/static/js/main.5125aaa6.chunk.js.map",
+    "main.js": "/crown19db/static/js/main.6c2fcf56.chunk.js",
+    "main.js.map": "/crown19db/static/js/main.6c2fcf56.chunk.js.map",
     "runtime-main.js": "/crown19db/static/js/runtime-main.671ac411.js",
     "runtime-main.js.map": "/crown19db/static/js/runtime-main.671ac411.js.map",
     "static/css/2.06ba6a95.chunk.css": "/crown19db/static/css/2.06ba6a95.chunk.css",
@@ -28,6 +28,6 @@
     "static/css/2.06ba6a95.chunk.css",
     "static/js/2.22da59a6.chunk.js",
     "static/css/main.dbfb16aa.chunk.css",
-    "static/js/main.5125aaa6.chunk.js"
+    "static/js/main.6c2fcf56.chunk.js"
   ]
 }
